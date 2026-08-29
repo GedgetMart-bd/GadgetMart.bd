@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GadgetMart Admin Panel</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    .login-box {
+      width: 90%;
+      max-width: 380px;
+      margin: 100px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: #111;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 12px;
+      display: none;
+    }
+
+    #dashboard {
+      display: none;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .logout {
+      margin-top: 20px;
+      background: #d60000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-box" id="loginBox">
+    <h2>GadgetMart Admin</h2>
+
+    <input type="text" id="username" placeholder="ইউজারনেম">
+    <input type="password" id="password" placeholder="পাসওয়ার্ড">
+
+    <button onclick="login()">লগইন</button>
+
+    <p class="error" id="error">
+      ইউজারনেম অথবা পাসওয়ার্ড ভুল!
+    </p>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+
+    <h1>অ্যাডমিন ড্যাশবোর্ড</h1>
+
+    <div class="card">
+      <h2>স্বাগতম 👋</h2>
+      <p>GadgetMart Admin Panel-এ আপনি সফলভাবে লগইন করেছেন।</p>
+    </div>
+
+    <div class="card">
+      <h3>প্রোডাক্ট</h3>
+      <p>এখান থেকে পরে প্রোডাক্ট যোগ, এডিট ও ডিলিট করা হবে।</p>
+    </div>
+
+    <div class="card">
+      <h3>অর্ডার</h3>
+      <p>এখানে পরে কাস্টমারের অর্ডার দেখা যাবে।</p>
+    </div>
+
+    <button class="logout" onclick="logout()">লগআউট</button>
+
+  </div>
+
+  <script>
+    function login() {
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      // Demo login
+      if (username === "admin" && password === "1234") {
+
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+
+      } else {
+
+        document.getElementById("error").style.display = "block";
+
+      }
+    }
+
+    function logout() {
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("loginBox").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
