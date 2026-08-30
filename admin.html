@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GadgetMart Admin Panel</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f6f8;
+  color:#222;
+}
+
+/* LOGIN */
+
+#loginPage{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  width:100%;
+  max-width:400px;
+  background:#fff;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 10px 35px rgba(0,0,0,.12);
+}
+
+.login-box h1{
+  text-align:center;
+  margin-bottom:8px;
+  color:#111827;
+}
+
+.login-box p{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+.login-box input{
+  width:100%;
+  padding:13px;
+  margin-bottom:12px;
+  border:1px solid #ddd;
+  border-radius:7px;
+  outline:none;
+}
+
+.login-btn{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:7px;
+  background:#00c853;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+#loginMessage{
+  text-align:center;
+  color:#e53935;
+  font-size:13px;
+  margin-top:12px;
+}
+
+
+/* ADMIN */
+
+#adminPanel{
+  display:none;
+}
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:250px;
+  height:100vh;
+  background:#111827;
+  color:#fff;
+  padding:20px 12px;
+  overflow-y:auto;
+}
+
+.logo{
+  text-align:center;
+  padding:10px;
+  margin-bottom:20px;
+}
+
+.logo h2{
+  font-size:20px;
+}
+
+.logo span{
+  color:#00e676;
+}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.menu button{
+  width:100%;
+  text-align:left;
+  padding:13px;
+  border:0;
+  background:transparent;
+  color:#d1d5db;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.menu button:hover,
+.menu button.active{
+  background:#00c853;
+  color:#fff;
+}
+
+.logout{
+  margin-top:20px!important;
+  background:#e53935!important;
+  color:#fff!important;
+}
+
+
+/* MAIN */
+
+.main{
+  margin-left:250px;
+  padding:25px;
+}
+
+.top-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.top-header h1{
+  font-size:25px;
+}
+
+.view-site{
+  background:#00c853;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:6px;
+  text-decoration:none;
+  font-size:13px;
+}
+
+
+/* DASHBOARD */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.stat-card{
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  border:1px solid #eee;
+}
+
+.stat-icon{
+  font-size:28px;
+}
+
+.stat-card h3{
+  margin-top:10px;
+  font-size:25px;
+}
+
+.stat-card p{
+  color:#777;
+  font-size:12px;
+  margin-top:4px;
+}
+
+
+/* CONTENT */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.card{
+  background:#fff;
+  border-radius:10px;
+  padding:20px;
+  margin-bottom:15px;
+  border:1px solid #eee;
+}
+
+.card h2{
+  margin-bottom:15px;
+  font-size:20px;
+}
+
+
+/* SETTINGS */
+
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.setting-row:last-child{
+  border-bottom:0;
+}
+
+.setting-info h3{
+  font-size:14px;
+}
+
+.setting-info p{
+  color:#777;
+  font-size:11px;
+  margin-top:4px;
+}
+
+
+/* SWITCH */
+
+.switch{
+  position:relative;
+  width:48px;
+  height:25px;
+}
+
+.switch input{
+  display:none;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  background:#ccc;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  width:19px;
+  height:19px;
+  left:3px;
+  top:3px;
+  background:#fff;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.switch input:checked + .slider{
+  background:#00c853;
+}
+
+.switch input:checked + .slider:before{
+  transform:translateX(23px);
+}
+
+
+/* MOBILE */
+
+.mobile-menu{
+  display:none;
+}
+
+@media(max-width:800px){
+
+  .sidebar{
+    width:220px;
+    left:-220px;
+    transition:.3s;
+    z-index:2000;
+  }
+
+  .sidebar.open{
+    left:0;
+  }
+
+  .main{
+    margin-left:0;
+    padding:15px;
+  }
+
+  .mobile-menu{
+    display:block;
+    border:0;
+    background:#111827;
+    color:#fff;
+    padding:10px 13px;
+    border-radius:6px;
+    font-size:18px;
+    margin-bottom:15px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .stat-card{
+    padding:15px;
+  }
+
+  .stat-card h3{
+    font-size:20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================
+     LOGIN PAGE
+========================= -->
+
+<div id="loginPage">
+
+  <div class="login-box">
+
+    <h1>Gadget<span>Mart</span></h1>
+
+    <p>Admin Panel Login</p>
+
+    <input
+      type="email"
+      id="adminEmail"
+      placeholder="Admin Email"
+    >
+
+    <input
+      type="password"
+      id="adminPassword"
+      placeholder="Password"
+    >
+
+    <button
+      class="login-btn"
+      onclick="adminLogin()"
+    >
+      🔐 Login
+    </button>
+
+    <div id="loginMessage"></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div id="adminPanel">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+
+    <h2>
+      Gadget<span>Mart</span>
+    </h2>
+
+    <small>Admin Panel</small>
+
+  </div>
+
+
+  <div class="menu">
+
+    <button
+      class="active"
+      onclick="showPage('dashboard',this)"
+    >
+      📊 Dashboard
+    </button>
+
+    <button
+      onclick="showPage('products',this)"
+    >
+      🛍️ Products
+    </button>
+
+    <button
+      onclick="showPage('categories',this)"
+    >
+      🏷️ Categories
+    </button>
+
+    <button
+      onclick="showPage('orders',this)"
+    >
+      📦 Orders
+    </button>
+
+    <button
+      onclick="showPage('sections',this)"
+    >
+      🧩 Website Sections
+    </button>
+
+    <button
+      onclick="showPage('navigation',this)"
+    >
+      🧭 Navigation
+    </button>
+
+    <button
+      onclick="showPage('delivery',this)"
+    >
+      🚚 Delivery
+    </button>
+
+    <button
+      onclick="showPage('payment',this)"
+    >
+      💳 Payment
+    </button>
+
+    <button
+      onclick="showPage('contact',this)"
+    >
+      📞 Contact
+    </button>
+
+    <button
+      onclick="showPage('homepage',this)"
+    >
+      🏠 Homepage
+    </button>
+
+    <button
+      onclick="showPage('flashsale',this)"
+    >
+      ⚡ Flash Sale
+    </button>
+
+    <button
+      onclick="showPage('settings',this)"
+    >
+      ⚙️ Settings
+    </button>
+
+    <button
+      class="logout"
+      onclick="adminLogout()"
+    >
+      🚪 Logout
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+  <button
+    class="mobile-menu"
+    onclick="toggleSidebar()"
+  >
+    ☰ Menu
+  </button>
+
+
+  <div class="top-header">
+
+    <h1 id="pageTitle">
+      Dashboard
+    </h1>
+
+    <a
+      href="index.html"
+      target="_blank"
+      class="view-site"
+    >
+      🌐 Website দেখুন
+    </a>
+
+  </div>
+
+
+<!-- DASHBOARD -->
+
+<section
+  id="dashboard"
+  class="page active"
+>
+
+  <div class="dashboard-grid">
+
+    <div class="stat-card">
+
+      <div class="stat-icon">🛍️</div>
+
+      <h3 id="totalProducts">
+        0
+      </h3>
+
+      <p>Total Products</p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-icon">🏷️</div>
+
+      <h3 id="totalCategories">
+        0
+      </h3>
+
+      <p>Total Categories</p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-icon">📦</div>
+
+      <h3 id="totalOrders">
+        0
+      </h3>
+
+      <p>Total Orders</p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-icon">💰</div>
+
+      <h3 id="totalSales">
+        ৳0
+      </h3>
+
+      <p>Total Sales</p>
+
+    </div>
+
+  </div>
+
+
+  <div class="card" style="margin-top:20px;">
+
+    <h2>
+      👋 Welcome to GadgetMart Admin
+    </h2>
+
+    <p style="color:#777;font-size:13px;line-height:1.7;">
+
+      এখান থেকে তোমার GadgetMart Bangladesh
+      ওয়েবসাইটের Products, Categories, Orders,
+      Website Sections এবং অন্যান্য Settings
+      নিয়ন্ত্রণ করা যাবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section
+  id="products"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>🛍️ Product Management</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      এখানে পরে Product Add, Edit, Delete,
+      Hide/Show, Price, Stock এবং Image
+      নিয়ন্ত্রণ করার ব্যবস্থা থাকবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section
+  id="categories"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>🏷️ Category Management</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      এখানে Category Add, Edit, Delete
+      এবং Hide/Show করা যাবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section
+  id="orders"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>📦 Order Management</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      Customer Order, Phone, Address,
+      Product, Quantity এবং Order Status
+      এখানে দেখা যাবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- WEBSITE SECTIONS -->
+
+<section
+  id="sections"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>🧩 Website Sections</h2>
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Hero Banner</h3>
+
+        <p>Website-এর প্রধান Banner</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Categories</h3>
+
+        <p>Category Section</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Featured Products</h3>
+
+        <p>Featured Product Section</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Flash Sale</h3>
+
+        <p>Flash Sale Section</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Promo Banner</h3>
+
+        <p>Offer / Promo Banner</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Order Form</h3>
+
+        <p>Customer Order Form</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Contact Section</h3>
+
+        <p>Contact Information</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <div class="setting-info">
+
+        <h3>Footer</h3>
+
+        <p>Website Footer</p>
+
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- NAVIGATION -->
+
+<section
+  id="navigation"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>🧭 Navigation Management</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      Website-এর Navigation Menu থেকে
+      যেকোনো Option Hide/Show করা যাবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- DELIVERY -->
+
+<section
+  id="delivery"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>🚚 Delivery Settings</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      Delivery Charge এবং Free Delivery
+      Settings এখানে থাকবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section
+  id="payment"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>💳 Payment Settings</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      বিকাশ, নগদ, ব্যাংক এবং COD
+      Settings এখানে থাকবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section
+  id="contact"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>📞 Contact Settings</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      Phone, WhatsApp, Email, Facebook
+      এবং Instagram তথ্য পরিবর্তন করা যাবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- HOMEPAGE -->
+
+<section
+  id="homepage"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>🏠 Homepage Editor</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      Homepage-এর লেখা, Banner, Button
+      এবং অন্যান্য Content এখানে নিয়ন্ত্রণ করা যাবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- FLASH SALE -->
+
+<section
+  id="flashsale"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>⚡ Flash Sale Management</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      Flash Sale চালু/বন্ধ, Product নির্বাচন,
+      Sale Price এবং Timer নিয়ন্ত্রণ করা যাবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section
+  id="settings"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>⚙️ Website Settings</h2>
+
+    <p style="color:#777;font-size:13px;">
+
+      এখানে Website-এর গুরুত্বপূর্ণ
+      General Settings থাকবে।
+
+    </p>
+
+  </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyACF3SOA5lDya3L-0ie5Iwa6dSu212-n0c",
+
+  authDomain:
+  "gedgetmart-bangladesh.firebaseapp.com",
+
+  projectId:
+  "gedgetmart-bangladesh",
+
+  storageBucket:
+  "gedgetmart-bangladesh.firebasestorage.app",
+
+  messagingSenderId:
+  "963224882412",
+
+  appId:
+  "1:963224882412:web:bf77af0615dcdb2e6869c9"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+
+/* LOGIN */
+
+window.adminLogin =
+async function(){
+
+  const email =
+  document
+  .getElementById("adminEmail")
+  .value
+  .trim();
+
+  const password =
+  document
+  .getElementById("adminPassword")
+  .value;
+
+  const message =
+  document
+  .getElementById("loginMessage");
+
+
+  if(!email || !password){
+
+    message.textContent =
+    "Email এবং Password দিন।";
+
+    return;
+
+  }
+
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    message.textContent = "";
+
+  }catch(error){
+
+    message.textContent =
+    "Login হয়নি। Email অথবা Password ভুল।";
+
+  }
+
+};
+
+
+/* AUTH CHECK */
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(user){
+
+      document
+      .getElementById("loginPage")
+      .style.display="none";
+
+      document
+      .getElementById("adminPanel")
+      .style.display="block";
+
+    }else{
+
+      document
+      .getElementById("loginPage")
+      .style.display="flex";
+
+      document
+      .getElementById("adminPanel")
+      .style.display="none";
+
+    }
+
+  }
+);
+
+
+/* LOGOUT */
+
+window.adminLogout =
+async function(){
+
+  await signOut(auth);
+
+};
+
+
+/* PAGE CHANGE */
+
+window.showPage =
+function(pageId,button){
+
+  document
+  .querySelectorAll(".page")
+  .forEach(function(page){
+
+    page.classList.remove("active");
+
+  });
+
+
+  document
+  .getElementById(pageId)
+  .classList.add("active");
+
+
+  document
+  .querySelectorAll(".menu button")
+  .forEach(function(btn){
+
+    btn.classList.remove("active");
+
+  });
+
+
+  button.classList.add("active");
+
+
+  const titles={
+
+    dashboard:"Dashboard",
+
+    products:"Products",
+
+    categories:"Categories",
+
+    orders:"Orders",
+
+    sections:"Website Sections",
+
+    navigation:"Navigation",
+
+    delivery:"Delivery",
+
+    payment:"Payment",
+
+    contact:"Contact",
+
+    homepage:"Homepage",
+
+    flashsale:"Flash Sale",
+
+    settings:"Settings"
+
+  };
+
+
+  document
+  .getElementById("pageTitle")
+  .textContent =
+  titles[pageId] || "Admin Panel";
+
+
+  document
+  .getElementById("sidebar")
+  .classList.remove("open");
+
+};
+
+
+/* MOBILE SIDEBAR */
+
+window.toggleSidebar =
+function(){
+
+  document
+  .getElementById("sidebar")
+  .classList.toggle("open");
+
+};
+
+</script>
+
+</body>
+</html>
