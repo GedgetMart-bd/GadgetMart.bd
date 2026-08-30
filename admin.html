@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GadgetMart Admin Panel</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f6f8;
+      color:#222;
+    }
+
+    #loginPage{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .login-box{
+      width:100%;
+      max-width:400px;
+      background:white;
+      padding:30px 20px;
+      border-radius:16px;
+      box-shadow:0 5px 25px rgba(0,0,0,.12);
+    }
+
+    h1,h2{
+      text-align:center;
+      margin-bottom:20px;
+    }
+
+    input,textarea{
+      width:100%;
+      padding:13px;
+      margin-bottom:12px;
+      border:1px solid #ddd;
+      border-radius:8px;
+      font-size:16px;
+    }
+
+    textarea{
+      min-height:90px;
+    }
+
+    button{
+      border:none;
+      padding:13px;
+      border-radius:8px;
+      cursor:pointer;
+      background:#111;
+      color:white;
+      font-size:16px;
+    }
+
+    .full{
+      width:100%;
+    }
+
+    #error{
+      color:red;
+      text-align:center;
+      margin-top:12px;
+    }
+
+    #adminPage{
+      display:none;
+    }
+
+    header{
+      background:#111;
+      color:white;
+      padding:15px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    header h2{
+      margin:0;
+      font-size:20px;
+    }
+
+    .logout{
+      background:#d63031;
+      padding:10px 15px;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:auto;
+      padding:20px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+      margin-bottom:20px;
+    }
+
+    .stat{
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 3px 10px rgba(0,0,0,.08);
+    }
+
+    .stat h3{
+      font-size:14px;
+      color:#666;
+      margin-bottom:10px;
+    }
+
+    .stat p{
+      font-size:28px;
+      font-weight:bold;
+    }
+
+    .section{
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      margin-bottom:20px;
+      box-shadow:0 3px 10px rgba(0,0,0,.08);
+    }
+
+    .section h2{
+      text-align:left;
+    }
+
+    .product{
+      border:1px solid #eee;
+      border-radius:10px;
+      padding:15px;
+      margin-bottom:12px;
+    }
+
+    .product img{
+      width:100%;
+      max-width:180px;
+      border-radius:8px;
+      margin-bottom:10px;
+    }
+
+    .product h3{
+      margin-bottom:8px;
+    }
+
+    .product p{
+      margin-bottom:5px;
+    }
+
+    .delete{
+      background:#d63031;
+      margin-top:10px;
+    }
+
+    @media(max-width:700px){
+      .stats{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN PAGE -->
+  <div id="loginPage">
+
+    <div class="login-box">
+
+      <h1>GadgetMart Admin</h1>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="ইমেইল লিখুন"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="পাসওয়ার্ড লিখুন"
+      >
+
+      <button class="full" id="loginBtn">
+        লগইন করুন
+      </button>
+
+      <p id="error"></p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ADMIN PANEL -->
+  <div id="adminPage">
+
+    <header>
+
+      <h2>GadgetMart Admin Panel</h2>
+
+      <button class="logout" id="logoutBtn">
+        লগআউট
+      </button>
+
+    </header>
+
+
+    <div class="container">
+
+      <div class="stats">
+
+        <div class="stat">
+          <h3>মোট প্রোডাক্ট</h3>
+          <p id="totalProducts">0</p>
+        </div>
+
+        <div class="stat">
+          <h3>মোট অর্ডার</h3>
+          <p>0</p>
+        </div>
+
+        <div class="stat">
+          <h3>মোট বিক্রি</h3>
+          <p>৳0</p>
+        </div>
+
+      </div>
+
+
+      <!-- ADD PRODUCT -->
+
+      <div class="section">
+
+        <h2>নতুন প্রোডাক্ট যোগ করুন</h2>
+
+        <input
+          type="text"
+          id="productName"
+          placeholder="প্রোডাক্টের নাম"
+        >
+
+        <input
+          type="number"
+          id="productPrice"
+          placeholder="মূল দাম"
+        >
+
+        <input
+          type="number"
+          id="productOffer"
+          placeholder="অফার দাম"
+        >
+
+        <input
+          type="text"
+          id="productImage"
+          placeholder="ছবির লিংক"
+        >
+
+        <textarea
+          id="productDescription"
+          placeholder="প্রোডাক্টের বিবরণ"
+        ></textarea>
+
+        <button class="full" id="addProductBtn">
+          প্রোডাক্ট যোগ করুন
+        </button>
+
+      </div>
+
+
+      <!-- PRODUCT LIST -->
+
+      <div class="section">
+
+        <h2>প্রোডাক্ট তালিকা</h2>
+
+        <div id="productList">
+          প্রোডাক্ট লোড হচ্ছে...
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script type="module">
+
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
+    }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      deleteDoc,
+      doc,
+      serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+    // FIREBASE CONFIG
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyACF3SOA5lDya3L-0ie5Iwa6dSu212-n0c",
+      authDomain: "gedgetmart-bangladesh.firebaseapp.com",
+      projectId: "gedgetmart-bangladesh",
+      storageBucket: "gedgetmart-bangladesh.firebasestorage.app",
+      messagingSenderId: "963224882412",
+      appId: "1:963224882412:web:bf77af0615dcdb2e6869c9",
+      measurementId: "G-ZJFRC0TGC6"
+    };
+
+
+    // INITIALIZE FIREBASE
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const db = getFirestore(app);
+
+
+    // LOGIN
+
+    document.getElementById("loginBtn")
+    .addEventListener("click", async function(){
+
+      const email =
+        document.getElementById("email").value;
+
+      const password =
+        document.getElementById("password").value;
+
+      const error =
+        document.getElementById("error");
+
+      error.innerText = "";
+
+      try{
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+      }
+      catch(err){
+
+        error.innerText =
+          "ইমেইল অথবা পাসওয়ার্ড ভুল!";
+
+      }
+
+    });
+
+
+    // LOGIN STATUS
+
+    onAuthStateChanged(auth, function(user){
+
+      if(user){
+
+        document.getElementById("loginPage")
+        .style.display = "none";
+
+        document.getElementById("adminPage")
+        .style.display = "block";
+
+        loadProducts();
+
+      }
+      else{
+
+        document.getElementById("loginPage")
+        .style.display = "flex";
+
+        document.getElementById("adminPage")
+        .style.display = "none";
+
+      }
+
+    });
+
+
+    // LOGOUT
+
+    document.getElementById("logoutBtn")
+    .addEventListener("click", async function(){
+
+      await signOut(auth);
+
+    });
+
+
+    // ADD PRODUCT
+
+    document.getElementById("addProductBtn")
+    .addEventListener("click", async function(){
+
+      const name =
+        document.getElementById("productName").value;
+
+      const price =
+        document.getElementById("productPrice").value;
+
+      const offer =
+        document.getElementById("productOffer").value;
+
+      const image =
+        document.getElementById("productImage").value;
+
+      const description =
+        document.getElementById("productDescription").value;
+
+
+      if(!name || !price){
+
+        alert("প্রোডাক্টের নাম ও দাম দিন");
+
+        return;
+
+      }
+
+
+      try{
+
+        await addDoc(
+          collection(db, "products"),
+          {
+            name:name,
+            price:price,
+            offer:offer,
+            image:image,
+            description:description,
+            createdAt:serverTimestamp()
+          }
+        );
+
+
+        alert("প্রোডাক্ট সফলভাবে যোগ হয়েছে!");
+
+
+        document.getElementById("productName").value = "";
+        document.getElementById("productPrice").value = "";
+        document.getElementById("productOffer").value = "";
+        document.getElementById("productImage").value = "";
+        document.getElementById("productDescription").value = "";
+
+
+        loadProducts();
+
+      }
+      catch(err){
+
+        console.error(err);
+
+        alert(
+          "প্রোডাক্ট যোগ করা যায়নি। Firestore Rules চেক করুন।"
+        );
+
+      }
+
+    });
+
+
+    // LOAD PRODUCTS
+
+    async function loadProducts(){
+
+      const productList =
+        document.getElementById("productList");
+
+      productList.innerHTML =
+        "প্রোডাক্ট লোড হচ্ছে...";
+
+
+      try{
+
+        const querySnapshot =
+          await getDocs(
+            collection(db, "products")
+          );
+
+
+        productList.innerHTML = "";
+
+
+        document.getElementById("totalProducts")
+        .innerText =
+          querySnapshot.size;
+
+
+        if(querySnapshot.empty){
+
+          productList.innerHTML =
+            "<p>এখনো কোনো প্রোডাক্ট যোগ করা হয়নি।</p>";
+
+          return;
+
+        }
+
+
+        querySnapshot.forEach(function(documentItem){
+
+          const product =
+            documentItem.data();
+
+
+          const productId =
+            documentItem.id;
+
+
+          const div =
+            document.createElement("div");
+
+
+          div.className =
+            "product";
+
+
+          div.innerHTML = `
+
+            ${product.image
+              ? `<img src="${product.image}" alt="${product.name}">`
+              : ""
+            }
+
+            <h3>${product.name}</h3>
+
+            <p>
+              মূল দাম: ৳${product.price}
+            </p>
+
+            <p>
+              অফার দাম: ৳${product.offer || "নেই"}
+            </p>
+
+            <p>
+              ${product.description || ""}
+            </p>
+
+            <button
+              class="delete"
+              data-id="${productId}"
+            >
+              ডিলিট
+            </button>
+
+          `;
+
+
+          productList.appendChild(div);
+
+
+          div.querySelector(".delete")
+          .addEventListener(
+            "click",
+            async function(){
+
+              const confirmDelete =
+                confirm(
+                  "আপনি কি প্রোডাক্টটি ডিলিট করতে চান?"
+                );
+
+
+              if(confirmDelete){
+
+                await deleteDoc(
+                  doc(
+                    db,
+                    "products",
+                    productId
+                  )
+                );
+
+
+                loadProducts();
+
+              }
+
+            }
+          );
+
+        });
+
+      }
+      catch(err){
+
+        console.error(err);
+
+        productList.innerHTML =
+          "প্রোডাক্ট লোড করা যাচ্ছে না।";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
