@@ -1,0 +1,4178 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GadgetMart Admin Panel</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f5f9;
+  color:#222;
+}
+
+button,input,select,textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:250px;
+  height:100vh;
+  background:#111827;
+  color:white;
+  overflow-y:auto;
+  z-index:1000;
+  transition:.3s;
+}
+
+.logo{
+  padding:22px 18px;
+  border-bottom:1px solid #293142;
+  font-size:21px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#00c853;
+}
+
+.menu{
+  padding:15px 10px;
+}
+
+.menu-title{
+  color:#8d96a7;
+  font-size:10px;
+  margin:15px 10px 7px;
+  text-transform:uppercase;
+}
+
+.menu button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#d8dde5;
+  text-align:left;
+  padding:12px;
+  border-radius:7px;
+  margin-bottom:3px;
+  font-size:13px;
+}
+
+.menu button:hover,
+.menu button.active{
+  background:#00c853;
+  color:white;
+}
+
+.main{
+  margin-left:250px;
+  min-height:100vh;
+}
+
+.topbar{
+  height:70px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+  z-index:900;
+}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:#00c853;
+  color:white;
+  width:40px;
+  height:40px;
+  border-radius:6px;
+  font-size:20px;
+}
+
+.admin-info{
+  font-size:13px;
+  color:#555;
+}
+
+.logout{
+  background:#ef4444;
+  color:white;
+  border:0;
+  padding:9px 15px;
+  border-radius:6px;
+}
+
+.content{
+  padding:25px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.page-title{
+  margin-bottom:20px;
+}
+
+.page-title h1{
+  font-size:25px;
+}
+
+.page-title p{
+  color:#777;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.card{
+  background:white;
+  border-radius:10px;
+  padding:20px;
+  border:1px solid #eee;
+}
+
+.stat-icon{
+  font-size:28px;
+}
+
+.stat-number{
+  font-size:25px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.stat-title{
+  color:#777;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.panel{
+  background:white;
+  border-radius:10px;
+  padding:20px;
+  border:1px solid #eee;
+  margin-bottom:20px;
+}
+
+.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.panel-head h2{
+  font-size:18px;
+}
+
+.btn{
+  border:0;
+  border-radius:6px;
+  padding:10px 15px;
+  font-weight:bold;
+}
+
+.btn-green{
+  background:#00c853;
+  color:white;
+}
+
+.btn-red{
+  background:#ef4444;
+  color:white;
+}
+
+.btn-blue{
+  background:#2563eb;
+  color:white;
+}
+
+.btn-gray{
+  background:#e5e7eb;
+  color:#222;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.form-group{
+  margin-bottom:5px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-group label{
+  display:block;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  border:1px solid #ddd;
+  padding:11px;
+  border-radius:6px;
+  outline:none;
+  font-size:13px;
+}
+
+.form-group textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
+}
+
+th{
+  background:#f5f6f8;
+  text-align:left;
+  font-size:12px;
+  padding:12px;
+}
+
+td{
+  border-bottom:1px solid #eee;
+  padding:12px;
+  font-size:12px;
+}
+
+.product-thumb{
+  width:55px;
+  height:55px;
+  object-fit:contain;
+  border-radius:6px;
+  background:#f5f5f5;
+}
+
+.status{
+  padding:5px 8px;
+  border-radius:5px;
+  font-size:10px;
+  display:inline-block;
+}
+
+.status.pending{
+  background:#fff3cd;
+  color:#856404;
+}
+
+.status.confirmed{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.status.delivery{
+  background:#ede9fe;
+  color:#6d28d9;
+}
+
+.status.completed{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.status.cancelled{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.actions{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+
+.small-btn{
+  border:0;
+  padding:6px 8px;
+  border-radius:5px;
+  font-size:10px;
+}
+
+.search-box{
+  width:100%;
+  padding:11px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  margin-bottom:15px;
+}
+
+.preview{
+  width:100%;
+  max-height:200px;
+  object-fit:contain;
+  margin-top:10px;
+  border-radius:7px;
+  display:none;
+}
+
+.setting-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.toggle-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.switch{
+  position:relative;
+  width:45px;
+  height:24px;
+}
+
+.switch input{
+  display:none;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  background:#ccc;
+  border-radius:20px;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  left:3px;
+  top:3px;
+  background:white;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.switch input:checked + .slider{
+  background:#00c853;
+}
+
+.switch input:checked + .slider:before{
+  transform:translateX(21px);
+}
+
+.empty{
+  text-align:center;
+  color:#888;
+  padding:30px;
+}
+
+.alert{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#111827;
+  color:white;
+  padding:13px 18px;
+  border-radius:7px;
+  z-index:5000;
+  display:none;
+  font-size:13px;
+}
+
+.login-screen{
+  position:fixed;
+  inset:0;
+  background:#111827;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.login-box{
+  background:white;
+  width:90%;
+  max-width:400px;
+  border-radius:12px;
+  padding:30px;
+}
+
+.login-box h2{
+  text-align:center;
+  margin-bottom:7px;
+}
+
+.login-box p{
+  text-align:center;
+  color:#777;
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+.login-box input{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  margin-bottom:12px;
+}
+
+.login-btn{
+  width:100%;
+  padding:12px;
+  border:0;
+  background:#00c853;
+  color:white;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:900px){
+
+  .sidebar{
+    left:-250px;
+  }
+
+  .sidebar.open{
+    left:0;
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .setting-row{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  .content{
+    padding:15px;
+  }
+
+  .topbar{
+    padding:0 12px;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .card{
+    padding:14px;
+  }
+
+  .stat-number{
+    font-size:20px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-group.full{
+    grid-column:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+
+  <div class="login-box">
+
+    <h2>🔐 Admin Login</h2>
+
+    <p>GadgetMart Bangladesh</p>
+
+    <input
+      type="email"
+      id="loginEmail"
+      placeholder="Admin Email"
+    >
+
+    <input
+      type="password"
+      id="loginPassword"
+      placeholder="Password"
+    >
+
+    <button
+      class="login-btn"
+      onclick="adminLogin()"
+    >
+      Login
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+    Gadget<span>Mart</span>
+    <small style="display:block;font-size:10px;color:#9ca3af;">
+      ADMIN PANEL
+    </small>
+  </div>
+
+  <div class="menu">
+
+    <div class="menu-title">Main</div>
+
+    <button class="active" onclick="showPage('dashboard',this)">
+      🏠 Dashboard
+    </button>
+
+    <div class="menu-title">Store</div>
+
+    <button onclick="showPage('products',this)">
+      📦 Products
+    </button>
+
+    <button onclick="showPage('categories',this)">
+      🗂️ Categories
+    </button>
+
+    <button onclick="showPage('orders',this)">
+      🛒 Orders
+    </button>
+
+    <button onclick="showPage('customers',this)">
+      👥 Customers
+    </button>
+
+    <div class="menu-title">Marketing</div>
+
+    <button onclick="showPage('featured',this)">
+      ⭐ Featured Products
+    </button>
+
+    <button onclick="showPage('offers',this)">
+      ⚡ Flash Sale / Offers
+    </button>
+
+    <button onclick="showPage('banner',this)">
+      🖼️ Banner
+    </button>
+
+    <div class="menu-title">Website</div>
+
+    <button onclick="showPage('delivery',this)">
+      🚚 Delivery
+    </button>
+
+    <button onclick="showPage('payment',this)">
+      💳 Payment
+    </button>
+
+    <button onclick="showPage('contact',this)">
+      📞 Contact
+    </button>
+
+    <button onclick="showPage('settings',this)">
+      ⚙️ Website Settings
+    </button>
+
+    <div class="menu-title">Communication</div>
+
+    <button onclick="showPage('messages',this)">
+      💬 Messages
+    </button>
+
+    <button onclick="showPage('notifications',this)">
+      🔔 Notifications
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+  <header class="topbar">
+
+    <button
+      class="menu-btn"
+      onclick="toggleSidebar()"
+    >
+      ☰
+    </button>
+
+    <div class="admin-info">
+      👤 GadgetMart Admin
+    </div>
+
+    <button
+      class="logout"
+      onclick="adminLogout()"
+    >
+      Logout
+    </button>
+
+  </header>
+
+
+  <main class="content">
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section class="page active" id="dashboard">
+
+  <div class="page-title">
+
+    <h1>Dashboard</h1>
+
+    <p>
+      GadgetMart Bangladesh-এর সম্পূর্ণ Website Control Center
+    </p>
+
+  </div>
+
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="stat-icon">📦</div>
+      <div class="stat-number" id="statProducts">0</div>
+      <div class="stat-title">Total Products</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-icon">🛒</div>
+      <div class="stat-number" id="statOrders">0</div>
+      <div class="stat-title">Total Orders</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-number" id="statCustomers">0</div>
+      <div class="stat-title">Customers</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-number" id="statSales">৳0</div>
+      <div class="stat-title">Total Sales</div>
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <h2>Quick Actions</h2>
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn btn-green"
+        onclick="openProductForm()"
+      >
+        ➕ Add Product
+      </button>
+
+      <button
+        class="btn btn-blue"
+        onclick="openCategoryForm()"
+      >
+        🗂️ Add Category
+      </button>
+
+      <button
+        class="btn btn-gray"
+        onclick="showPageById('orders')"
+      >
+        🛒 View Orders
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <h2>Recent Orders</h2>
+    </div>
+
+    <div id="recentOrders">
+      <div class="empty">
+        কোনো Order পাওয়া যায়নি।
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section class="page" id="products">
+
+  <div class="page-title">
+
+    <h1>📦 Products</h1>
+
+    <p>
+      Product যোগ, Edit, Delete, Price, Stock এবং Visibility Control
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panel-head">
+
+      <h2>Product Management</h2>
+
+      <button
+        class="btn btn-green"
+        onclick="openProductForm()"
+      >
+        ➕ Add Product
+      </button>
+
+    </div>
+
+
+    <input
+      class="search-box"
+      id="productSearch"
+      placeholder="Product খুঁজুন..."
+      onkeyup="filterProducts()"
+    >
+
+
+    <div
+      class="form-grid hidden"
+      id="productForm"
+      style="margin-bottom:20px;"
+    >
+
+      <div class="form-group">
+
+        <label>Product Name</label>
+
+        <input
+          id="productName"
+          placeholder="যেমন: Mini Turbo Fan"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Category</label>
+
+        <input
+          id="productCategory"
+          placeholder="Gadget"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Price</label>
+
+        <input
+          type="number"
+          id="productPrice"
+          placeholder="999"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Old Price</label>
+
+        <input
+          type="number"
+          id="productOldPrice"
+          placeholder="1199"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Stock</label>
+
+        <input
+          type="number"
+          id="productStock"
+          placeholder="20"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Badge</label>
+
+        <select id="productBadge">
+
+          <option value="">None</option>
+          <option value="NEW">NEW</option>
+          <option value="HOT">HOT</option>
+          <option value="SALE">SALE</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <label>Product Image URL</label>
+
+        <input
+          id="productImage"
+          placeholder="https://..."
+        >
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <label>Description</label>
+
+        <textarea
+          id="productDescription"
+          placeholder="Product details..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Visible</label>
+
+        <select id="productVisible">
+
+          <option value="true">Website-এ দেখাবে</option>
+          <option value="false">Website থেকে Hide</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Featured</label>
+
+        <select id="productFeatured">
+
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <button
+          class="btn btn-green"
+          onclick="saveProduct()"
+        >
+          💾 Save Product
+        </button>
+
+        <button
+          class="btn btn-gray"
+          onclick="closeProductForm()"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="productTable">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="page" id="categories">
+
+  <div class="page-title">
+
+    <h1>🗂️ Categories</h1>
+
+    <p>
+      Website-এর Category যোগ, Edit এবং Delete করুন
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panel-head">
+
+      <h2>Category Management</h2>
+
+      <button
+        class="btn btn-green"
+        onclick="openCategoryForm()"
+      >
+        ➕ Add Category
+      </button>
+
+    </div>
+
+
+    <div
+      class="form-grid hidden"
+      id="categoryForm"
+    >
+
+      <div class="form-group">
+
+        <label>Category Name</label>
+
+        <input
+          id="categoryName"
+          placeholder="Audio"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Icon</label>
+
+        <input
+          id="categoryIcon"
+          placeholder="🎧"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Image URL</label>
+
+        <input
+          id="categoryImage"
+          placeholder="https://..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Visible</label>
+
+        <select id="categoryVisible">
+
+          <option value="true">Show</option>
+          <option value="false">Hide</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <button
+          class="btn btn-green"
+          onclick="saveCategory()"
+        >
+          💾 Save Category
+        </button>
+
+        <button
+          class="btn btn-gray"
+          onclick="closeCategoryForm()"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Icon</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="categoryTable">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= ORDERS ================= -->
+
+<section class="page" id="orders">
+
+  <div class="page-title">
+
+    <h1>🛒 Orders</h1>
+
+    <p>
+      Customer Order দেখুন এবং Status পরিবর্তন করুন
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <input
+      class="search-box"
+      id="orderSearch"
+      placeholder="Order / Customer খুঁজুন..."
+      onkeyup="filterOrders()"
+    >
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Customer</th>
+            <th>Phone</th>
+            <th>Product</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="orderTable">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CUSTOMERS ================= -->
+
+<section class="page" id="customers">
+
+  <div class="page-title">
+
+    <h1>👥 Customers</h1>
+
+    <p>
+      Customer তথ্য ও Order History
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Orders</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="customerTable">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FEATURED ================= -->
+
+<section class="page" id="featured">
+
+  <div class="page-title">
+
+    <h1>⭐ Featured Products</h1>
+
+    <p>
+      Homepage-এর Featured Product Control
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <p style="font-size:13px;color:#777;line-height:1.7;">
+      Products Menu থেকে কোনো Product-এর
+      <b>Featured = Yes</b> করলে সেটি Featured Product হিসেবে ব্যবহার করা যাবে।
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= OFFERS ================= -->
+
+<section class="page" id="offers">
+
+  <div class="page-title">
+
+    <h1>⚡ Flash Sale / Offers</h1>
+
+    <p>
+      Offer এবং Flash Sale Control
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>Offer Title</label>
+
+        <input
+          id="offerTitle"
+          placeholder="আজকের Flash Sale"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Discount</label>
+
+        <input
+          id="offerDiscount"
+          placeholder="25%"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Offer End Date</label>
+
+        <input
+          type="datetime-local"
+          id="offerEnd"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Status</label>
+
+        <select id="offerStatus">
+
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <label>Offer Description</label>
+
+        <textarea
+          id="offerDescription"
+          placeholder="আজকের বিশেষ অফার..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <button
+          class="btn btn-green"
+          onclick="saveOffer()"
+        >
+          💾 Save Offer
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= BANNER ================= -->
+
+<section class="page" id="banner">
+
+  <div class="page-title">
+
+    <h1>🖼️ Website Banner</h1>
+
+    <p>
+      Homepage Hero এবং Promo Banner Control
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="form-grid">
+
+      <div class="form-group full">
+
+        <label>Hero Image URL</label>
+
+        <input
+          id="heroImage"
+          placeholder="https://..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Hero Title</label>
+
+        <input
+          id="heroTitle"
+          placeholder="Smart Gadgets, Smart Life."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Hero Button Text</label>
+
+        <input
+          id="heroButton"
+          placeholder="Shop Now"
+        >
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <label>Hero Description</label>
+
+        <textarea
+          id="heroDescription"
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <label>Promo Banner Image URL</label>
+
+        <input
+          id="promoImage"
+          placeholder="https://..."
+        >
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <button
+          class="btn btn-green"
+          onclick="saveBanner()"
+        >
+          💾 Save Banner
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= DELIVERY ================= -->
+
+<section class="page" id="delivery">
+
+  <div class="page-title">
+
+    <h1>🚚 Delivery Settings</h1>
+
+    <p>
+      Delivery Charge এবং Free Delivery Settings
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>ঢাকার ভিতরে Delivery Charge</label>
+
+        <input
+          type="number"
+          id="insideDhaka"
+          value="70"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>ঢাকার বাইরে Delivery Charge</label>
+
+        <input
+          type="number"
+          id="outsideDhaka"
+          value="130"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Free Delivery Minimum Order</label>
+
+        <input
+          type="number"
+          id="freeDelivery"
+          value="5000"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Delivery Status</label>
+
+        <select id="deliveryActive">
+
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <button
+          class="btn btn-green"
+          onclick="saveDelivery()"
+        >
+          💾 Save Delivery Settings
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PAYMENT ================= -->
+
+<section class="page" id="payment">
+
+  <div class="page-title">
+
+    <h1>💳 Payment</h1>
+
+    <p>
+      Payment Method Control
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>Bkash Merchant Number</label>
+
+        <input
+          id="bkash"
+          value="01734084479"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Nagad Number</label>
+
+        <input
+          id="nagad"
+          placeholder="Coming Soon"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Bank Account</label>
+
+        <input
+          id="bank"
+          placeholder="Coming Soon"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Cash On Delivery</label>
+
+        <select id="cod">
+
+          <option value="true">Enabled</option>
+          <option value="false">Disabled</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <button
+          class="btn btn-green"
+          onclick="savePayment()"
+        >
+          💾 Save Payment Settings
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section class="page" id="contact">
+
+  <div class="page-title">
+
+    <h1>📞 Contact</h1>
+
+    <p>
+      Website-এর Contact Information পরিবর্তন করুন
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>Phone</label>
+
+        <input
+          id="contactPhone"
+          value="01924136271"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Email</label>
+
+        <input
+          id="contactEmail"
+          value="gadgetmartbd0@gmail.com"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>WhatsApp</label>
+
+        <input
+          id="contactWhatsapp"
+          value="8801924136271"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Facebook Page URL</label>
+
+        <input
+          id="facebook"
+          placeholder="https://facebook.com/..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Instagram</label>
+
+        <input
+          id="instagram"
+          placeholder="@gadgetmart.bd"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Address</label>
+
+        <input
+          id="contactAddress"
+          value="Bangladesh"
+        >
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <button
+          class="btn btn-green"
+          onclick="saveContact()"
+        >
+          💾 Save Contact
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<section class="page" id="settings">
+
+  <div class="page-title">
+
+    <h1>⚙️ Website Settings</h1>
+
+    <p>
+      Website-এর গুরুত্বপূর্ণ Settings
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>Website Name</label>
+
+        <input
+          id="siteName"
+          value="GadgetMart Bangladesh"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Tagline</label>
+
+        <input
+          id="siteTagline"
+          value="স্মার্ট গেজেট, স্মার্ট জীবন"
+        >
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <label>Meta Description</label>
+
+        <textarea id="metaDescription"></textarea>
+
+      </div>
+
+    </div>
+
+
+    <div class="toggle-row">
+
+      <div>
+        <b>Website Active</b>
+        <p style="font-size:11px;color:#777;">
+          Website চালু/বন্ধ
+        </p>
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="websiteActive"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="toggle-row">
+
+      <div>
+        <b>Show Products</b>
+        <p style="font-size:11px;color:#777;">
+          Product section দেখাবে
+        </p>
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="showProducts"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div style="margin-top:20px;">
+
+      <button
+        class="btn btn-green"
+        onclick="saveSettings()"
+      >
+        💾 Save Website Settings
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= MESSAGES ================= -->
+
+<section class="page" id="messages">
+
+  <div class="page-title">
+
+    <h1>💬 Messages</h1>
+
+    <p>
+      Customer Message / Inquiry
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div id="messageList">
+
+      <div class="empty">
+        এখনো কোনো Message নেই।
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= NOTIFICATIONS ================= -->
+
+<section class="page" id="notifications">
+
+  <div class="page-title">
+
+    <h1>🔔 Notifications</h1>
+
+    <p>
+      Admin Notification Settings
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="toggle-row">
+
+      <div>
+        <b>New Order Notification</b>
+        <p style="font-size:11px;color:#777;">
+          নতুন Order এ Notification
+        </p>
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="orderNotification"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="toggle-row">
+
+      <div>
+        <b>Low Stock Notification</b>
+        <p style="font-size:11px;color:#777;">
+          Stock কমে গেলে Notification
+        </p>
+      </div>
+
+      <label class="switch">
+
+        <input
+          type="checkbox"
+          id="stockNotification"
+          checked
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <div style="margin-top:20px;">
+
+      <button
+        class="btn btn-green"
+        onclick="saveNotifications()"
+      >
+        💾 Save Notification Settings
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+  </main>
+
+</div>
+
+
+<div class="alert" id="alertBox"></div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  getDoc,
+  serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* ================================
+   FIREBASE CONFIG
+================================ */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyAKUvj5B7a9vVo1_3vwNgUJEyqCC5c0dUs",
+
+  authDomain:
+  "gadgetmart-bangladesh.firebaseapp.com",
+
+  projectId:
+  "gadgetmart-bangladesh",
+
+  storageBucket:
+  "gadgetmart-bangladesh.firebasestorage.app",
+
+  messagingSenderId:
+  "166354766178",
+
+  appId:
+  "1:166354766178:web:f496c4d91522f97c2e043b",
+
+  measurementId:
+  "G-3S41J4MPLM"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* ================================
+   GLOBAL
+================================ */
+
+let products = [];
+
+let categories = [];
+
+let orders = [];
+
+let editingProductId = null;
+
+let editingCategoryId = null;
+
+
+/* ================================
+   LOGIN
+================================ */
+
+window.adminLogin = async function(){
+
+  const email =
+    document
+    .getElementById("loginEmail")
+    .value
+    .trim();
+
+  const password =
+    document
+    .getElementById("loginPassword")
+    .value;
+
+  if(!email || !password){
+
+    showAlert("Email এবং Password দিন");
+
+    return;
+  }
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    showAlert("Login সফল হয়েছে ✅");
+
+  }catch(error){
+
+    console.error(error);
+
+    showAlert(
+      "Login Error: " +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* ================================
+   AUTH STATE
+================================ */
+
+onAuthStateChanged(
+  auth,
+  async function(user){
+
+    if(user){
+
+      document
+      .getElementById("loginScreen")
+      .classList.add("hidden");
+
+      await loadAllData();
+
+    }else{
+
+      document
+      .getElementById("loginScreen")
+      .classList.remove("hidden");
+
+    }
+
+  }
+);
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+window.adminLogout = async function(){
+
+  await signOut(auth);
+
+};
+
+
+/* ================================
+   PAGE SYSTEM
+================================ */
+
+window.showPage = function(page,button){
+
+  document
+  .querySelectorAll(".page")
+  .forEach(function(p){
+
+    p.classList.remove("active");
+
+  });
+
+
+  const target =
+    document.getElementById(page);
+
+  if(target){
+
+    target.classList.add("active");
+
+  }
+
+
+  document
+  .querySelectorAll(".menu button")
+  .forEach(function(b){
+
+    b.classList.remove("active");
+
+  });
+
+
+  if(button){
+
+    button.classList.add("active");
+
+  }
+
+
+  document
+  .getElementById("sidebar")
+  .classList.remove("open");
+
+};
+
+
+window.showPageById = function(page){
+
+  document
+  .querySelectorAll(".menu button")
+  .forEach(function(button){
+
+    const text =
+      button.textContent.toLowerCase();
+
+    if(
+      page === "orders" &&
+      text.includes("orders")
+    ){
+
+      showPage(page,button);
+
+    }
+
+  });
+
+};
+
+
+window.toggleSidebar = function(){
+
+  document
+  .getElementById("sidebar")
+  .classList.toggle("open");
+
+};
+
+
+/* ================================
+   ALERT
+================================ */
+
+function showAlert(message){
+
+  const box =
+    document.getElementById("alertBox");
+
+  box.textContent = message;
+
+  box.style.display = "block";
+
+  setTimeout(function(){
+
+    box.style.display = "none";
+
+  },3000);
+
+}
+
+
+/* ================================
+   LOAD ALL DATA
+================================ */
+
+async function loadAllData(){
+
+  await loadProducts();
+
+  await loadCategories();
+
+  await loadOrders();
+
+  await loadCustomers();
+
+  await loadSettings();
+
+}
+
+
+/* ================================
+   PRODUCTS
+================================ */
+
+async function loadProducts(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
+
+    products = [];
+
+    snapshot.forEach(function(item){
+
+      products.push({
+
+        id:item.id,
+
+        ...item.data()
+
+      });
+
+    });
+
+    renderProducts();
+
+    document
+    .getElementById("statProducts")
+    .textContent = products.length;
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+function renderProducts(){
+
+  const table =
+    document.getElementById("productTable");
+
+  if(products.length === 0){
+
+    table.innerHTML =
+      '<tr><td colspan="7" class="empty">কোনো Product নেই।</td></tr>';
+
+    return;
+
+  }
+
+
+  table.innerHTML = "";
+
+
+  products.forEach(function(product){
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>
+
+        <img
+          class="product-thumb"
+          src="${product.image || ""}"
+          onerror="this.style.display='none'"
+        >
+
+      </td>
+
+      <td>
+        ${product.name || "-"}
+      </td>
+
+      <td>
+        ${product.category || "-"}
+      </td>
+
+      <td>
+        ৳${product.price || 0}
+      </td>
+
+      <td>
+        ${product.stock ?? 0}
+      </td>
+
+      <td>
+
+        ${
+          product.visible === false
+          ?
+          '<span class="status cancelled">Hidden</span>'
+          :
+          '<span class="status completed">Visible</span>'
+        }
+
+      </td>
+
+      <td>
+
+        <div class="actions">
+
+          <button
+            class="small-btn btn-blue"
+            onclick="editProduct('${product.id}')"
+          >
+            Edit
+          </button>
+
+          <button
+            class="small-btn btn-gray"
+            onclick="toggleProduct('${product.id}')"
+          >
+            Hide/Show
+          </button>
+
+          <button
+            class="small-btn btn-red"
+            onclick="deleteProduct('${product.id}')"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+window.openProductForm = function(){
+
+  document
+  .getElementById("productForm")
+  .classList.remove("hidden");
+
+  editingProductId = null;
+
+};
+
+
+window.closeProductForm = function(){
+
+  document
+  .getElementById("productForm")
+  .classList.add("hidden");
+
+  clearProductForm();
+
+};
+
+
+function clearProductForm(){
+
+  document
+  .getElementById("productName")
+  .value = "";
+
+  document
+  .getElementById("productCategory")
+  .value = "";
+
+  document
+  .getElementById("productPrice")
+  .value = "";
+
+  document
+  .getElementById("productOldPrice")
+  .value = "";
+
+  document
+  .getElementById("productStock")
+  .value = "";
+
+  document
+  .getElementById("productBadge")
+  .value = "";
+
+  document
+  .getElementById("productImage")
+  .value = "";
+
+  document
+  .getElementById("productDescription")
+  .value = "";
+
+  document
+  .getElementById("productVisible")
+  .value = "true";
+
+  document
+  .getElementById("productFeatured")
+  .value = "false";
+
+}
+
+
+window.saveProduct = async function(){
+
+  const data = {
+
+    name:
+      document
+      .getElementById("productName")
+      .value
+      .trim(),
+
+    category:
+      document
+      .getElementById("productCategory")
+      .value
+      .trim(),
+
+    price:
+      Number(
+        document
+        .getElementById("productPrice")
+        .value
+      ),
+
+    oldPrice:
+      Number(
+        document
+        .getElementById("productOldPrice")
+        .value
+      ),
+
+    stock:
+      Number(
+        document
+        .getElementById("productStock")
+        .value
+      ),
+
+    badge:
+      document
+      .getElementById("productBadge")
+      .value,
+
+    image:
+      document
+      .getElementById("productImage")
+      .value
+      .trim(),
+
+    description:
+      document
+      .getElementById("productDescription")
+      .value
+      .trim(),
+
+    visible:
+      document
+      .getElementById("productVisible")
+      .value === "true",
+
+    featured:
+      document
+      .getElementById("productFeatured")
+      .value === "true",
+
+    updatedAt:
+      serverTimestamp()
+
+  };
+
+
+  if(!data.name){
+
+    showAlert("Product Name দিন");
+
+    return;
+
+  }
+
+
+  try{
+
+    if(editingProductId){
+
+      await updateDoc(
+
+        doc(
+          db,
+          "products",
+          editingProductId
+        ),
+
+        data
+
+      );
+
+      showAlert("Product Update হয়েছে ✅");
+
+    }else{
+
+      data.createdAt =
+        serverTimestamp();
+
+      await addDoc(
+
+        collection(
+          db,
+          "products"
+        ),
+
+        data
+
+      );
+
+      showAlert("Product যোগ হয়েছে ✅");
+
+    }
+
+
+    closeProductForm();
+
+    await loadProducts();
+
+  }catch(error){
+
+    console.error(error);
+
+    showAlert(
+      "Product Save Error"
+    );
+
+  }
+
+};
+
+
+window.editProduct = function(id){
+
+  const product =
+    products.find(function(item){
+
+      return item.id === id;
+
+    });
+
+
+  if(!product) return;
+
+
+  editingProductId = id;
+
+
+  document
+  .getElementById("productForm")
+  .classList.remove("hidden");
+
+
+  document
+  .getElementById("productName")
+  .value =
+    product.name || "";
+
+
+  document
+  .getElementById("productCategory")
+  .value =
+    product.category || "";
+
+
+  document
+  .getElementById("productPrice")
+  .value =
+    product.price || "";
+
+
+  document
+  .getElementById("productOldPrice")
+  .value =
+    product.oldPrice || "";
+
+
+  document
+  .getElementById("productStock")
+  .value =
+    product.stock || "";
+
+
+  document
+  .getElementById("productBadge")
+  .value =
+    product.badge || "";
+
+
+  document
+  .getElementById("productImage")
+  .value =
+    product.image || "";
+
+
+  document
+  .getElementById("productDescription")
+  .value =
+    product.description || "";
+
+
+  document
+  .getElementById("productVisible")
+  .value =
+    product.visible === false
+    ? "false"
+    : "true";
+
+
+  document
+  .getElementById("productFeatured")
+  .value =
+    product.featured === true
+    ? "true"
+    : "false";
+
+};
+
+
+window.toggleProduct = async function(id){
+
+  const product =
+    products.find(function(item){
+
+      return item.id === id;
+
+    });
+
+
+  if(!product) return;
+
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "products",
+        id
+      ),
+
+      {
+        visible:
+          product.visible === false
+          ? true
+          : false
+      }
+
+    );
+
+    showAlert("Product Status পরিবর্তন হয়েছে");
+
+    await loadProducts();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+window.deleteProduct = async function(id){
+
+  if(
+    !confirm(
+      "এই Product Delete করতে চান?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await deleteDoc(
+
+      doc(
+        db,
+        "products",
+        id
+      )
+
+    );
+
+    showAlert("Product Delete হয়েছে");
+
+    await loadProducts();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+window.filterProducts = function(){
+
+  const search =
+    document
+    .getElementById("productSearch")
+    .value
+    .toLowerCase();
+
+
+  document
+  .querySelectorAll("#productTable tr")
+  .forEach(function(row){
+
+    row.style.display =
+      row.textContent
+      .toLowerCase()
+      .includes(search)
+      ?
+      ""
+      :
+      "none";
+
+  });
+
+};
+
+
+/* ================================
+   CATEGORIES
+================================ */
+
+async function loadCategories(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "categories"
+        )
+      );
+
+
+    categories = [];
+
+
+    snapshot.forEach(function(item){
+
+      categories.push({
+
+        id:item.id,
+
+        ...item.data()
+
+      });
+
+    });
+
+
+    renderCategories();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+function renderCategories(){
+
+  const table =
+    document.getElementById(
+      "categoryTable"
+    );
+
+
+  table.innerHTML = "";
+
+
+  if(categories.length === 0){
+
+    table.innerHTML =
+      '<tr><td colspan="4" class="empty">কোনো Category নেই।</td></tr>';
+
+    return;
+
+  }
+
+
+  categories.forEach(function(category){
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td style="font-size:25px;">
+        ${category.icon || "📦"}
+      </td>
+
+      <td>
+        ${category.name || "-"}
+      </td>
+
+      <td>
+
+        ${
+          category.visible === false
+          ?
+          '<span class="status cancelled">Hidden</span>'
+          :
+          '<span class="status completed">Visible</span>'
+        }
+
+      </td>
+
+      <td>
+
+        <div class="actions">
+
+          <button
+            class="small-btn btn-blue"
+            onclick="editCategory('${category.id}')"
+          >
+            Edit
+          </button>
+
+          <button
+            class="small-btn btn-red"
+            onclick="deleteCategory('${category.id}')"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+window.openCategoryForm = function(){
+
+  document
+  .getElementById("categoryForm")
+  .classList.remove("hidden");
+
+  editingCategoryId = null;
+
+};
+
+
+window.closeCategoryForm = function(){
+
+  document
+  .getElementById("categoryForm")
+  .classList.add("hidden");
+
+  document
+  .getElementById("categoryName")
+  .value = "";
+
+  document
+  .getElementById("categoryIcon")
+  .value = "";
+
+  document
+  .getElementById("categoryImage")
+  .value = "";
+
+};
+
+
+window.saveCategory = async function(){
+
+  const data = {
+
+    name:
+      document
+      .getElementById("categoryName")
+      .value
+      .trim(),
+
+    icon:
+      document
+      .getElementById("categoryIcon")
+      .value
+      .trim(),
+
+    image:
+      document
+      .getElementById("categoryImage")
+      .value
+      .trim(),
+
+    visible:
+      document
+      .getElementById("categoryVisible")
+      .value === "true",
+
+    updatedAt:
+      serverTimestamp()
+
+  };
+
+
+  if(!data.name){
+
+    showAlert("Category Name দিন");
+
+    return;
+
+  }
+
+
+  try{
+
+    if(editingCategoryId){
+
+      await updateDoc(
+
+        doc(
+          db,
+          "categories",
+          editingCategoryId
+        ),
+
+        data
+
+      );
+
+      showAlert("Category Update হয়েছে");
+
+    }else{
+
+      await addDoc(
+
+        collection(
+          db,
+          "categories"
+        ),
+
+        data
+
+      );
+
+      showAlert("Category যোগ হয়েছে");
+
+    }
+
+
+    closeCategoryForm();
+
+    await loadCategories();
+
+  }catch(error){
+
+    console.error(error);
+
+    showAlert(
+      "Category Save Error"
+    );
+
+  }
+
+};
+
+
+window.editCategory = function(id){
+
+  const category =
+    categories.find(function(item){
+
+      return item.id === id;
+
+    });
+
+
+  if(!category) return;
+
+
+  editingCategoryId = id;
+
+
+  document
+  .getElementById("categoryForm")
+  .classList.remove("hidden");
+
+
+  document
+  .getElementById("categoryName")
+  .value =
+    category.name || "";
+
+
+  document
+  .getElementById("categoryIcon")
+  .value =
+    category.icon || "";
+
+
+  document
+  .getElementById("categoryImage")
+  .value =
+    category.image || "";
+
+
+  document
+  .getElementById("categoryVisible")
+  .value =
+    category.visible === false
+    ? "false"
+    : "true";
+
+};
+
+
+window.deleteCategory = async function(id){
+
+  if(
+    !confirm(
+      "এই Category Delete করতে চান?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await deleteDoc(
+
+      doc(
+        db,
+        "categories",
+        id
+      )
+
+    );
+
+    showAlert("Category Delete হয়েছে");
+
+    await loadCategories();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* ================================
+   ORDERS
+================================ */
+
+async function loadOrders(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "orders"
+        )
+      );
+
+
+    orders = [];
+
+
+    snapshot.forEach(function(item){
+
+      orders.push({
+
+        id:item.id,
+
+        ...item.data()
+
+      });
+
+    });
+
+
+    renderOrders();
+
+
+    document
+    .getElementById("statOrders")
+    .textContent =
+      orders.length;
+
+
+    let sales = 0;
+
+
+    orders.forEach(function(order){
+
+      if(
+        order.status !== "cancelled"
+      ){
+
+        sales +=
+          Number(
+            order.total ||
+            order.amount ||
+            0
+          );
+
+      }
+
+    });
+
+
+    document
+    .getElementById("statSales")
+    .textContent =
+      "৳" + sales;
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+function renderOrders(){
+
+  const table =
+    document.getElementById(
+      "orderTable"
+    );
+
+
+  table.innerHTML = "";
+
+
+  if(orders.length === 0){
+
+    table.innerHTML =
+      '<tr><td colspan="6" class="empty">কোনো Order নেই।</td></tr>';
+
+    return;
+
+  }
+
+
+  orders.forEach(function(order){
+
+    const row =
+      document.createElement("tr");
+
+
+    const status =
+      order.status || "pending";
+
+
+    row.innerHTML = `
+
+      <td>
+        ${order.name || order.customerName || "-"}
+      </td>
+
+      <td>
+        ${order.phone || "-"}
+      </td>
+
+      <td>
+        ${order.product || order.productName || "-"}
+      </td>
+
+      <td>
+        ৳${order.total || order.amount || 0}
+      </td>
+
+      <td>
+
+        <span class="status ${status}">
+          ${status}
+        </span>
+
+      </td>
+
+      <td>
+
+        <select
+          onchange="changeOrderStatus('${order.id}',this.value)"
+          style="padding:6px;border:1px solid #ddd;border-radius:5px;font-size:10px;"
+        >
+
+          <option value="pending"
+            ${status==="pending"?"selected":""}>
+            Pending
+          </option>
+
+          <option value="confirmed"
+            ${status==="confirmed"?"selected":""}>
+            Confirmed
+          </option>
+
+          <option value="delivery"
+            ${status==="delivery"?"selected":""}>
+            Delivery
+          </option>
+
+          <option value="completed"
+            ${status==="completed"?"selected":""}>
+            Completed
+          </option>
+
+          <option value="cancelled"
+            ${status==="cancelled"?"selected":""}>
+            Cancelled
+          </option>
+
+        </select>
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+window.changeOrderStatus = async function(id,status){
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "orders",
+        id
+      ),
+
+      {
+        status:status,
+        updatedAt:serverTimestamp()
+      }
+
+    );
+
+    showAlert(
+      "Order Status Update হয়েছে"
+    );
+
+    await loadOrders();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+window.filterOrders = function(){
+
+  const search =
+    document
+    .getElementById("orderSearch")
+    .value
+    .toLowerCase();
+
+
+  document
+  .querySelectorAll("#orderTable tr")
+  .forEach(function(row){
+
+    row.style.display =
+      row.textContent
+      .toLowerCase()
+      .includes(search)
+      ?
+      ""
+      :
+      "none";
+
+  });
+
+};
+
+
+/* ================================
+   CUSTOMERS
+================================ */
+
+async function loadCustomers(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "customers"
+        )
+      );
+
+
+    const table =
+      document.getElementById(
+        "customerTable"
+      );
+
+
+    table.innerHTML = "";
+
+
+    snapshot.forEach(function(item){
+
+      const customer =
+        item.data();
+
+
+      const row =
+        document.createElement("tr");
+
+
+      row.innerHTML = `
+
+        <td>
+          ${customer.name || "-"}
+        </td>
+
+        <td>
+          ${customer.phone || "-"}
+        </td>
+
+        <td>
+          ${customer.address || "-"}
+        </td>
+
+        <td>
+          ${customer.orders || 0}
+        </td>
+
+      `;
+
+
+      table.appendChild(row);
+
+    });
+
+
+    document
+    .getElementById("statCustomers")
+    .textContent =
+      snapshot.size;
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* ================================
+   OFFER
+================================ */
+
+window.saveOffer = async function(){
+
+  const data = {
+
+    title:
+      document
+      .getElementById("offerTitle")
+      .value,
+
+    discount:
+      document
+      .getElementById("offerDiscount")
+      .value,
+
+    end:
+      document
+      .getElementById("offerEnd")
+      .value,
+
+    active:
+      document
+      .getElementById("offerStatus")
+      .value === "true",
+
+    description:
+      document
+      .getElementById("offerDescription")
+      .value,
+
+    updatedAt:
+      serverTimestamp()
+
+  };
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "settings",
+        "offer"
+      ),
+
+      data
+
+    );
+
+    showAlert("Offer Save হয়েছে ✅");
+
+  }catch(error){
+
+    console.error(error);
+
+    showAlert(
+      "Offer Save Error"
+    );
+
+  }
+
+};
+
+
+/* ================================
+   BANNER
+================================ */
+
+window.saveBanner = async function(){
+
+  const data = {
+
+    heroImage:
+      document
+      .getElementById("heroImage")
+      .value,
+
+    heroTitle:
+      document
+      .getElementById("heroTitle")
+      .value,
+
+    heroButton:
+      document
+      .getElementById("heroButton")
+      .value,
+
+    heroDescription:
+      document
+      .getElementById("heroDescription")
+      .value,
+
+    promoImage:
+      document
+      .getElementById("promoImage")
+      .value,
+
+    updatedAt:
+      serverTimestamp()
+
+  };
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "settings",
+        "banner"
+      ),
+
+      data
+
+    );
+
+    showAlert("Banner Save হয়েছে ✅");
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* ================================
+   DELIVERY
+================================ */
+
+window.saveDelivery = async function(){
+
+  const data = {
+
+    insideDhaka:
+      Number(
+        document
+        .getElementById("insideDhaka")
+        .value
+      ),
+
+    outsideDhaka:
+      Number(
+        document
+        .getElementById("outsideDhaka")
+        .value
+      ),
+
+    freeDelivery:
+      Number(
+        document
+        .getElementById("freeDelivery")
+        .value
+      ),
+
+    active:
+      document
+      .getElementById("deliveryActive")
+      .value === "true"
+
+  };
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "settings",
+        "delivery"
+      ),
+
+      data
+
+    );
+
+    showAlert(
+      "Delivery Settings Save হয়েছে"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* ================================
+   PAYMENT
+================================ */
+
+window.savePayment = async function(){
+
+  const data = {
+
+    bkash:
+      document
+      .getElementById("bkash")
+      .value,
+
+    nagad:
+      document
+      .getElementById("nagad")
+      .value,
+
+    bank:
+      document
+      .getElementById("bank")
+      .value,
+
+    cod:
+      document
+      .getElementById("cod")
+      .value === "true"
+
+  };
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "settings",
+        "payment"
+      ),
+
+      data
+
+    );
+
+    showAlert(
+      "Payment Settings Save হয়েছে"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* ================================
+   CONTACT
+================================ */
+
+window.saveContact = async function(){
+
+  const data = {
+
+    phone:
+      document
+      .getElementById("contactPhone")
+      .value,
+
+    email:
+      document
+      .getElementById("contactEmail")
+      .value,
+
+    whatsapp:
+      document
+      .getElementById("contactWhatsapp")
+      .value,
+
+    facebook:
+      document
+      .getElementById("facebook")
+      .value,
+
+    instagram:
+      document
+      .getElementById("instagram")
+      .value,
+
+    address:
+      document
+      .getElementById("contactAddress")
+      .value
+
+  };
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "settings",
+        "contact"
+      ),
+
+      data
+
+    );
+
+    showAlert(
+      "Contact Settings Save হয়েছে"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* ================================
+   WEBSITE SETTINGS
+================================ */
+
+window.saveSettings = async function(){
+
+  const data = {
+
+    siteName:
+      document
+      .getElementById("siteName")
+      .value,
+
+    tagline:
+      document
+      .getElementById("siteTagline")
+      .value,
+
+    metaDescription:
+      document
+      .getElementById("metaDescription")
+      .value,
+
+    websiteActive:
+      document
+      .getElementById("websiteActive")
+      .checked,
+
+    showProducts:
+      document
+      .getElementById("showProducts")
+      .checked
+
+  };
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "settings",
+        "website"
+      ),
+
+      data
+
+    );
+
+    showAlert(
+      "Website Settings Save হয়েছে"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* ================================
+   NOTIFICATIONS
+================================ */
+
+window.saveNotifications = async function(){
+
+  const data = {
+
+    orderNotification:
+      document
+      .getElementById(
+        "orderNotification"
+      )
+      .checked,
+
+    stockNotification:
+      document
+      .getElementById(
+        "stockNotification"
+      )
+      .checked
+
+  };
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "settings",
+        "notifications"
+      ),
+
+      data
+
+    );
+
+    showAlert(
+      "Notification Settings Save হয়েছে"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* ================================
+   LOAD SETTINGS
+================================ */
+
+async function loadSettings(){
+
+  try{
+
+    const website =
+      await getDoc(
+        doc(
+          db,
+          "settings",
+          "website"
+        )
+      );
+
+
+    if(website.exists()){
+
+      const data =
+        website.data();
+
+
+      document
+      .getElementById("siteName")
+      .value =
+        data.siteName || "";
+
+
+      document
+      .getElementById("siteTagline")
+      .value =
+        data.tagline || "";
+
+
+      document
+      .getElementById("metaDescription")
+      .value =
+        data.metaDescription || "";
+
+
+      document
+      .getElementById("websiteActive")
+      .checked =
+        data.websiteActive !== false;
+
+
+      document
+      .getElementById("showProducts")
+      .checked =
+        data.showProducts !== false;
+
+    }
+
+
+    const delivery =
+      await getDoc(
+        doc(
+          db,
+          "settings",
+          "delivery"
+        )
+      );
+
+
+    if(delivery.exists()){
+
+      const data =
+        delivery.data();
+
+
+      document
+      .getElementById("insideDhaka")
+      .value =
+        data.insideDhaka ?? 70;
+
+
+      document
+      .getElementById("outsideDhaka")
+      .value =
+        data.outsideDhaka ?? 130;
+
+
+      document
+      .getElementById("freeDelivery")
+      .value =
+        data.freeDelivery ?? 5000;
+
+    }
+
+
+    const payment =
+      await getDoc(
+        doc(
+          db,
+          "settings",
+          "payment"
+        )
+      );
+
+
+    if(payment.exists()){
+
+      const data =
+        payment.data();
+
+
+      document
+      .getElementById("bkash")
+      .value =
+        data.bkash || "";
+
+
+      document
+      .getElementById("nagad")
+      .value =
+        data.nagad || "";
+
+
+      document
+      .getElementById("bank")
+      .value =
+        data.bank || "";
+
+    }
+
+
+    const contact =
+      await getDoc(
+        doc(
+          db,
+          "settings",
+          "contact"
+        )
+      );
+
+
+    if(contact.exists()){
+
+      const data =
+        contact.data();
+
+
+      document
+      .getElementById("contactPhone")
+      .value =
+        data.phone || "01924136271";
+
+
+      document
+      .getElementById("contactEmail")
+      .value =
+        data.email || "gadgetmartbd0@gmail.com";
+
+
+      document
+      .getElementById("contactWhatsapp")
+      .value =
+        data.whatsapp || "8801924136271";
+
+
+      document
+      .getElementById("facebook")
+      .value =
+        data.facebook || "";
+
+
+      document
+      .getElementById("instagram")
+      .value =
+        data.instagram || "";
+
+
+      document
+      .getElementById("contactAddress")
+      .value =
+        data.address || "Bangladesh";
+
+    }
+
+
+    const banner =
+      await getDoc(
+        doc(
+          db,
+          "settings",
+          "banner"
+        )
+      );
+
+
+    if(banner.exists()){
+
+      const data =
+        banner.data();
+
+
+      document
+      .getElementById("heroImage")
+      .value =
+        data.heroImage || "";
+
+
+      document
+      .getElementById("heroTitle")
+      .value =
+        data.heroTitle || "";
+
+
+      document
+      .getElementById("heroButton")
+      .value =
+        data.heroButton || "";
+
+
+      document
+      .getElementById("heroDescription")
+      .value =
+        data.heroDescription || "";
+
+
+      document
+      .getElementById("promoImage")
+      .value =
+        data.promoImage || "";
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Settings Error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ================================
+   START
+================================ */
+
+</script>
+
+</body>
+</html>
