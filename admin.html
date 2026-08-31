@@ -1,605 +1,1040 @@
 <!DOCTYPE html>
-
 <html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GadgetMart Admin Panel</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>GadgetMart Admin Dashboard</title>
 
 <style>
 
+/* =========================
+   RESET
+========================= */
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  background:#f3f4f6;
-  color:#111827;
+background:#f3f5f9;
+color:#172033;
 }
+
 
 /* =========================
    LOGIN
 ========================= */
 
 #loginPage{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:#111827;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:
+linear-gradient(135deg,#07111f,#111827);
 }
 
-.login-box{
-  width:100%;
-  max-width:390px;
-  background:white;
-  padding:30px;
-  border-radius:18px;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
+.login-card{
+width:100%;
+max-width:390px;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
 .login-logo{
-  text-align:center;
-  font-size:28px;
-  font-weight:800;
-  margin-bottom:5px;
+text-align:center;
+font-size:28px;
+font-weight:800;
+margin-bottom:5px;
 }
 
 .login-logo span{
-  color:#00b85a;
+color:#00b85a;
 }
 
 .login-sub{
-  text-align:center;
-  color:#777;
-  font-size:13px;
-  margin-bottom:25px;
+text-align:center;
+color:#888;
+font-size:13px;
+margin-bottom:25px;
 }
 
-.login-box input{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:9px;
-  margin-bottom:12px;
-  outline:none;
+.login-card input{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:9px;
+margin-bottom:12px;
+outline:none;
 }
 
-.login-box input:focus{
-  border-color:#00b85a;
+.login-card input:focus{
+border-color:#00b85a;
 }
 
-#loginBtn{
-  width:100%;
-  padding:13px;
-  border:none;
-  border-radius:9px;
-  background:#00b85a;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
+.login-btn{
+width:100%;
+padding:14px;
+border:0;
+border-radius:9px;
+background:#00b85a;
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
 }
 
-#loginMessage{
-  text-align:center;
-  margin-top:12px;
-  color:#dc2626;
-  font-size:13px;
+.login-msg{
+text-align:center;
+margin-top:12px;
+color:#dc2626;
+font-size:13px;
 }
+
 
 /* =========================
-   ADMIN
+   DASHBOARD
 ========================= */
 
 #adminPage{
-  display:none;
+display:none;
 }
 
-.admin-header{
-  background:#111827;
-  color:white;
-  padding:15px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:1000;
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+width:245px;
+background:#0b1220;
+color:white;
+padding:20px 14px;
+z-index:1000;
 }
 
-.admin-header h1{
-  font-size:20px;
+.logo{
+font-size:21px;
+font-weight:800;
+padding:10px;
+margin-bottom:25px;
 }
 
-.admin-email{
-  font-size:11px;
-  color:#aaa;
-  margin-top:3px;
+.logo span{
+color:#00d66b;
 }
 
-.logout{
-  background:#dc2626;
-  color:white;
-  border:none;
-  padding:9px 13px;
-  border-radius:7px;
-  cursor:pointer;
+.menu-title{
+font-size:9px;
+color:#667085;
+padding:10px;
+text-transform:uppercase;
+letter-spacing:1px;
 }
 
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:18px;
+.menu-btn{
+width:100%;
+border:0;
+background:transparent;
+color:#aab3c2;
+padding:12px;
+border-radius:9px;
+text-align:left;
+font-size:13px;
+margin-bottom:4px;
+cursor:pointer;
 }
+
+.menu-btn:hover,
+.menu-btn.active{
+background:#172235;
+color:#00d66b;
+}
+
+.menu-btn span{
+display:inline-block;
+width:25px;
+}
+
+.logout-side{
+position:absolute;
+bottom:20px;
+left:14px;
+right:14px;
+background:#dc2626;
+color:white;
+}
+
 
 /* =========================
-   TABS
+   MAIN
 ========================= */
 
-.tabs{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:18px;
+.main{
+margin-left:245px;
+min-height:100vh;
 }
 
-.tab-btn{
-  border:none;
-  background:white;
-  padding:11px 15px;
-  border-radius:9px;
-  white-space:nowrap;
-  cursor:pointer;
-  border:1px solid #e5e7eb;
+.topbar{
+height:70px;
+background:white;
+border-bottom:1px solid #e5e7eb;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px;
+position:sticky;
+top:0;
+z-index:500;
 }
 
-.tab-btn.active{
-  background:#00b85a;
-  color:white;
-  border-color:#00b85a;
+.topbar h2{
+font-size:19px;
 }
 
-.tab-content{
-  display:none;
+.admin-user{
+font-size:12px;
+color:#777;
 }
 
-.tab-content.active{
-  display:block;
+.content{
+padding:25px;
+max-width:1200px;
+margin:auto;
 }
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.page-section{
+display:none;
+}
+
+.page-section.active{
+display:block;
+}
+
+.section-head{
+margin-bottom:20px;
+}
+
+.section-head h2{
+font-size:22px;
+margin-bottom:5px;
+}
+
+.section-head p{
+font-size:12px;
+color:#8a93a3;
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:22px;
+}
+
+.stat{
+background:white;
+border:1px solid #e7eaf0;
+border-radius:14px;
+padding:18px;
+}
+
+.stat-icon{
+font-size:25px;
+margin-bottom:10px;
+}
+
+.stat-number{
+font-size:24px;
+font-weight:bold;
+}
+
+.stat-label{
+font-size:11px;
+color:#8b93a1;
+margin-top:4px;
+}
+
 
 /* =========================
    CARD
 ========================= */
 
 .card{
-  background:white;
-  border-radius:14px;
-  padding:20px;
-  margin-bottom:18px;
-  box-shadow:0 3px 15px rgba(0,0,0,.06);
+background:white;
+border:1px solid #e7eaf0;
+border-radius:14px;
+padding:20px;
+margin-bottom:20px;
 }
 
-.card h2{
-  font-size:18px;
-  margin-bottom:6px;
+.card-title{
+font-size:16px;
+font-weight:bold;
+margin-bottom:15px;
 }
 
-.card-sub{
-  color:#888;
-  font-size:12px;
-  margin-bottom:18px;
-}
 
 /* =========================
    FORM
 ========================= */
 
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+}
+
 .form-group{
-  margin-bottom:14px;
+margin-bottom:13px;
 }
 
 .form-group label{
-  display:block;
-  font-size:12px;
-  font-weight:bold;
-  margin-bottom:6px;
+display:block;
+font-size:11px;
+font-weight:bold;
+margin-bottom:6px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select{
-  width:100%;
-  padding:12px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  outline:none;
-  font-size:13px;
+width:100%;
+padding:12px;
+border:1px solid #dfe3e8;
+border-radius:8px;
+outline:none;
+font-size:12px;
+background:white;
 }
 
 .form-group textarea{
-  min-height:100px;
-  resize:vertical;
+min-height:100px;
+resize:vertical;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus{
-  border-color:#00b85a;
+border-color:#00b85a;
 }
 
-.grid-2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.save-btn{
-  background:#00b85a;
-  color:white;
-  border:none;
-  padding:12px 18px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.reset-btn{
-  background:#e5e7eb;
-  color:#111827;
-  border:none;
-  padding:12px 18px;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.message{
-  margin-top:10px;
-  font-size:13px;
-  font-weight:bold;
-}
 
 /* =========================
-   PREVIEW
+   BUTTONS
 ========================= */
 
-.hero-preview{
-  border-radius:12px;
-  min-height:220px;
-  background:#111827;
-  overflow:hidden;
-  position:relative;
-  color:white;
-  display:flex;
-  align-items:center;
+.btn{
+border:0;
+padding:11px 17px;
+border-radius:8px;
+font-size:12px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.hero-preview img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:.55;
+.btn-green{
+background:#00b85a;
+color:white;
 }
 
-.hero-preview::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.25));
+.btn-blue{
+background:#2563eb;
+color:white;
 }
 
-.preview-content{
-  position:relative;
-  z-index:2;
-  padding:25px;
-  max-width:500px;
+.btn-red{
+background:#dc2626;
+color:white;
 }
 
-.preview-tag{
-  color:#00d66b;
-  font-size:10px;
-  font-weight:bold;
-  margin-bottom:8px;
+.btn-dark{
+background:#111827;
+color:white;
 }
 
-.preview-content h2{
-  font-size:25px;
-  margin-bottom:8px;
+.btn-gray{
+background:#eef1f5;
+color:#333;
 }
 
-.preview-content p{
-  color:#ddd;
-  font-size:11px;
-  line-height:1.6;
-}
-
-/* =========================
-   CATEGORY
-========================= */
-
-.category-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border:1px solid #eee;
-  padding:12px;
-  border-radius:9px;
-  margin-bottom:8px;
-}
-
-.category-left{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.category-icon{
-  font-size:22px;
-}
-
-.category-name{
-  font-weight:bold;
-  font-size:13px;
-}
-
-.category-actions button{
-  border:none;
-  padding:7px 10px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.edit-btn{
-  background:#2563eb;
-  color:white;
-}
-
-.delete-btn{
-  background:#dc2626;
-  color:white;
-}
 
 /* =========================
    PRODUCT
 ========================= */
 
-.product-item{
-  border:1px solid #eee;
-  padding:13px;
-  border-radius:10px;
-  margin-bottom:10px;
+.product-list{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
 }
 
-.product-item h3{
-  font-size:14px;
-  margin-bottom:6px;
+.product{
+border:1px solid #e6e9ee;
+border-radius:12px;
+overflow:hidden;
+background:white;
 }
 
-.product-item p{
-  font-size:11px;
-  color:#666;
-  margin:3px 0;
+.product-img{
+height:170px;
+background:#f6f7f9;
+}
+
+.product-img img{
+width:100%;
+height:100%;
+object-fit:contain;
+padding:10px;
+}
+
+.product-info{
+padding:13px;
+}
+
+.product-name{
+font-weight:bold;
+font-size:13px;
+margin-bottom:7px;
+}
+
+.product-price{
+color:#00a950;
+font-weight:bold;
+font-size:14px;
+}
+
+.product-old{
+font-size:10px;
+color:#999;
+text-decoration:line-through;
+margin-left:5px;
 }
 
 .product-actions{
-  margin-top:10px;
+display:flex;
+gap:6px;
+margin-top:12px;
 }
 
 .product-actions button{
-  border:none;
-  padding:8px 11px;
-  border-radius:6px;
-  cursor:pointer;
-  margin-right:5px;
+flex:1;
 }
 
-.product-edit{
-  background:#2563eb;
-  color:white;
-}
-
-.product-delete{
-  background:#dc2626;
-  color:white;
-}
 
 /* =========================
-   STATUS
+   CATEGORY
 ========================= */
 
-.status-box{
-  padding:12px;
-  border-radius:8px;
-  background:#f0fdf4;
-  color:#166534;
-  font-size:12px;
-  margin-bottom:15px;
+.category-list{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
 }
+
+.category-item{
+border:1px solid #e5e7eb;
+padding:15px;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.category-left{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.category-icon{
+font-size:24px;
+}
+
+
+/* =========================
+   BANNER PREVIEW
+========================= */
+
+.banner-preview{
+height:220px;
+border-radius:12px;
+overflow:hidden;
+position:relative;
+background:#111827;
+margin-top:15px;
+}
+
+.banner-preview img{
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:.65;
+}
+
+.banner-preview-content{
+position:absolute;
+left:25px;
+top:50%;
+transform:translateY(-50%);
+color:white;
+max-width:450px;
+}
+
+.banner-preview-content small{
+color:#00d66b;
+font-weight:bold;
+}
+
+.banner-preview-content h2{
+font-size:25px;
+margin:8px 0;
+}
+
+.banner-preview-content p{
+font-size:11px;
+color:#ddd;
+}
+
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:13px 0;
+border-bottom:1px solid #eee;
+}
+
+.switch{
+position:relative;
+width:45px;
+height:24px;
+}
+
+.switch input{
+display:none;
+}
+
+.slider{
+position:absolute;
+inset:0;
+background:#ccc;
+border-radius:30px;
+cursor:pointer;
+}
+
+.slider:before{
+content:"";
+position:absolute;
+width:18px;
+height:18px;
+left:3px;
+top:3px;
+background:white;
+border-radius:50%;
+transition:.2s;
+}
+
+.switch input:checked + .slider{
+background:#00b85a;
+}
+
+.switch input:checked + .slider:before{
+transform:translateX(21px);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+padding:10px;
+font-size:12px;
+font-weight:bold;
+display:none;
+margin-top:10px;
+border-radius:7px;
+}
+
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:600px){
+.mobile-menu{
+display:none;
+border:0;
+background:#111827;
+color:white;
+font-size:20px;
+padding:8px 11px;
+border-radius:7px;
+}
 
-  .admin-header{
-    padding:13px;
-  }
+@media(max-width:900px){
 
-  .admin-header h1{
-    font-size:16px;
-  }
+.sidebar{
+width:210px;
+}
 
-  .container{
-    padding:10px;
-  }
+.main{
+margin-left:210px;
+}
 
-  .card{
-    padding:15px;
-  }
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
 
-  .grid-2{
-    grid-template-columns:1fr;
-  }
+.product-list{
+grid-template-columns:repeat(2,1fr);
+}
 
-  .preview-content h2{
-    font-size:21px;
-  }
+}
 
+@media(max-width:650px){
+
+.sidebar{
+left:-250px;
+width:245px;
+transition:.3s;
+}
+
+.sidebar.open{
+left:0;
+}
+
+.main{
+margin-left:0;
+}
+
+.mobile-menu{
+display:block;
+}
+
+.topbar{
+padding:0 13px;
+}
+
+.topbar h2{
+font-size:16px;
+}
+
+.content{
+padding:13px;
+}
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+gap:9px;
+}
+
+.stat{
+padding:13px;
+}
+
+.stat-number{
+font-size:19px;
+}
+
+.product-list{
+grid-template-columns:1fr;
+}
+
+.category-list{
+grid-template-columns:1fr;
+}
+
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+text-align:center;
+padding:30px;
+color:#999;
+font-size:13px;
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<!-- =========================
+
+<!-- =====================================================
      LOGIN
-========================= -->
+===================================================== -->
 
 <div id="loginPage">
 
-  <div class="login-box">
+<div class="login-card">
 
 <div class="login-logo">
-  Gadget<span>Mart</span>
+Gadget<span>Mart</span>
 </div>
 
 <div class="login-sub">
-  Administrator Control Panel
+Professional Admin Dashboard
 </div>
 
 <input
-  type="email"
-  id="loginEmail"
-  placeholder="Administrator Email"
+type="email"
+id="loginEmail"
+placeholder="Admin Email"
 >
 
 <input
-  type="password"
-  id="loginPassword"
-  placeholder="Password"
+type="password"
+id="loginPassword"
+placeholder="Password"
 >
 
-<button id="loginBtn">
-  Sign In
+<button
+class="login-btn"
+id="loginBtn"
+>
+Login
 </button>
 
-<div id="loginMessage"></div>
-
-  </div>
+<div
+class="login-msg"
+id="loginMsg"
+></div>
 
 </div>
 
-<!-- =========================
-     ADMIN PAGE
-========================= -->
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN
+===================================================== -->
 
 <div id="adminPage">
 
-<header class="admin-header">
 
-  <div>
+<!-- SIDEBAR -->
 
-<h1>🛒 GadgetMart Administration</h1>
+<aside class="sidebar" id="sidebar">
+
+<div class="logo">
+Gadget<span>Mart</span>
+</div>
+
+
+<div class="menu-title">
+Main
+</div>
+
+<button class="menu-btn active"
+onclick="showPage('dashboard',this)">
+<span>📊</span>
+Dashboard
+</button>
+
+
+<div class="menu-title">
+Website
+</div>
+
+<button class="menu-btn"
+onclick="showPage('settings',this)">
+<span>⚙️</span>
+Website Settings
+</button>
+
+<button class="menu-btn"
+onclick="showPage('hero',this)">
+<span>🖼️</span>
+Hero Banner
+</button>
+
+<button class="menu-btn"
+onclick="showPage('delivery',this)">
+<span>🚚</span>
+Delivery
+</button>
+
+
+<div class="menu-title">
+Store
+</div>
+
+<button class="menu-btn"
+onclick="showPage('categories',this)">
+<span>📂</span>
+Categories
+</button>
+
+<button class="menu-btn"
+onclick="showPage('products',this)">
+<span>📦</span>
+Products
+</button>
+
+<button class="menu-btn"
+onclick="showPage('promo',this)">
+<span>🎁</span>
+Promo Section
+</button>
+
+
+<div class="menu-title">
+Business
+</div>
+
+<button class="menu-btn"
+onclick="showPage('contact',this)">
+<span>📞</span>
+Contact
+</button>
+
+
+<button
+class="menu-btn logout-side"
+id="logoutBtn">
+<span>🚪</span>
+Logout
+</button>
+
+</aside>
+
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div style="display:flex;align-items:center;gap:10px">
+
+<button
+class="mobile-menu"
+onclick="toggleSidebar()">
+☰
+</button>
+
+<h2 id="pageTitle">
+Dashboard
+</h2>
+
+</div>
+
+<div class="admin-user"
+id="adminEmail">
+</div>
+
+</div>
+
+
+
+<div class="content">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+id="dashboard"
+class="page-section active"
+>
+
+<div class="section-head">
+
+<h2>
+📊 Dashboard
+</h2>
+
+<p>
+GadgetMart Store Overview
+</p>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-icon">
+📦
+</div>
 
 <div
-  class="admin-email"
-  id="adminEmail"
-></div>
+class="stat-number"
+id="totalProducts">
+0
+</div>
 
-  </div>
+<div class="stat-label">
+Total Products
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+📂
+</div>
+
+<div
+class="stat-number"
+id="totalCategories">
+0
+</div>
+
+<div class="stat-label">
+Categories
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+🟢
+</div>
+
+<div
+class="stat-number">
+Active
+</div>
+
+<div class="stat-label">
+Website Status
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+🔥
+</div>
+
+<div
+class="stat-number">
+Live
+</div>
+
+<div class="stat-label">
+Firebase
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+🚀 Quick Actions
+</div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap">
 
 <button
-class="logout"
-id="logoutBtn"
-
-«»
-
-Sign Out
-
-  </button>
-
-</header>
-
-<div class="container">
-
-<!-- =========================
-     TABS
-========================= -->
-
-<div class="tabs">
-
-<button
-class="tab-btn active"
-data-tab="website"
-
-«»
-
-🌐 Website Settings
+class="btn btn-green"
+onclick="openPage('products')">
+➕ Add Product
 </button>
 
 <button
-class="tab-btn"
-data-tab="hero"
-
-«»
-
-🖼️ Hero Banner
+class="btn btn-blue"
+onclick="openPage('hero')">
+🖼️ Edit Banner
 </button>
 
 <button
-class="tab-btn"
-data-tab="delivery"
-
-«»
-
-🚚 Delivery Settings
+class="btn btn-dark"
+onclick="openPage('settings')">
+⚙️ Website Settings
 </button>
 
 <button
-class="tab-btn"
-data-tab="category"
-
-«»
-
-📂 Categories
-</button>
-
-<button
-class="tab-btn"
-data-tab="products"
-
-«»
-
-📦 Products
+class="btn btn-gray"
+onclick="openPage('delivery')">
+🚚 Delivery
 </button>
 
 </div>
 
-<!-- =========================
-     WEBSITE SETTINGS
-========================= -->
+</div>
 
-<div
-  class="tab-content active"
-  id="website"
+</section>
+
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<section
+id="settings"
+class="page-section"
 >
+
+<div class="section-head">
+
+<h2>
+⚙️ Website Settings
+</h2>
+
+<p>
+Website-এর মূল তথ্য এখান থেকে পরিবর্তন করুন।
+</p>
+
+</div>
+
 
 <div class="card">
 
-<h2>🌐 Website Settings</h2>
-
-<p class="card-sub">
-ওয়েবসাইটের নাম, শিরোনাম এবং অন্যান্য সাধারণ তথ্য পরিচালনা করুন।
-</p>
+<div class="form-grid">
 
 <div class="form-group">
 
@@ -608,40 +1043,28 @@ Website Name
 </label>
 
 <input
-id="websiteName"
+id="siteName"
 placeholder="GadgetMart Bangladesh"
-
-«»
+>
 
 </div>
+
 
 <div class="form-group">
 
 <label>
-Browser Title
+Tagline
 </label>
 
 <input
-id="browserTitle"
-placeholder="GadgetMart Bangladesh"
-
-«»
-
-</div>
-
-<div class="form-group">
-
-<label>
-Website Tagline
-</label>
-
-<input
-id="websiteTagline"
+id="siteTagline"
 placeholder="Smart Gadgets, Smart Life."
-
-«»
+>
 
 </div>
+
+</div>
+
 
 <div class="form-group">
 
@@ -650,88 +1073,86 @@ Website Description
 </label>
 
 <textarea
-  id="websiteDescription"
-  placeholder="আপনার ওয়েবসাইট সম্পর্কে লিখুন"
+id="siteDescription"
+placeholder="Website description..."
 ></textarea>
 
 </div>
 
-<div class="form-group">
 
-<label>
-Contact Phone
-</label>
+<div class="switch-row">
 
-<input
-id="contactPhone"
-placeholder="019XXXXXXXX"
+<div>
 
-«»
+<b>Website Active</b>
 
-</div>
-
-<div class="form-group">
-
-<label>
-WhatsApp Number
-</label>
-
-<input
-id="whatsappNumber"
-placeholder="88019XXXXXXXX"
-
-«»
+<p style="font-size:10px;color:#888">
+Website চালু / বন্ধ
+</p>
 
 </div>
 
-<div class="form-group">
-
-<label>
-Contact Email
-</label>
+<label class="switch">
 
 <input
-id="contactEmail"
-placeholder=""example@gmail.com" (mailto:example@gmail.com)"
+type="checkbox"
+id="siteActive"
+checked
+>
 
-«»
+<span class="slider"></span>
+
+</label>
 
 </div>
+
+
+<br>
 
 <button
-class="save-btn"
-id="saveWebsite"
+class="btn btn-green"
+onclick="saveSettings()">
 
-«»
+💾 Save Settings
 
-💾 Save Website Settings
 </button>
 
 <div
-  class="message"
-  id="websiteMessage"
-></div>
-
+class="message"
+id="settingsMsg">
 </div>
 
 </div>
 
-<!-- =========================
+</section>
+
+
+
+<!-- =====================================================
      HERO
-========================= -->
+===================================================== -->
 
-<div
-  class="tab-content"
-  id="hero"
+<section
+id="hero"
+class="page-section"
 >
+
+<div class="section-head">
+
+<h2>
+🖼️ Hero Banner
+</h2>
+
+<p>
+Homepage-এর বড় Banner, Title এবং Content নিয়ন্ত্রণ করুন।
+</p>
+
+</div>
+
 
 <div class="card">
 
-<h2>🖼️ Hero Banner Management</h2>
-
-<p class="card-sub">
-হোমপেজের প্রধান ব্যানারের ছবি, ট্যাগ, শিরোনাম এবং কনটেন্ট পরিচালনা করুন।
-</p>
+<div class="form-grid">
 
 <div class="form-group">
 
@@ -742,51 +1163,58 @@ Banner Image URL
 <input
 id="heroImage"
 placeholder="https://..."
-
-«»
+oninput="previewHero()"
+>
 
 </div>
+
 
 <div class="form-group">
 
 <label>
-Banner Tag
+Hero Tag
 </label>
 
 <input
 id="heroTag"
 placeholder="PREMIUM SMART GADGETS"
-
-«»
+oninput="previewHero()"
+>
 
 </div>
+
+</div>
+
 
 <div class="form-group">
 
 <label>
-Banner Title
+Hero Title
 </label>
 
 <input
 id="heroTitle"
 placeholder="Smart Gadgets, Smart Life."
-
-«»
+oninput="previewHero()"
+>
 
 </div>
+
 
 <div class="form-group">
 
 <label>
-Banner Content
+Hero Content
 </label>
 
 <textarea
-  id="heroContent"
-  placeholder="আপনার ব্যানারের কনটেন্ট লিখুন"
+id="heroContent"
+placeholder="আপনার ওয়েবসাইটের Hero content..."
+oninput="previewHero()"
 ></textarea>
 
 </div>
+
 
 <div class="form-group">
 
@@ -797,57 +1225,45 @@ Button Text
 <input
 id="heroButton"
 placeholder="Shop Now"
-
-«»
+>
 
 </div>
+
 
 <button
-class="save-btn"
-id="saveHero"
+class="btn btn-green"
+onclick="saveHero()">
 
-«»
+💾 Save Hero
 
-💾 Save Hero Banner
 </button>
 
-<div
-  class="message"
-  id="heroMessage"
-></div>
 
+<div
+class="message"
+id="heroMsg">
 </div>
 
-<div class="card">
 
-<h2>👀 Banner Preview</h2>
-
-<br>
-
-<div class="hero-preview">
+<div class="banner-preview">
 
 <img
 id="heroPreviewImage"
-src=""
-alt=""
-
-«»
-
-<div class="preview-content">
-
-<div
-  class="preview-tag"
-  id="heroPreviewTag"
+src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1200&q=80"
 >
+
+<div class="banner-preview-content">
+
+<small id="heroPreviewTag">
 PREMIUM SMART GADGETS
-</div>
+</small>
 
 <h2 id="heroPreviewTitle">
 Smart Gadgets, Smart Life.
 </h2>
 
 <p id="heroPreviewContent">
-আপনার ব্যানারের কনটেন্ট এখানে প্রদর্শিত হবে।
+দৈনন্দিন জীবনকে আরও সহজ ও স্মার্ট করতে সেরা গেজেট এখন আপনার হাতের নাগালে।
 </p>
 
 </div>
@@ -856,109 +1272,155 @@ Smart Gadgets, Smart Life.
 
 </div>
 
+</section>
+
+
+
+<!-- =====================================================
+     DELIVERY
+===================================================== -->
+
+<section
+id="delivery"
+class="page-section"
+>
+
+<div class="section-head">
+
+<h2>
+🚚 Delivery Settings
+</h2>
+
+<p>
+Delivery charge এবং area control করুন।
+</p>
+
 </div>
 
-<!-- =========================
-     DELIVERY
-========================= -->
-
-<div
-  class="tab-content"
-  id="delivery"
->
 
 <div class="card">
 
-<h2>🚚 Delivery Settings</h2>
-
-<p class="card-sub">
-ডেলিভারি চার্জ পরিবর্তন করলে তা ওয়েবসাইটের অর্ডার হিসাবেও প্রয়োগ করা যাবে।
-</p>
-
-<div class="grid-2">
+<div class="form-grid">
 
 <div class="form-group">
 
 <label>
-ঢাকার ভিতরে ডেলিভারি চার্জ
+Inside Dhaka Delivery
 </label>
 
 <input
 type="number"
 id="insideDelivery"
 placeholder="70"
-
-«»
+>
 
 </div>
+
 
 <div class="form-group">
 
 <label>
-ঢাকার বাইরে ডেলিভারি চার্জ
+Outside Dhaka Delivery
 </label>
 
 <input
 type="number"
 id="outsideDelivery"
 placeholder="130"
+>
 
-«»
+</div>
 
 </div>
 
-</div>
 
 <div class="form-group">
 
 <label>
-Delivery Message
+Delivery Notice
 </label>
 
 <input
-id="deliveryMessage"
-placeholder="সারা বাংলাদেশে দ্রুত হোম ডেলিভারি"
-
-«»
+id="deliveryNotice"
+placeholder="সারা বাংলাদেশে হোম ডেলিভারি"
+>
 
 </div>
 
+
+<div class="switch-row">
+
+<div>
+
+<b>Cash On Delivery</b>
+
+<p style="font-size:10px;color:#888">
+COD চালু / বন্ধ
+</p>
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="codActive"
+checked
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+
+<br>
+
 <button
-class="save-btn"
-id="saveDelivery"
+class="btn btn-green"
+onclick="saveDelivery()">
 
-«»
+💾 Save Delivery
 
-💾 Save Delivery Settings
 </button>
 
 <div
-  class="message"
-  id="deliveryMsg"
-></div>
-
+class="message"
+id="deliveryMsg">
 </div>
 
 </div>
 
-<!-- =========================
-     CATEGORY
-========================= -->
+</section>
 
-<div
-  class="tab-content"
-  id="category"
+
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<section
+id="categories"
+class="page-section"
 >
+
+<div class="section-head">
+
+<h2>
+📂 Categories
+</h2>
+
+<p>
+Website-এর Product Category এখান থেকে পরিচালনা করুন।
+</p>
+
+</div>
+
 
 <div class="card">
 
-<h2>📂 Category Management</h2>
-
-<p class="card-sub">
-নতুন ক্যাটাগরি যোগ করুন এবং বিদ্যমান ক্যাটাগরি সম্পাদনা বা মুছে ফেলুন।
-</p>
-
-<div class="grid-2">
+<div class="form-grid">
 
 <div class="form-group">
 
@@ -968,11 +1430,11 @@ Category Name
 
 <input
 id="categoryName"
-placeholder="যেমন: Smart Watch"
-
-«»
+placeholder="Smart Watch"
+>
 
 </div>
+
 
 <div class="form-group">
 
@@ -983,68 +1445,74 @@ Category Icon
 <input
 id="categoryIcon"
 placeholder="⌚"
-
-«»
-
-</div>
-
-</div>
-
-<button
-class="save-btn"
-id="saveCategory"
-
-«»
-
-➕ Add Category
-</button>
-
-<button
-class="reset-btn"
-id="cancelCategory"
-
-«»
-
-Cancel
-</button>
-
-<div
-  class="message"
-  id="categoryMsg"
-></div>
-
-</div>
-
-<div class="card">
-
-<h2>📋 Category List</h2>
-
-<br>
-
-<div id="categoryList">
-লোড হচ্ছে...
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================
-     PRODUCTS
-========================= -->
-
-<div
-  class="tab-content"
-  id="products"
 >
 
+</div>
+
+</div>
+
+
+<button
+class="btn btn-green"
+onclick="addCategory()">
+
+➕ Add Category
+
+</button>
+
+<div
+class="message"
+id="categoryMsg">
+</div>
+
+</div>
+
+
 <div class="card">
 
-<h2>📦 Product Management</h2>
+<div class="card-title">
+📂 Category List
+</div>
 
-<p class="card-sub">
-পণ্য যোগ, সম্পাদনা এবং মুছে ফেলার জন্য এই বিভাগটি ব্যবহার করুন।
+<div
+class="category-list"
+id="categoryList">
+
+লোড হচ্ছে...
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section
+id="products"
+class="page-section"
+>
+
+<div class="section-head">
+
+<h2>
+📦 Products
+</h2>
+
+<p>
+Product Add, Edit এবং Delete করুন।
 </p>
+
+</div>
+
+
+<div class="card">
+
+<div class="form-grid">
 
 <div class="form-group">
 
@@ -1054,45 +1522,11 @@ Product Name
 
 <input
 id="productName"
-placeholder="Product Name"
-
-«»
-
-</div>
-
-<div class="grid-2">
-
-<div class="form-group">
-
-<label>
-মূল দাম
-</label>
-
-<input
-type="number"
-id="productPrice"
-placeholder="1500"
-
-«»
+placeholder="T800 Ultra Smartwatch"
+>
 
 </div>
 
-<div class="form-group">
-
-<label>
-অফার দাম
-</label>
-
-<input
-type="number"
-id="productOffer"
-placeholder="1200"
-
-«»
-
-</div>
-
-</div>
 
 <div class="form-group">
 
@@ -1100,15 +1534,43 @@ placeholder="1200"
 Category
 </label>
 
-<select id="productCategory">
-
-<option value="">
-ক্যাটাগরি নির্বাচন করুন
-</option>
-
-</select>
+<input
+id="productCategory"
+placeholder="Smart Watch"
+>
 
 </div>
+
+
+<div class="form-group">
+
+<label>
+Original Price
+</label>
+
+<input
+type="number"
+id="productPrice"
+placeholder="1500"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Offer Price
+</label>
+
+<input
+type="number"
+id="productOffer"
+placeholder="1200"
+>
+
+</div>
+
 
 <div class="form-group">
 
@@ -1120,10 +1582,26 @@ Stock
 type="number"
 id="productStock"
 placeholder="10"
-
-«»
+>
 
 </div>
+
+
+<div class="form-group">
+
+<label>
+Badge
+</label>
+
+<input
+id="productBadge"
+placeholder="HOT"
+>
+
+</div>
+
+</div>
+
 
 <div class="form-group">
 
@@ -1134,1462 +1612,1717 @@ Product Image URL
 <input
 id="productImage"
 placeholder="https://..."
-
-«»
+>
 
 </div>
+
+
+<button
+class="btn btn-green"
+id="productSaveBtn"
+onclick="saveProduct()">
+
+➕ Save Product
+
+</button>
+
+<button
+class="btn btn-gray"
+onclick="clearProductForm()">
+
+Clear
+
+</button>
+
+
+<div
+class="message"
+id="productMsg">
+</div>
+
+</div>
+
+
+<div
+class="product-list"
+id="productList">
+
+লোড হচ্ছে...
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROMO
+===================================================== -->
+
+<section
+id="promo"
+class="page-section"
+>
+
+<div class="section-head">
+
+<h2>
+🎁 Promo Section
+</h2>
+
+<p>
+Homepage-এর Promotional Section নিয়ন্ত্রণ করুন।
+</p>
+
+</div>
+
+
+<div class="card">
 
 <div class="form-group">
 
 <label>
-Badge
+Promo Title
 </label>
 
-<select id="productBadge">
-
-<option value="">
-No Badge
-</option>
-
-<option value="NEW">
-NEW
-</option>
-
-<option value="SALE">
-SALE
-</option>
-
-<option value="HOT">
-HOT
-</option>
-
-<option value="BEST">
-BEST
-</option>
-
-</select>
+<input
+id="promoTitle"
+placeholder="Fast & Secure Delivery"
+>
 
 </div>
 
+
+<div class="form-group">
+
+<label>
+Promo Content
+</label>
+
+<textarea
+id="promoContent"
+placeholder="সারা বাংলাদেশে দ্রুত এবং নিরাপদ হোম ডেলিভারি।"
+></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Promo Button
+</label>
+
+<input
+id="promoButton"
+placeholder="Order Now"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Promo Background Image
+</label>
+
+<input
+id="promoImage"
+placeholder="https://..."
+>
+
+</div>
+
+
 <button
-class="save-btn"
-id="saveProduct"
+class="btn btn-green"
+onclick="savePromo()">
 
-«»
+💾 Save Promo
 
-➕ Save Product
-</button>
-
-<button
-class="reset-btn"
-id="cancelProduct"
-
-«»
-
-Cancel
 </button>
 
 <div
-  class="message"
-  id="productMsg"
-></div>
+class="message"
+id="promoMsg">
+</div>
 
 </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+id="contact"
+class="page-section"
+>
+
+<div class="section-head">
+
+<h2>
+📞 Contact Information
+</h2>
+
+<p>
+Customer যেন সহজে যোগাযোগ করতে পারে।
+</p>
+
+</div>
+
 
 <div class="card">
 
-<h2>📦 All Products</h2>
+<div class="form-grid">
 
-<br>
+<div class="form-group">
 
-<div id="productList">
-লোড হচ্ছে...
+<label>
+Phone Number
+</label>
+
+<input
+id="contactPhone"
+placeholder="01924136271"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+WhatsApp Number
+</label>
+
+<input
+id="contactWhatsApp"
+placeholder="8801924136271"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+id="contactEmail"
+placeholder="gadgetmartbd0@gmail.com"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Facebook URL
+</label>
+
+<input
+id="contactFacebook"
+placeholder="https://facebook.com/..."
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Instagram URL
+</label>
+
+<input
+id="contactInstagram"
+placeholder="https://instagram.com/..."
+>
+
+</div>
+
+</div>
+
+
+<button
+class="btn btn-green"
+onclick="saveContact()">
+
+💾 Save Contact
+
+</button>
+
+<div
+class="message"
+id="contactMsg">
+</div>
+
+</div>
+
+</section>
+
+
 </div>
 
 </div>
 
 </div>
 
-</div>
 
-</div>
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
 
+import {
+initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+doc,
+getDoc,
+setDoc,
+updateDoc,
+deleteDoc
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+
 /* =========================
-   FIREBASE IMPORT
+   FIREBASE CONFIG
 ========================= */
 
-import {
-  initializeApp
-} from ""https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js" (https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js)";
+const firebaseConfig={
 
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  updateDoc,
-  setDoc,
-  getDoc
-} from ""https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js" (https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js)";
+apiKey:
+"AIzaSyCQIJ9c0AG0GCRE33EFYlkRitxz-rTpVMg",
 
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from ""https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js" (https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js)";
+authDomain:
+"admin-4b12d.firebaseapp.com",
 
-/* =========================
-   FIREBASE CONFIGURATION
-========================= */
+projectId:
+"admin-4b12d",
 
-const firebaseConfig = {
+storageBucket:
+"admin-4b12d.firebasestorage.app",
 
-  apiKey:
-    "AIzaSyCQIJ9c0AG0GCRE33EFYlkRitxz-rTpVMg",
+messagingSenderId:
+"669688260525",
 
-  authDomain:
-    "admin-4b12d.firebaseapp.com",
+appId:
+"1:669688260525:web:8a27563fef2d42aec6a324",
 
-  projectId:
-    "admin-4b12d",
-
-  storageBucket:
-    "admin-4b12d.firebasestorage.app",
-
-  messagingSenderId:
-    "669688260525",
-
-  appId:
-    "1:669688260525:web:8a27563fef2d42aec6a324",
-
-  measurementId:
-    "G-JMVF0XHN59"
+measurementId:
+"G-JMVF0XHN59"
 
 };
 
-const app =
+
+const app=
 initializeApp(firebaseConfig);
 
-const db =
+const db=
 getFirestore(app);
 
-const auth =
+const auth=
 getAuth(app);
 
-/* =========================
-   COLLECTIONS
-========================= */
-
-const productsRef =
-collection(db,"products");
-
-const categoriesRef =
-collection(db,"categories");
 
 /* =========================
-   ELEMENTS
+   LOGIN
 ========================= */
 
-const loginPage =
-document.getElementById("loginPage");
-
-const adminPage =
-document.getElementById("adminPage");
-
-const loginBtn =
+const loginBtn=
 document.getElementById("loginBtn");
 
-const loginEmail =
-document.getElementById("loginEmail");
+loginBtn.onclick=async()=>{
 
-const loginPassword =
-document.getElementById("loginPassword");
+const email=
+document.getElementById("loginEmail")
+.value.trim();
 
-const loginMessage =
-document.getElementById("loginMessage");
+const password=
+document.getElementById("loginPassword")
+.value;
 
-const logoutBtn =
-document.getElementById("logoutBtn");
+const msg=
+document.getElementById("loginMsg");
 
-const adminEmail =
-document.getElementById("adminEmail");
 
-/* =========================
-   AUTHENTICATION
-========================= */
+if(!email||!password){
 
-loginBtn.addEventListener(
-"click",
-async()=>{
+msg.textContent=
+"Email ও Password দিন";
 
-  const email =
-    loginEmail.value.trim();
+return;
 
-  const password =
-    loginPassword.value;
+}
 
-  if(!email || !password){
+loginBtn.disabled=true;
+loginBtn.textContent="Login হচ্ছে...";
 
-    loginMessage.textContent =
-      "⚠️ অনুগ্রহ করে ইমেইল ও পাসওয়ার্ড প্রদান করুন।";
+try{
 
-    return;
-
-  }
-
-  loginBtn.disabled = true;
-
-  loginBtn.textContent =
-    "Signing in...";
-
-  try{
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-    loginMessage.textContent = "";
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    loginMessage.textContent =
-      "❌ ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।";
-
-  }
-
-  loginBtn.disabled = false;
-
-  loginBtn.textContent =
-    "Sign In";
-
-});
-
-/* =========================
-   AUTH STATE
-========================= */
-
-onAuthStateChanged(
+await signInWithEmailAndPassword(
 auth,
-async(user)=>{
+email,
+password
+);
 
-  if(user){
+}catch(error){
 
-    loginPage.style.display =
-      "none";
+console.error(error);
 
-    adminPage.style.display =
-      "block";
-
-    adminEmail.textContent =
-      user.email || "";
-
-    await loadWebsite();
-
-    await loadHero();
-
-    await loadDelivery();
-
-    await loadCategories();
-
-    await loadProducts();
-
-  }
-
-  else{
-
-    loginPage.style.display =
-      "flex";
-
-    adminPage.style.display =
-      "none";
-
-  }
-
-});
-
-/* =========================
-   SIGN OUT
-========================= */
-
-logoutBtn.addEventListener(
-"click",
-async()=>{
-
-  await signOut(auth);
-
-});
-
-/* =========================
-   TABS
-========================= */
-
-document.querySelectorAll(
-".tab-btn"
-).forEach(button=>{
-
-  button.addEventListener(
-  "click",
-  ()=>{
-
-    document.querySelectorAll(
-    ".tab-btn"
-    ).forEach(btn=>
-      btn.classList.remove("active")
-    );
-
-    document.querySelectorAll(
-    ".tab-content"
-    ).forEach(tab=>
-      tab.classList.remove("active")
-    );
-
-    button.classList.add("active");
-
-    document
-    .getElementById(
-      button.dataset.tab
-    )
-    .classList.add("active");
-
-  });
-
-});
-
-/* =========================
-   WEBSITE SETTINGS
-========================= */
-
-async function loadWebsite(){
-
-  try{
-
-    const snap =
-      await getDoc(
-        doc(db,"settings","website")
-      );
-
-    if(!snap.exists()) return;
-
-    const data =
-      snap.data();
-
-    document.getElementById(
-      "websiteName"
-    ).value =
-      data.websiteName || "";
-
-    document.getElementById(
-      "browserTitle"
-    ).value =
-      data.browserTitle || "";
-
-    document.getElementById(
-      "websiteTagline"
-    ).value =
-      data.websiteTagline || "";
-
-    document.getElementById(
-      "websiteDescription"
-    ).value =
-      data.websiteDescription || "";
-
-    document.getElementById(
-      "contactPhone"
-    ).value =
-      data.contactPhone || "";
-
-    document.getElementById(
-      "whatsappNumber"
-    ).value =
-      data.whatsappNumber || "";
-
-    document.getElementById(
-      "contactEmail"
-    ).value =
-      data.contactEmail || "";
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-  }
+msg.textContent=
+"❌ Email অথবা Password ভুল";
 
 }
+
+loginBtn.disabled=false;
+loginBtn.textContent="Login";
+
+};
+
+
+document
+.getElementById("loginPassword")
+.addEventListener("keydown",e=>{
+
+if(e.key==="Enter")
+loginBtn.click();
+
+});
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(auth,user=>{
+
+if(user){
+
+document
+.getElementById("loginPage")
+.style.display="none";
+
+document
+.getElementById("adminPage")
+.style.display="block";
+
+document
+.getElementById("adminEmail")
+.textContent=
+user.email||"";
+
+loadAll();
+
+}else{
+
+document
+.getElementById("loginPage")
+.style.display="flex";
+
+document
+.getElementById("adminPage")
+.style.display="none";
+
+}
+
+});
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+.getElementById("logoutBtn")
+.onclick=()=>signOut(auth);
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+window.showPage=function(id,button){
+
+document
+.querySelectorAll(".page-section")
+.forEach(section=>{
+section.classList.remove("active");
+});
+
+document
+.getElementById(id)
+.classList.add("active");
+
+
+document
+.querySelectorAll(".menu-btn")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+if(button)
+button.classList.add("active");
+
+
+const titles={
+
+dashboard:"Dashboard",
+settings:"Website Settings",
+hero:"Hero Banner",
+delivery:"Delivery",
+categories:"Categories",
+products:"Products",
+promo:"Promo Section",
+contact:"Contact"
+
+};
+
+document
+.getElementById("pageTitle")
+.textContent=
+titles[id]||"Dashboard";
+
+document
+.getElementById("sidebar")
+.classList.remove("open");
+
+};
+
+
+window.openPage=function(id){
+
+const btn=
+[...document.querySelectorAll(".menu-btn")]
+.find(b=>
+b.getAttribute("onclick") &&
+b.getAttribute("onclick").includes(
+`'${id}'`
+)
+);
+
+showPage(id,btn);
+
+};
+
+
+window.toggleSidebar=function(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("open");
+
+};
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(id,text){
+
+const box=
+document.getElementById(id);
+
+box.textContent=text;
+
+box.style.display="block";
+
+setTimeout(()=>{
+box.style.display="none";
+},3000);
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+window.saveSettings=async function(){
+
+try{
+
+await setDoc(
+doc(db,"settings","website"),
+{
+
+siteName:
+document.getElementById("siteName").value,
+
+siteTagline:
+document.getElementById("siteTagline").value,
+
+siteDescription:
+document.getElementById("siteDescription").value,
+
+siteActive:
+document.getElementById("siteActive").checked
+
+}
+);
+
+showMessage(
+"settingsMsg",
+"✅ Website Settings Save হয়েছে"
+);
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"settingsMsg",
+"❌ Save করা যায়নি"
+);
+
+}
+
+};
+
+
+/* =========================
+   HERO
+========================= */
+
+window.previewHero=function(){
+
+const image=
+document.getElementById("heroImage").value;
+
+const tag=
+document.getElementById("heroTag").value;
+
+const title=
+document.getElementById("heroTitle").value;
+
+const content=
+document.getElementById("heroContent").value;
+
+
+if(image)
+document.getElementById(
+"heroPreviewImage"
+).src=image;
 
 document.getElementById(
-"saveWebsite"
-).addEventListener(
-"click",
-async()=>{
-
-  try{
-
-    await setDoc(
-      doc(db,"settings","website"),
-      {
-
-        websiteName:
-          document.getElementById(
-            "websiteName"
-          ).value.trim(),
-
-        browserTitle:
-          document.getElementById(
-            "browserTitle"
-          ).value.trim(),
-
-        websiteTagline:
-          document.getElementById(
-            "websiteTagline"
-          ).value.trim(),
-
-        websiteDescription:
-          document.getElementById(
-            "websiteDescription"
-          ).value.trim(),
-
-        contactPhone:
-          document.getElementById(
-            "contactPhone"
-          ).value.trim(),
-
-        whatsappNumber:
-          document.getElementById(
-            "whatsappNumber"
-          ).value.trim(),
-
-        contactEmail:
-          document.getElementById(
-            "contactEmail"
-          ).value.trim()
-
-      },
-      {merge:true}
-    );
-
-    document.getElementById(
-      "websiteMessage"
-    ).textContent =
-      "✅ Website settings saved successfully.";
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "websiteMessage"
-    ).textContent =
-      "❌ Unable to save website settings.";
-
-  }
-
-});
-
-/* =========================
-   HERO BANNER
-========================= */
-
-async function loadHero(){
-
-  try{
-
-    const snap =
-      await getDoc(
-        doc(db,"settings","hero")
-      );
-
-    if(!snap.exists()){
-
-      updateHeroPreview();
-
-      return;
-
-    }
-
-    const data =
-      snap.data();
-
-    document.getElementById(
-      "heroImage"
-    ).value =
-      data.image || "";
-
-    document.getElementById(
-      "heroTag"
-    ).value =
-      data.tag || "";
-
-    document.getElementById(
-      "heroTitle"
-    ).value =
-      data.title || "";
-
-    document.getElementById(
-      "heroContent"
-    ).value =
-      data.content || "";
-
-    document.getElementById(
-      "heroButton"
-    ).value =
-      data.button || "Shop Now";
-
-    updateHeroPreview();
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-  }
-
-}
-
-function updateHeroPreview(){
-
-  document.getElementById(
-    "heroPreviewImage"
-  ).src =
-    document.getElementById(
-      "heroImage"
-    ).value;
-
-  document.getElementById(
-    "heroPreviewTag"
-  ).textContent =
-    document.getElementById(
-      "heroTag"
-    ).value ||
-    "PREMIUM SMART GADGETS";
-
-  document.getElementById(
-    "heroPreviewTitle"
-  ).textContent =
-    document.getElementById(
-      "heroTitle"
-    ).value ||
-    "Smart Gadgets, Smart Life.";
-
-  document.getElementById(
-    "heroPreviewContent"
-  ).textContent =
-    document.getElementById(
-      "heroContent"
-    ).value ||
-    "আপনার ব্যানারের কনটেন্ট এখানে প্রদর্শিত হবে।";
-
-}
-
-[
-"heroImage",
-"heroTag",
-"heroTitle",
-"heroContent"
-].forEach(id=>{
-
-  document.getElementById(id)
-  .addEventListener(
-    "input",
-    updateHeroPreview
-  );
-
-});
+"heroPreviewTag"
+).textContent=
+tag;
 
 document.getElementById(
-"saveHero"
-).addEventListener(
-"click",
-async()=>{
+"heroPreviewTitle"
+).textContent=
+title;
 
-  try{
+document.getElementById(
+"heroPreviewContent"
+).textContent=
+content;
 
-    await setDoc(
-      doc(db,"settings","hero"),
-      {
+};
 
-        image:
-          document.getElementById(
-            "heroImage"
-          ).value.trim(),
 
-        tag:
-          document.getElementById(
-            "heroTag"
-          ).value.trim(),
+window.saveHero=async function(){
 
-        title:
-          document.getElementById(
-            "heroTitle"
-          ).value.trim(),
+try{
 
-        content:
-          document.getElementById(
-            "heroContent"
-          ).value.trim(),
+await setDoc(
+doc(db,"settings","hero"),
+{
 
-        button:
-          document.getElementById(
-            "heroButton"
-          ).value.trim()
+image:
+document.getElementById("heroImage").value,
 
-      },
-      {merge:true}
-    );
+tag:
+document.getElementById("heroTag").value,
 
-    document.getElementById(
-      "heroMessage"
-    ).textContent =
-      "✅ Hero banner saved successfully.";
+title:
+document.getElementById("heroTitle").value,
 
-  }
+content:
+document.getElementById("heroContent").value,
 
-  catch(error){
+button:
+document.getElementById("heroButton").value
 
-    console.error(error);
+}
+);
 
-    document.getElementById(
-      "heroMessage"
-    ).textContent =
-      "❌ Unable to save the hero banner.";
+showMessage(
+"heroMsg",
+"✅ Hero Banner Save হয়েছে"
+);
 
-  }
+}catch(error){
 
-});
+console.error(error);
 
-/* =========================
-   DELIVERY SETTINGS
-========================= */
-
-async function loadDelivery(){
-
-  try{
-
-    const snap =
-      await getDoc(
-        doc(db,"settings","delivery")
-      );
-
-    if(!snap.exists()) return;
-
-    const data =
-      snap.data();
-
-    document.getElementById(
-      "insideDelivery"
-    ).value =
-      data.inside || 70;
-
-    document.getElementById(
-      "outsideDelivery"
-    ).value =
-      data.outside || 130;
-
-    document.getElementById(
-      "deliveryMessage"
-    ).value =
-      data.message || "";
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-  }
+showMessage(
+"heroMsg",
+"❌ Save করা যায়নি"
+);
 
 }
 
-document.getElementById(
-"saveDelivery"
-).addEventListener(
-"click",
-async()=>{
+};
 
-  try{
-
-    await setDoc(
-      doc(db,"settings","delivery"),
-      {
-
-        inside:Number(
-          document.getElementById(
-            "insideDelivery"
-          ).value
-        ),
-
-        outside:Number(
-          document.getElementById(
-            "outsideDelivery"
-          ).value
-        ),
-
-        message:
-          document.getElementById(
-            "deliveryMessage"
-          ).value.trim()
-
-      },
-      {merge:true}
-    );
-
-    document.getElementById(
-      "deliveryMsg"
-    ).textContent =
-      "✅ Delivery settings saved successfully.";
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "deliveryMsg"
-    ).textContent =
-      "❌ Unable to save delivery settings.";
-
-  }
-
-});
 
 /* =========================
-   CATEGORY MANAGEMENT
+   DELIVERY
 ========================= */
 
-let editCategoryId = null;
+window.saveDelivery=async function(){
+
+try{
+
+await setDoc(
+doc(db,"settings","delivery"),
+{
+
+inside:
+Number(
+document.getElementById(
+"insideDelivery"
+).value
+),
+
+outside:
+Number(
+document.getElementById(
+"outsideDelivery"
+).value
+),
+
+notice:
+document.getElementById(
+"deliveryNotice"
+).value,
+
+cod:
+document.getElementById(
+"codActive"
+).checked
+
+}
+);
+
+showMessage(
+"deliveryMsg",
+"✅ Delivery Settings Save হয়েছে"
+);
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"deliveryMsg",
+"❌ Save করা যায়নি"
+);
+
+}
+
+};
+
+
+/* =========================
+   CATEGORY ADD
+========================= */
+
+window.addCategory=async function(){
+
+const name=
+document.getElementById(
+"categoryName"
+).value.trim();
+
+const icon=
+document.getElementById(
+"categoryIcon"
+).value.trim();
+
+
+if(!name){
+
+showMessage(
+"categoryMsg",
+"⚠️ Category Name দিন"
+);
+
+return;
+
+}
+
+
+try{
+
+await addDoc(
+collection(db,"categories"),
+{
+
+name:name,
+icon:icon||"📦",
+createdAt:Date.now()
+
+}
+);
+
+document.getElementById(
+"categoryName"
+).value="";
+
+document.getElementById(
+"categoryIcon"
+).value="";
+
+showMessage(
+"categoryMsg",
+"✅ Category যোগ হয়েছে"
+);
+
+loadCategories();
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"categoryMsg",
+"❌ Category যোগ করা যায়নি"
+);
+
+}
+
+};
+
+
+/* =========================
+   LOAD CATEGORY
+========================= */
 
 async function loadCategories(){
 
-  const list =
-    document.getElementById(
-      "categoryList"
-    );
+const box=
+document.getElementById(
+"categoryList"
+);
 
-  list.innerHTML =
-    "লোড হচ্ছে...";
+box.innerHTML="লোড হচ্ছে...";
 
-  try{
 
-    const snap =
-      await getDocs(
-        categoriesRef
-      );
+try{
 
-    list.innerHTML = "";
+const snap=
+await getDocs(
+collection(db,"categories")
+);
 
-    if(snap.empty){
-
-      list.innerHTML =
-        "কোনো ক্যাটাগরি পাওয়া যায়নি।";
-
-      updateCategorySelect([]);
-
-      return;
-
-    }
-
-    const categories = [];
-
-    snap.forEach(item=>{
-
-      const data =
-        item.data();
-
-      categories.push({
-        id:item.id,
-        ...data
-      });
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-      div.className =
-        "category-item";
-
-      div.innerHTML = `
-
-        <div class="category-left">
-
-          <div class="category-icon">
-            ${escapeHTML(data.icon || "📂")}
-          </div>
-
-          <div class="category-name">
-            ${escapeHTML(data.name || "")}
-          </div>
-
-        </div>
-
-        <div class="category-actions">
-
-          <button
-            class="edit-btn"
-            data-edit="${item.id}"
-          >
-            Edit
-          </button>
-
-          <button
-            class="delete-btn"
-            data-delete="${item.id}"
-          >
-            Delete
-          </button>
-
-        </div>
-
-      `;
-
-      div.querySelector(
-        "[data-edit]"
-      ).addEventListener(
-        "click",
-        ()=>{
-
-          editCategoryId =
-            item.id;
-
-          document.getElementById(
-            "categoryName"
-          ).value =
-            data.name || "";
-
-          document.getElementById(
-            "categoryIcon"
-          ).value =
-            data.icon || "";
-
-          document.getElementById(
-            "saveCategory"
-          ).textContent =
-            "✏️ Update Category";
-
-        }
-      );
-
-      div.querySelector(
-        "[data-delete]"
-      ).addEventListener(
-        "click",
-        async()=>{
-
-          if(
-            !confirm(
-              "আপনি কি এই ক্যাটাগরিটি মুছে ফেলতে চান?"
-            )
-          ){
-
-            return;
-
-          }
-
-          await deleteDoc(
-            doc(
-              db,
-              "categories",
-              item.id
-            )
-          );
-
-          loadCategories();
-
-        }
-      );
-
-      list.appendChild(div);
-
-    });
-
-    updateCategorySelect(
-      categories
-    );
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    list.innerHTML =
-      "❌ ক্যাটাগরি লোড করা যায়নি।";
-
-  }
-
-}
-
-function updateCategorySelect(
-categories
-){
-
-  const select =
-    document.getElementById(
-      "productCategory"
-    );
-
-  select.innerHTML = `
-
-    <option value="">
-      ক্যাটাগরি নির্বাচন করুন
-    </option>
-
-  `;
-
-  categories.forEach(
-    category=>{
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-      option.value =
-        category.name;
-
-      option.textContent =
-        category.name;
-
-      select.appendChild(
-        option
-      );
-
-    }
-  );
-
-}
+box.innerHTML="";
 
 document.getElementById(
-"saveCategory"
-).addEventListener(
-"click",
-async()=>{
+"totalCategories"
+).textContent=
+snap.size;
 
-  const name =
-    document.getElementById(
-      "categoryName"
-    ).value.trim();
 
-  const icon =
-    document.getElementById(
-      "categoryIcon"
-    ).value.trim();
+if(snap.empty){
 
-  if(!name){
+box.innerHTML=
+`<div class="empty">
+কোনো Category নেই
+</div>`;
 
-    document.getElementById(
-      "categoryMsg"
-    ).textContent =
-      "⚠️ অনুগ্রহ করে ক্যাটাগরির নাম প্রদান করুন।";
+return;
 
-    return;
+}
 
-  }
 
-  try{
+snap.forEach(item=>{
 
-    if(editCategoryId){
+const data=item.data();
 
-      await updateDoc(
-        doc(
-          db,
-          "categories",
-          editCategoryId
-        ),
-        {
-          name:name,
-          icon:icon || "📂"
-        }
-      );
+const div=
+document.createElement("div");
 
-      document.getElementById(
-        "categoryMsg"
-      ).textContent =
-        "✅ ক্যাটাগরি সফলভাবে আপডেট হয়েছে।";
+div.className=
+"category-item";
 
-    }
+div.innerHTML=`
 
-    else{
+<div class="category-left">
 
-      await addDoc(
-        categoriesRef,
-        {
-          name:name,
-          icon:icon || "📂",
-          createdAt:Date.now()
-        }
-      );
+<div class="category-icon">
+${escapeHTML(data.icon||"📦")}
+</div>
 
-      document.getElementById(
-        "categoryMsg"
-      ).textContent =
-        "✅ ক্যাটাগরি সফলভাবে যোগ হয়েছে।";
+<div>
+<b>
+${escapeHTML(data.name||"")}
+</b>
+</div>
 
-    }
+</div>
 
-    clearCategory();
+<button
+class="btn btn-red"
+>
+Delete
+</button>
 
-    loadCategories();
+`;
 
-  }
+div
+.querySelector("button")
+.onclick=()=>deleteCategory(item.id);
 
-  catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "categoryMsg"
-    ).textContent =
-      "❌ একটি সমস্যা হয়েছে।";
-
-  }
+box.appendChild(div);
 
 });
 
-document.getElementById(
-"cancelCategory"
-).addEventListener(
-"click",
-clearCategory
-);
+}catch(error){
 
-function clearCategory(){
+console.error(error);
 
-  editCategoryId = null;
-
-  document.getElementById(
-    "categoryName"
-  ).value = "";
-
-  document.getElementById(
-    "categoryIcon"
-  ).value = "";
-
-  document.getElementById(
-    "saveCategory"
-  ).textContent =
-    "➕ Add Category";
+box.innerHTML=
+"❌ Category Load করা যায়নি";
 
 }
 
+}
+
+
 /* =========================
-   PRODUCT MANAGEMENT
+   DELETE CATEGORY
 ========================= */
 
-let editProductId = null;
+async function deleteCategory(id){
+
+if(!confirm(
+"এই Category Delete করতে চান?"
+))
+return;
+
+try{
+
+await deleteDoc(
+doc(db,"categories",id)
+);
+
+loadCategories();
+
+}catch(error){
+
+console.error(error);
+
+alert("Category Delete করা যায়নি");
+
+}
+
+}
+
+
+/* =========================
+   PRODUCT SAVE
+========================= */
+
+let editProductId=null;
+
+
+window.saveProduct=async function(){
+
+const name=
+document.getElementById(
+"productName"
+).value.trim();
+
+const category=
+document.getElementById(
+"productCategory"
+).value.trim();
+
+const price=
+document.getElementById(
+"productPrice"
+).value;
+
+const offer=
+document.getElementById(
+"productOffer"
+).value;
+
+const stock=
+document.getElementById(
+"productStock"
+).value;
+
+const badge=
+document.getElementById(
+"productBadge"
+).value.trim();
+
+const image=
+document.getElementById(
+"productImage"
+).value.trim();
+
+
+if(
+!name||
+!category||
+!price||
+!offer||
+!image
+){
+
+showMessage(
+"productMsg",
+"⚠️ প্রয়োজনীয় তথ্য পূরণ করুন"
+);
+
+return;
+
+}
+
+
+const data={
+
+name:name,
+category:category,
+price:Number(price),
+offerPrice:Number(offer),
+stock:Number(stock||0),
+badge:badge,
+image:image
+
+};
+
+
+try{
+
+if(editProductId){
+
+await updateDoc(
+
+doc(
+db,
+"products",
+editProductId
+),
+
+data
+
+);
+
+showMessage(
+"productMsg",
+"✅ Product Update হয়েছে"
+);
+
+}else{
+
+await addDoc(
+
+collection(db,"products"),
+
+{
+
+...data,
+createdAt:Date.now()
+
+}
+
+);
+
+showMessage(
+"productMsg",
+"✅ Product যোগ হয়েছে"
+);
+
+}
+
+clearProductForm();
+
+loadProducts();
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"productMsg",
+"❌ Product Save করা যায়নি"
+);
+
+}
+
+};
+
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
 
 async function loadProducts(){
 
-  const list =
-    document.getElementById(
-      "productList"
-    );
+const box=
+document.getElementById(
+"productList"
+);
 
-  list.innerHTML =
-    "লোড হচ্ছে...";
+box.innerHTML="লোড হচ্ছে...";
 
-  try{
 
-    const snap =
-      await getDocs(
-        productsRef
-      );
+try{
 
-    list.innerHTML = "";
+const snap=
+await getDocs(
+collection(db,"products")
+);
 
-    if(snap.empty){
+box.innerHTML="";
 
-      list.innerHTML =
-        "কোনো পণ্য পাওয়া যায়নি।";
+document.getElementById(
+"totalProducts"
+).textContent=
+snap.size;
 
-      return;
 
-    }
+if(snap.empty){
 
-    snap.forEach(item=>{
+box.innerHTML=
+`<div class="empty">
+কোনো Product নেই
+</div>`;
 
-      const data =
-        item.data();
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-      div.className =
-        "product-item";
-
-      div.innerHTML = `
-
-        <h3>
-          ${escapeHTML(
-            data.name || ""
-          )}
-        </h3>
-
-        <p>
-          Category:
-          ${escapeHTML(
-            data.category || "—"
-          )}
-        </p>
-
-        <p>
-          মূল দাম:
-          ৳${data.price || 0}
-        </p>
-
-        <p>
-          অফার দাম:
-          ৳${data.offerPrice || 0}
-        </p>
-
-        <p>
-          Stock:
-          ${data.stock ?? 0}
-        </p>
-
-        <div class="product-actions">
-
-          <button
-            class="product-edit"
-            data-edit-product="${item.id}"
-          >
-            ✏️ Edit
-          </button>
-
-          <button
-            class="product-delete"
-            data-delete-product="${item.id}"
-          >
-            🗑️ Delete
-          </button>
-
-        </div>
-
-      `;
-
-      div.querySelector(
-        "[data-edit-product]"
-      ).addEventListener(
-        "click",
-        ()=>{
-
-          editProductId =
-            item.id;
-
-          document.getElementById(
-            "productName"
-          ).value =
-            data.name || "";
-
-          document.getElementById(
-            "productPrice"
-          ).value =
-            data.price || "";
-
-          document.getElementById(
-            "productOffer"
-          ).value =
-            data.offerPrice || "";
-
-          document.getElementById(
-            "productCategory"
-          ).value =
-            data.category || "";
-
-          document.getElementById(
-            "productStock"
-          ).value =
-            data.stock ?? 0;
-
-          document.getElementById(
-            "productImage"
-          ).value =
-            data.image || "";
-
-          document.getElementById(
-            "productBadge"
-          ).value =
-            data.badge || "";
-
-          document.getElementById(
-            "saveProduct"
-          ).textContent =
-            "✏️ Update Product";
-
-          document.querySelector(
-            '[data-tab="products"]'
-          ).click();
-
-        }
-      );
-
-      div.querySelector(
-        "[data-delete-product]"
-      ).addEventListener(
-        "click",
-        async()=>{
-
-          if(
-            !confirm(
-              "আপনি কি এই পণ্যটি মুছে ফেলতে চান?"
-            )
-          ){
-
-            return;
-
-          }
-
-          await deleteDoc(
-            doc(
-              db,
-              "products",
-              item.id
-            )
-          );
-
-          loadProducts();
-
-        }
-      );
-
-      list.appendChild(div);
-
-    });
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    list.innerHTML =
-      "❌ পণ্য লোড করা যায়নি।";
-
-  }
+return;
 
 }
 
-/* =========================
-   SAVE PRODUCT
-========================= */
 
-document.getElementById(
-"saveProduct"
-).addEventListener(
-"click",
-async()=>{
+snap.forEach(item=>{
 
-  const name =
-    document.getElementById(
-      "productName"
-    ).value.trim();
+const data=item.data();
 
-  const price =
-    document.getElementById(
-      "productPrice"
-    ).value;
+const div=
+document.createElement("div");
 
-  const offerPrice =
-    document.getElementById(
-      "productOffer"
-    ).value;
+div.className="product";
 
-  const category =
-    document.getElementById(
-      "productCategory"
-    ).value;
+div.innerHTML=`
 
-  const stock =
-    document.getElementById(
-      "productStock"
-    ).value;
+<div class="product-img">
 
-  const image =
-    document.getElementById(
-      "productImage"
-    ).value.trim();
+<img
+src="${escapeHTML(
+data.image||""
+)}"
+onerror="this.style.display='none'"
+>
 
-  const badge =
-    document.getElementById(
-      "productBadge"
-    ).value;
+</div>
 
-  if(
-    !name ||
-    !price ||
-    !offerPrice ||
-    !category ||
-    !image
-  ){
+<div class="product-info">
 
-    document.getElementById(
-      "productMsg"
-    ).textContent =
-      "⚠️ অনুগ্রহ করে প্রয়োজনীয় সব তথ্য প্রদান করুন।";
+<div class="product-name">
+${escapeHTML(
+data.name||""
+)}
+</div>
 
-    return;
+<div>
 
-  }
+<span class="product-price">
+৳${Number(
+data.offerPrice||
+data.price||
+0
+)}
+</span>
 
-  try{
+<span class="product-old">
+৳${Number(
+data.price||
+0
+)}
+</span>
 
-    const productData = {
+</div>
 
-      name:name,
+<p style="
+font-size:10px;
+color:#888;
+margin-top:6px;
+">
 
-      price:Number(price),
+Category:
+${escapeHTML(
+data.category||""
+)}
 
-      offerPrice:Number(offerPrice),
+<br>
 
-      category:category,
+Stock:
+${Number(
+data.stock||0
+)}
 
-      stock:Number(stock || 0),
+</p>
 
-      image:image,
+<div class="product-actions">
 
-      badge:badge
+<button
+class="btn btn-blue edit-product">
+✏️ Edit
+</button>
 
-    };
+<button
+class="btn btn-red delete-product">
+🗑️ Delete
+</button>
 
-    if(editProductId){
+</div>
 
-      await updateDoc(
-        doc(
-          db,
-          "products",
-          editProductId
-        ),
-        productData
-      );
+</div>
 
-      document.getElementById(
-        "productMsg"
-      ).textContent =
-        "✅ পণ্যটি সফলভাবে আপডেট হয়েছে।";
+`;
 
-    }
 
-    else{
+div
+.querySelector(".edit-product")
+.onclick=()=>{
 
-      await addDoc(
-        productsRef,
-        {
-          ...productData,
-          createdAt:Date.now()
-        }
-      );
+editProduct(
+item.id,
+data
+);
 
-      document.getElementById(
-        "productMsg"
-      ).textContent =
-        "✅ পণ্যটি সফলভাবে যোগ হয়েছে।";
+};
 
-    }
 
-    clearProduct();
+div
+.querySelector(".delete-product")
+.onclick=()=>{
 
-    loadProducts();
+deleteProduct(item.id);
 
-  }
+};
 
-  catch(error){
 
-    console.error(error);
-
-    document.getElementById(
-      "productMsg"
-    ).textContent =
-      "❌ একটি সমস্যা হয়েছে।";
-
-  }
+box.appendChild(div);
 
 });
 
-document.getElementById(
-"cancelProduct"
-).addEventListener(
-"click",
-clearProduct
-);
+}catch(error){
 
-function clearProduct(){
+console.error(error);
 
-  editProductId = null;
-
-  document.getElementById(
-    "productName"
-  ).value = "";
-
-  document.getElementById(
-    "productPrice"
-  ).value = "";
-
-  document.getElementById(
-    "productOffer"
-  ).value = "";
-
-  document.getElementById(
-    "productCategory"
-  ).value = "";
-
-  document.getElementById(
-    "productStock"
-  ).value = "";
-
-  document.getElementById(
-    "productImage"
-  ).value = "";
-
-  document.getElementById(
-    "productBadge"
-  ).value = "";
-
-  document.getElementById(
-    "saveProduct"
-  ).textContent =
-    "➕ Save Product";
+box.innerHTML=
+"❌ Product Load করা যায়নি";
 
 }
 
+}
+
+
 /* =========================
-   SECURITY HELPER
+   EDIT PRODUCT
+========================= */
+
+function editProduct(id,data){
+
+editProductId=id;
+
+document.getElementById(
+"productName"
+).value=
+data.name||"";
+
+document.getElementById(
+"productCategory"
+).value=
+data.category||"";
+
+document.getElementById(
+"productPrice"
+).value=
+data.price||"";
+
+document.getElementById(
+"productOffer"
+).value=
+data.offerPrice||"";
+
+document.getElementById(
+"productStock"
+).value=
+data.stock||"";
+
+document.getElementById(
+"productBadge"
+).value=
+data.badge||"";
+
+document.getElementById(
+"productImage"
+).value=
+data.image||"";
+
+
+document.getElementById(
+"productSaveBtn"
+).textContent=
+"✏️ Update Product";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================
+   DELETE PRODUCT
+========================= */
+
+async function deleteProduct(id){
+
+if(!confirm(
+"এই Product Delete করতে চান?"
+))
+return;
+
+
+try{
+
+await deleteDoc(
+doc(db,"products",id)
+);
+
+loadProducts();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"❌ Product Delete করা যায়নি"
+);
+
+}
+
+}
+
+
+/* =========================
+   CLEAR PRODUCT
+========================= */
+
+window.clearProductForm=function(){
+
+editProductId=null;
+
+document.getElementById(
+"productName"
+).value="";
+
+document.getElementById(
+"productCategory"
+).value="";
+
+document.getElementById(
+"productPrice"
+).value="";
+
+document.getElementById(
+"productOffer"
+).value="";
+
+document.getElementById(
+"productStock"
+).value="";
+
+document.getElementById(
+"productBadge"
+).value="";
+
+document.getElementById(
+"productImage"
+).value="";
+
+
+document.getElementById(
+"productSaveBtn"
+).textContent=
+"➕ Save Product";
+
+};
+
+
+/* =========================
+   PROMO
+========================= */
+
+window.savePromo=async function(){
+
+try{
+
+await setDoc(
+doc(db,"settings","promo"),
+{
+
+title:
+document.getElementById(
+"promoTitle"
+).value,
+
+content:
+document.getElementById(
+"promoContent"
+).value,
+
+button:
+document.getElementById(
+"promoButton"
+).value,
+
+image:
+document.getElementById(
+"promoImage"
+).value
+
+}
+);
+
+showMessage(
+"promoMsg",
+"✅ Promo Save হয়েছে"
+);
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"promoMsg",
+"❌ Promo Save করা যায়নি"
+);
+
+}
+
+};
+
+
+/* =========================
+   CONTACT
+========================= */
+
+window.saveContact=async function(){
+
+try{
+
+await setDoc(
+doc(db,"settings","contact"),
+{
+
+phone:
+document.getElementById(
+"contactPhone"
+).value,
+
+whatsapp:
+document.getElementById(
+"contactWhatsApp"
+).value,
+
+email:
+document.getElementById(
+"contactEmail"
+).value,
+
+facebook:
+document.getElementById(
+"contactFacebook"
+).value,
+
+instagram:
+document.getElementById(
+"contactInstagram"
+).value
+
+}
+);
+
+showMessage(
+"contactMsg",
+"✅ Contact Information Save হয়েছে"
+);
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"contactMsg",
+"❌ Contact Save করা যায়নি"
+);
+
+}
+
+};
+
+
+/* =========================
+   LOAD SETTINGS
+========================= */
+
+async function loadSettings(){
+
+try{
+
+const website=
+await getDoc(
+doc(db,"settings","website")
+);
+
+if(website.exists()){
+
+const d=website.data();
+
+document.getElementById(
+"siteName"
+).value=
+d.siteName||"";
+
+document.getElementById(
+"siteTagline"
+).value=
+d.siteTagline||"";
+
+document.getElementById(
+"siteDescription"
+).value=
+d.siteDescription||"";
+
+document.getElementById(
+"siteActive"
+).checked=
+d.siteActive!==false;
+
+}
+
+
+const hero=
+await getDoc(
+doc(db,"settings","hero")
+);
+
+if(hero.exists()){
+
+const d=hero.data();
+
+document.getElementById(
+"heroImage"
+).value=
+d.image||"";
+
+document.getElementById(
+"heroTag"
+).value=
+d.tag||"";
+
+document.getElementById(
+"heroTitle"
+).value=
+d.title||"";
+
+document.getElementById(
+"heroContent"
+).value=
+d.content||"";
+
+document.getElementById(
+"heroButton"
+).value=
+d.button||"";
+
+previewHero();
+
+}
+
+
+const delivery=
+await getDoc(
+doc(db,"settings","delivery")
+);
+
+if(delivery.exists()){
+
+const d=delivery.data();
+
+document.getElementById(
+"insideDelivery"
+).value=
+d.inside??70;
+
+document.getElementById(
+"outsideDelivery"
+).value=
+d.outside??130;
+
+document.getElementById(
+"deliveryNotice"
+).value=
+d.notice||"";
+
+document.getElementById(
+"codActive"
+).checked=
+d.cod!==false;
+
+}
+
+
+const promo=
+await getDoc(
+doc(db,"settings","promo")
+);
+
+if(promo.exists()){
+
+const d=promo.data();
+
+document.getElementById(
+"promoTitle"
+).value=
+d.title||"";
+
+document.getElementById(
+"promoContent"
+).value=
+d.content||"";
+
+document.getElementById(
+"promoButton"
+).value=
+d.button||"";
+
+document.getElementById(
+"promoImage"
+).value=
+d.image||"";
+
+}
+
+
+const contact=
+await getDoc(
+doc(db,"settings","contact")
+);
+
+if(contact.exists()){
+
+const d=contact.data();
+
+document.getElementById(
+"contactPhone"
+).value=
+d.phone||"";
+
+document.getElementById(
+"contactWhatsApp"
+).value=
+d.whatsapp||"";
+
+document.getElementById(
+"contactEmail"
+).value=
+d.email||"";
+
+document.getElementById(
+"contactFacebook"
+).value=
+d.facebook||"";
+
+document.getElementById(
+"contactInstagram"
+).value=
+d.instagram||"";
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/* =========================
+   LOAD ALL
+========================= */
+
+function loadAll(){
+
+loadProducts();
+
+loadCategories();
+
+loadSettings();
+
+}
+
+
+/* =========================
+   SECURITY
 ========================= */
 
 function escapeHTML(value){
 
-  return String(value)
+return String(value)
 
-    .replaceAll("&","&")
-
-    .replaceAll("<","<")
-
-    .replaceAll(">",">")
-
-    .replaceAll('"',""")
-
-    .replaceAll("'","'");
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
 </script>
 
 </body>
+
 </html>
