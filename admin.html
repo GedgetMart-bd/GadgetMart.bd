@@ -5,258 +5,680 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>GadgetMart Admin Panel</title>
 
 <style>
 
+/* =========================
+   RESET
+========================= */
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Arial,sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-  background:#f3f4f6;
+  background:#f1f5f9;
   color:#172033;
 }
 
+
 /* =========================
-   LOGIN
+   LOGIN PAGE
 ========================= */
 
 #loginPage{
   min-height:100vh;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   padding:20px;
-  background:#f3f4f6;
+
+  background:
+  radial-gradient(
+    circle at top left,
+    #d1fae5,
+    transparent 35%
+  ),
+  radial-gradient(
+    circle at bottom right,
+    #dbeafe,
+    transparent 35%
+  ),
+  #f8fafc;
 }
 
 .login-box{
   width:100%;
-  max-width:400px;
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 8px 30px rgba(0,0,0,.12);
+  max-width:410px;
+
+  background:rgba(255,255,255,.96);
+
+  padding:32px;
+
+  border-radius:22px;
+
+  box-shadow:
+  0 20px 60px rgba(15,23,42,.12);
+
+  border:1px solid #e5e7eb;
+}
+
+.login-logo{
+  width:65px;
+  height:65px;
+
+  margin:0 auto 15px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #00b85a,
+    #059669
+  );
+
+  color:white;
+
+  font-size:30px;
+
+  box-shadow:
+  0 10px 25px rgba(0,184,90,.25);
 }
 
 .login-box h1{
   text-align:center;
-  margin-bottom:8px;
+  font-size:25px;
+  color:#111827;
 }
 
-.login-box p{
+.login-box h1 span{
+  color:#00a950;
+}
+
+.login-subtitle{
   text-align:center;
-  color:#777;
+  color:#94a3b8;
+  font-size:13px;
+  margin-top:6px;
   margin-bottom:25px;
+}
+
+.input-group{
+  margin-bottom:15px;
+}
+
+.input-group label{
+  display:block;
+  font-size:12px;
+  font-weight:bold;
+  color:#475569;
+  margin-bottom:7px;
+}
+
+.input-wrapper{
+  position:relative;
+}
+
+.input-wrapper span{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:15px;
 }
 
 .login-box input{
   width:100%;
-  padding:13px;
-  margin-bottom:12px;
-  border:1px solid #ddd;
-  border-radius:8px;
+
+  padding:13px 13px 13px 40px;
+
+  border:1px solid #e2e8f0;
+
+  border-radius:10px;
+
   outline:none;
+
+  font-size:14px;
+
+  background:#f8fafc;
+
+  transition:.2s;
+}
+
+.login-box input:focus{
+  background:white;
+  border-color:#00b85a;
+
+  box-shadow:
+  0 0 0 3px rgba(0,184,90,.08);
 }
 
 #loginBtn{
   width:100%;
-  padding:13px;
+
+  padding:14px;
+
   border:none;
-  border-radius:8px;
-  background:#2563eb;
+
+  border-radius:10px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #00b85a,
+    #059669
+  );
+
   color:white;
+
   font-size:15px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  margin-top:5px;
+
+  box-shadow:
+  0 8px 20px rgba(0,184,90,.2);
+}
+
+#loginBtn:disabled{
+  opacity:.6;
 }
 
 #loginMessage{
+  margin-top:13px;
   text-align:center;
-  margin-top:12px;
-  color:#dc2626;
+  font-size:12px;
   font-weight:bold;
+  color:#dc2626;
 }
 
 
 /* =========================
-   ADMIN
+   ADMIN PAGE
 ========================= */
 
 #adminPage{
   display:none;
 }
 
-header{
-  background:#111827;
-  color:white;
-  padding:15px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+
+/* =========================
+   TOP HEADER
+========================= */
+
+.admin-header{
   position:sticky;
   top:0;
-  z-index:100;
+
+  z-index:1000;
+
+  background:
+  rgba(15,23,42,.96);
+
+  backdrop-filter:blur(12px);
+
+  color:white;
+
+  padding:13px 20px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  box-shadow:
+  0 5px 20px rgba(0,0,0,.12);
 }
 
-header h1{
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.brand-icon{
+  width:40px;
+  height:40px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#00b85a;
+
+  border-radius:11px;
+
   font-size:20px;
 }
 
-.admin-email{
+.brand-text h1{
+  font-size:18px;
+}
+
+.brand-text p{
+  font-size:10px;
+  color:#94a3b8;
+  margin-top:2px;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.admin-user{
+  text-align:right;
+}
+
+.admin-user strong{
+  display:block;
   font-size:11px;
-  color:#aaa;
-  margin-top:4px;
+}
+
+.admin-user span{
+  font-size:9px;
+  color:#94a3b8;
 }
 
 #logoutBtn{
   border:none;
+
   background:#dc2626;
+
   color:white;
-  padding:9px 14px;
-  border-radius:7px;
-}
 
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:18px;
-}
+  padding:9px 13px;
 
-.card{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:18px;
-  box-shadow:0 3px 12px rgba(0,0,0,.07);
-}
+  border-radius:8px;
 
-.card h2{
-  font-size:18px;
-  margin-bottom:16px;
-}
-
-.card h3{
-  font-size:14px;
-  margin:18px 0 10px;
-  color:#374151;
-}
-
-input,
-textarea,
-select{
-  width:100%;
-  padding:12px;
-  margin-bottom:11px;
-  border:1px solid #ddd;
-  border-radius:7px;
-  outline:none;
-  font-size:14px;
-}
-
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:#16a34a;
-}
-
-button{
-  border:none;
-  padding:10px 15px;
-  border-radius:7px;
   cursor:pointer;
-}
 
-.save{
-  background:#16a34a;
-  color:white;
-}
+  font-size:11px;
 
-.blue{
-  background:#2563eb;
-  color:white;
-}
-
-.red{
-  background:#dc2626;
-  color:white;
-}
-
-.gray{
-  background:#6b7280;
-  color:white;
-}
-
-.message{
-  margin-top:10px;
-  font-size:13px;
   font-weight:bold;
 }
 
 
 /* =========================
-   DASHBOARD
+   MAIN
 ========================= */
 
-.dashboard{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:18px;
+.admin-container{
+  max-width:1100px;
+
+  margin:auto;
+
+  padding:22px 15px 40px;
 }
 
-.stat{
-  background:white;
-  padding:18px;
-  border-radius:10px;
-  box-shadow:0 3px 10px rgba(0,0,0,.06);
+
+/* =========================
+   DASHBOARD TITLE
+========================= */
+
+.dashboard-title{
+  margin-bottom:20px;
 }
 
-.stat-icon{
-  font-size:25px;
-}
-
-.stat-number{
+.dashboard-title h2{
   font-size:22px;
-  font-weight:bold;
-  margin-top:5px;
+  color:#0f172a;
 }
 
-.stat-title{
-  color:#777;
+.dashboard-title p{
+  margin-top:5px;
+  color:#94a3b8;
   font-size:11px;
 }
 
 
 /* =========================
-   PRODUCT
+   STAT CARDS
 ========================= */
+
+.stats-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,1fr);
+
+  gap:12px;
+
+  margin-bottom:20px;
+}
+
+.stat-card{
+  background:white;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:14px;
+
+  padding:17px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  box-shadow:
+  0 4px 15px rgba(15,23,42,.04);
+}
+
+.stat-icon{
+  width:43px;
+  height:43px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#ecfdf5;
+
+  border-radius:11px;
+
+  font-size:21px;
+}
+
+.stat-card:nth-child(2)
+.stat-icon{
+  background:#eff6ff;
+}
+
+.stat-card:nth-child(3)
+.stat-icon{
+  background:#fff7ed;
+}
+
+.stat-info span{
+  display:block;
+
+  color:#94a3b8;
+
+  font-size:10px;
+
+  margin-bottom:4px;
+}
+
+.stat-info strong{
+  font-size:19px;
+  color:#0f172a;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  background:white;
+
+  padding:20px;
+
+  border-radius:16px;
+
+  margin-bottom:18px;
+
+  border:1px solid #e5e7eb;
+
+  box-shadow:
+  0 4px 18px rgba(15,23,42,.04);
+}
+
+.card-header{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:18px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.card-title-icon{
+  width:34px;
+  height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#ecfdf5;
+
+  border-radius:9px;
+
+  font-size:16px;
+}
+
+.card h2{
+  font-size:16px;
+  color:#0f172a;
+}
+
+.card-header p{
+  color:#94a3b8;
+  font-size:10px;
+  margin-top:3px;
+}
+
+
+/* =========================
+   FORM GRID
+========================= */
+
+.form-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:13px;
+}
+
+.form-group{
+  margin-bottom:2px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-group label{
+  display:block;
+
+  font-size:11px;
+
+  font-weight:bold;
+
+  color:#475569;
+
+  margin-bottom:6px;
+}
+
+.form-group input{
+  width:100%;
+
+  padding:12px;
+
+  border:1px solid #e2e8f0;
+
+  border-radius:9px;
+
+  outline:none;
+
+  background:#f8fafc;
+
+  font-size:13px;
+
+  transition:.2s;
+}
+
+.form-group input:focus{
+  background:white;
+
+  border-color:#00b85a;
+
+  box-shadow:
+  0 0 0 3px rgba(0,184,90,.08);
+}
+
+
+/* =========================
+   SAVE BUTTON
+========================= */
+
+.save-area{
+  margin-top:16px;
+
+  display:flex;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+}
+
+#saveBtn{
+  border:none;
+
+  padding:12px 18px;
+
+  border-radius:9px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #00b85a,
+    #059669
+  );
+
+  color:white;
+
+  font-weight:bold;
+
+  font-size:12px;
+
+  cursor:pointer;
+
+  box-shadow:
+  0 6px 15px rgba(0,184,90,.18);
+}
+
+#cancelBtn{
+  display:none;
+
+  border:none;
+
+  padding:12px 18px;
+
+  border-radius:9px;
+
+  background:#e2e8f0;
+
+  color:#334155;
+
+  font-weight:bold;
+
+  font-size:12px;
+
+  cursor:pointer;
+}
+
+#message{
+  margin-top:12px;
+
+  font-size:11px;
+
+  font-weight:bold;
+}
+
+
+/* =========================
+   PRODUCT LIST
+========================= */
+
+.product-list{
+  display:grid;
+
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:12px;
+}
 
 .product{
   border:1px solid #e5e7eb;
+
+  border-radius:13px;
+
   padding:14px;
-  border-radius:10px;
-  margin-bottom:12px;
-  display:flex;
-  gap:12px;
-  align-items:center;
+
+  background:#fafafa;
+
+  position:relative;
+
+  transition:.2s;
 }
 
-.product img{
-  width:75px;
-  height:75px;
+.product:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 8px 20px rgba(15,23,42,.06);
+}
+
+.product-top{
+  display:flex;
+
+  gap:12px;
+
+  align-items:center;
+
+  margin-bottom:12px;
+}
+
+.product-image{
+  width:65px;
+  height:65px;
+
   object-fit:contain;
-  background:#f8fafc;
-  border-radius:8px;
+
+  background:white;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:10px;
+
+  padding:5px;
 }
 
 .product-info{
@@ -264,55 +686,115 @@ button{
 }
 
 .product-info h3{
-  margin:0 0 5px;
-  font-size:14px;
+  font-size:13px;
+
+  color:#172033;
+
+  line-height:1.4;
+
+  margin-bottom:5px;
 }
 
 .product-info p{
+  color:#00a950;
+
   font-size:12px;
-  color:#666;
-  margin:3px 0;
+
+  font-weight:bold;
 }
 
-.product-actions{
+.product-details{
+  background:white;
+
+  border-radius:9px;
+
+  padding:9px;
+
+  margin-bottom:10px;
+
+  border:1px solid #eef0f3;
+}
+
+.detail-row{
   display:flex;
-  gap:5px;
+
+  justify-content:space-between;
+
+  padding:3px 0;
+
+  font-size:10px;
 }
 
-.product-actions button{
-  font-size:11px;
+.detail-row span:first-child{
+  color:#94a3b8;
+}
+
+.detail-row span:last-child{
+  font-weight:bold;
+
+  color:#334155;
+}
+
+.offer-price{
+  color:#00a950 !important;
 }
 
 
 /* =========================
-   PREVIEW
+   PRODUCT BUTTONS
 ========================= */
 
-.preview{
-  background:#111827;
-  color:white;
-  padding:20px;
-  border-radius:10px;
-  margin-top:10px;
+.product-actions{
+  display:flex;
+
+  gap:7px;
 }
 
-.preview h3{
-  color:white;
-  margin:0 0 8px;
+.product-actions button{
+  flex:1;
+
+  border:none;
+
+  padding:9px;
+
+  border-radius:7px;
+
+  font-size:10px;
+
+  font-weight:bold;
+
+  cursor:pointer;
 }
 
-.preview p{
-  color:#d1d5db;
+.edit{
+  background:#2563eb;
+  color:white;
+}
+
+.delete{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-box{
+  text-align:center;
+
+  padding:35px 10px;
+
+  color:#94a3b8;
+
   font-size:12px;
-  line-height:1.6;
 }
 
-.banner-preview{
-  width:100%;
-  height:160px;
-  object-fit:cover;
-  border-radius:8px;
-  margin-bottom:12px;
+.empty-icon{
+  font-size:35px;
+
+  margin-bottom:10px;
 }
 
 
@@ -322,33 +804,89 @@ button{
 
 @media(max-width:700px){
 
-  header{
-    padding:12px;
+  .admin-header{
+    padding:11px 12px;
   }
 
-  header h1{
-    font-size:16px;
+  .brand-icon{
+    width:36px;
+    height:36px;
+    font-size:18px;
   }
 
-  .container{
-    padding:10px;
+  .brand-text h1{
+    font-size:15px;
   }
 
-  .dashboard{
-    grid-template-columns:repeat(2,1fr);
+  .brand-text p{
+    font-size:8px;
+  }
+
+  .admin-user{
+    display:none;
+  }
+
+  #logoutBtn{
+    padding:8px 10px;
+  }
+
+  .admin-container{
+    padding:16px 10px 30px;
+  }
+
+  .dashboard-title h2{
+    font-size:19px;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .stat-card{
+    padding:13px;
+  }
+
+  .card{
+    padding:15px;
+    border-radius:13px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-group.full{
+    grid-column:auto;
+  }
+
+  .product-list{
+    grid-template-columns:1fr;
   }
 
   .product{
-    align-items:flex-start;
+    padding:12px;
   }
 
-  .product img{
-    width:60px;
-    height:60px;
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
+@media(max-width:380px){
+
+  .login-box{
+    padding:23px;
   }
 
-  .product-actions{
-    flex-direction:column;
+  .login-box h1{
+    font-size:22px;
+  }
+
+  .product-image{
+    width:55px;
+    height:55px;
   }
 
 }
@@ -361,33 +899,75 @@ button{
 <body>
 
 
-<!-- ==================================================
+<!-- =====================================================
      LOGIN
-================================================== -->
+===================================================== -->
 
 <div id="loginPage">
 
   <div class="login-box">
 
-    <h1>🔐 GadgetMart</h1>
+    <div class="login-logo">
+      🛒
+    </div>
 
-    <p>Admin Panel</p>
+    <h1>
+      Gadget<span>Mart</span>
+    </h1>
 
-    <input
-      type="email"
-      id="loginEmail"
-      placeholder="Admin Email"
-    >
+    <p class="login-subtitle">
+      Secure Admin Dashboard
+    </p>
 
-    <input
-      type="password"
-      id="loginPassword"
-      placeholder="Password"
-    >
+
+    <div class="input-group">
+
+      <label>
+        Admin Email
+      </label>
+
+      <div class="input-wrapper">
+
+        <span>📧</span>
+
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Admin Email"
+          autocomplete="email"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="input-group">
+
+      <label>
+        Password
+      </label>
+
+      <div class="input-wrapper">
+
+        <span>🔐</span>
+
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          autocomplete="current-password"
+        >
+
+      </div>
+
+    </div>
+
 
     <button id="loginBtn">
-      Login
+      Login to Dashboard
     </button>
+
 
     <div id="loginMessage"></div>
 
@@ -397,420 +977,317 @@ button{
 
 
 
-<!-- ==================================================
+<!-- =====================================================
      ADMIN PAGE
-================================================== -->
+===================================================== -->
 
 <div id="adminPage">
 
 
-<header>
+  <!-- HEADER -->
 
-  <div>
+  <header class="admin-header">
 
-    <h1>🛒 GadgetMart Admin</h1>
+    <div class="brand">
 
-    <div
-      class="admin-email"
-      id="adminEmail"
-    ></div>
+      <div class="brand-icon">
+        🛒
+      </div>
 
-  </div>
+      <div class="brand-text">
 
-  <button id="logoutBtn">
-    Logout
-  </button>
+        <h1>
+          GadgetMart Admin
+        </h1>
 
-</header>
+        <p>
+          Product Management Dashboard
+        </p>
 
+      </div>
 
-
-<div class="container">
-
-
-<!-- ==================================================
-     DASHBOARD
-================================================== -->
-
-<div class="dashboard">
-
-  <div class="stat">
-
-    <div class="stat-icon">
-      📦
     </div>
 
-    <div
-      class="stat-number"
-      id="totalProducts"
-    >
-      0
+
+    <div class="header-right">
+
+      <div class="admin-user">
+
+        <strong>
+          Admin
+        </strong>
+
+        <span id="adminEmail"></span>
+
+      </div>
+
+
+      <button id="logoutBtn">
+        Logout
+      </button>
+
     </div>
 
-    <div class="stat-title">
-      Total Products
+  </header>
+
+
+
+  <!-- MAIN -->
+
+  <main class="admin-container">
+
+
+    <!-- DASHBOARD TITLE -->
+
+    <div class="dashboard-title">
+
+      <h2>
+        Dashboard 👋
+      </h2>
+
+      <p>
+        আপনার GadgetMart ওয়েবসাইটের প্রোডাক্ট ম্যানেজ করুন।
+      </p>
+
     </div>
 
-  </div>
 
 
-  <div class="stat">
+    <!-- STATS -->
 
-    <div class="stat-icon">
-      💰
+    <div class="stats-grid">
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          📦
+        </div>
+
+        <div class="stat-info">
+
+          <span>
+            Total Products
+          </span>
+
+          <strong id="totalProducts">
+            0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          💰
+        </div>
+
+        <div class="stat-info">
+
+          <span>
+            Product System
+          </span>
+
+          <strong>
+            Active
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          🔥
+        </div>
+
+        <div class="stat-info">
+
+          <span>
+            Store Status
+          </span>
+
+          <strong>
+            Online
+          </strong>
+
+        </div>
+
+      </div>
+
+
     </div>
 
-    <div
-      class="stat-number"
-      id="siteStatus"
-    >
-      ON
+
+
+    <!-- ADD PRODUCT -->
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+
+          <div class="card-title-icon">
+            ➕
+          </div>
+
+          <div>
+
+            <h2 id="formTitle">
+              নতুন প্রোডাক্ট যোগ করুন
+            </h2>
+
+            <p>
+              Product information এখানে দিন
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-grid">
+
+
+        <div class="form-group">
+
+          <label>
+            প্রোডাক্টের নাম
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            placeholder="যেমন: T800 Ultra Smartwatch"
+          >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>
+            মূল দাম
+          </label>
+
+          <input
+            type="number"
+            id="price"
+            placeholder="যেমন: 1500"
+          >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>
+            অফার দাম
+          </label>
+
+          <input
+            type="number"
+            id="offerPrice"
+            placeholder="যেমন: 1200"
+          >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>
+            ছবির লিংক
+          </label>
+
+          <input
+            type="text"
+            id="image"
+            placeholder="https://..."
+          >
+
+        </div>
+
+
+      </div>
+
+
+      <div class="save-area">
+
+        <button id="saveBtn">
+          💾 প্রোডাক্ট সেভ করুন
+        </button>
+
+        <button id="cancelBtn">
+          ✕ Cancel Edit
+        </button>
+
+      </div>
+
+
+      <p id="message"></p>
+
     </div>
 
-    <div class="stat-title">
-      Website Status
+
+
+    <!-- PRODUCT LIST -->
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+
+          <div class="card-title-icon">
+            📦
+          </div>
+
+          <div>
+
+            <h2>
+              সব প্রোডাক্ট
+            </h2>
+
+            <p>
+              Firebase থেকে আপনার Product List
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="product-list"
+        id="productList"
+      >
+
+        <div class="empty-box">
+          লোড হচ্ছে...
+        </div>
+
+      </div>
+
     </div>
 
-  </div>
 
-
-  <div class="stat">
-
-    <div class="stat-icon">
-      🚚
-    </div>
-
-    <div
-      class="stat-number"
-      id="insideDeliveryShow"
-    >
-      ৳70
-    </div>
-
-    <div class="stat-title">
-      Inside Dhaka
-    </div>
-
-  </div>
-
-
-  <div class="stat">
-
-    <div class="stat-icon">
-      🚛
-    </div>
-
-    <div
-      class="stat-number"
-      id="outsideDeliveryShow"
-    >
-      ৳130
-    </div>
-
-    <div class="stat-title">
-      Outside Dhaka
-    </div>
-
-  </div>
-
-</div>
-
-
-
-<!-- ==================================================
-     WEBSITE SETTINGS
-================================================== -->
-
-<div class="card">
-
-<h2>⚙️ Website Settings</h2>
-
-
-<h3>🌐 Website Information</h3>
-
-<input
-  id="siteTitle"
-  placeholder="Website Title"
-/>
-
-<input
-  id="siteTagline"
-  placeholder="Website Tagline"
-/>
-
-
-<h3>🖼️ Hero Banner</h3>
-
-<input
-  id="heroImage"
-  placeholder="Hero Banner Image URL"
-/>
-
-<input
-  id="heroTag"
-  placeholder="Hero Tag"
-/>
-
-<input
-  id="heroTitle"
-  placeholder="Hero Main Title"
-/>
-
-<input
-  id="heroHighlight"
-  placeholder="Hero Highlight Text"
-/>
-
-<textarea
-  id="heroDescription"
-  placeholder="Hero Description"
-></textarea>
-
-
-<h3>⚡ Flash Sale</h3>
-
-<input
-  id="flashTitle"
-  placeholder="Flash Sale Title"
-/>
-
-<input
-  id="flashText"
-  placeholder="Flash Sale Description"
-/>
-
-
-<h3>📢 Promo Section</h3>
-
-<input
-  id="promoTitle"
-  placeholder="Promo Title"
-/>
-
-<textarea
-  id="promoText"
-  placeholder="Promo Description"
-></textarea>
-
-
-<h3>🚚 Delivery</h3>
-
-<input
-  type="number"
-  id="insideDelivery"
-  placeholder="ঢাকার ভিতরের Delivery Charge"
-/>
-
-<input
-  type="number"
-  id="outsideDelivery"
-  placeholder="ঢাকার বাইরের Delivery Charge"
-/>
-
-
-<h3>📞 Contact</h3>
-
-<input
-  id="whatsappNumber"
-  placeholder="WhatsApp Number - 8801XXXXXXXXX"
-/>
-
-<input
-  id="phoneNumber"
-  placeholder="Phone Number"
-/>
-
-<input
-  id="emailAddress"
-  placeholder="Email Address"
-/>
-
-
-<h3>📝 Footer</h3>
-
-<input
-  id="footerText"
-  placeholder="Footer Text"
-/>
-
-
-<h3>🔘 Button Text</h3>
-
-<input
-  id="shopButton"
-  placeholder="Shop Now Button"
-/>
-
-<input
-  id="orderButton"
-  placeholder="Order Now Button"
-/>
-
-
-<button
-  class="save"
-  id="saveSettings"
->
-  💾 সব Settings Save করুন
-</button>
-
-<div
-  class="message"
-  id="settingsMessage"
-></div>
-
-
-<!-- LIVE PREVIEW -->
-
-<div class="preview">
-
-<img
-  id="bannerPreview"
-  class="banner-preview"
-  src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1200&q=80"
->
-
-<h3 id="previewTitle">
-Smart Gadgets, Smart Life.
-</h3>
-
-<p id="previewDescription">
-আপনার ওয়েবসাইটের Hero Section Preview এখানে দেখা যাবে।
-</p>
-
-</div>
-
-</div>
-
-
-
-<!-- ==================================================
-     PRODUCT ADD / EDIT
-================================================== -->
-
-<div class="card">
-
-<h2>➕ Product Management</h2>
-
-<input
-  id="productName"
-  placeholder="Product Name"
-/>
-
-<input
-  id="productCategory"
-  placeholder="Category"
-/>
-
-<input
-  type="number"
-  id="productPrice"
-  placeholder="মূল দাম"
-/>
-
-<input
-  type="number"
-  id="productOffer"
-  placeholder="অফার দাম"
-/>
-
-<input
-  type="number"
-  id="productStock"
-  placeholder="Stock"
-/>
-
-<input
-  id="productBadge"
-  placeholder="Badge: HOT / SALE / NEW"
-/>
-
-<input
-  id="productImage"
-  placeholder="Product Image URL"
-/>
-
-
-<button
-  class="save"
-  id="saveProduct"
->
-  ➕ Product Save করুন
-</button>
-
-<button
-  class="gray"
-  id="cancelEdit"
-  style="display:none;"
->
-  Cancel Edit
-</button>
-
-
-<div
-  class="message"
-  id="productMessage"
-></div>
-
-</div>
-
-
-
-<!-- ==================================================
-     PRODUCT LIST
-================================================== -->
-
-<div class="card">
-
-<h2>📦 সব Products</h2>
-
-<div id="productList">
-লোড হচ্ছে...
-</div>
-
-</div>
-
-
-
-<!-- ==================================================
-     QUICK WEBSITE CONTROL
-================================================== -->
-
-<div class="card">
-
-<h2>🎛️ Quick Control</h2>
-
-<button
-  class="blue"
-  id="websiteOnBtn"
->
-  🟢 Website ON
-</button>
-
-<button
-  class="red"
-  id="websiteOffBtn"
->
-  🔴 Website OFF
-</button>
-
-<button
-  class="gray"
-  id="refreshBtn"
->
-  🔄 Refresh Data
-</button>
-
-<div
-  class="message"
-  id="quickMessage"
-></div>
-
-</div>
-
-
-
-</div>
+  </main>
 
 </div>
 
@@ -819,9 +1296,9 @@ Smart Gadgets, Smart Life.
 <script type="module">
 
 
-/* ==================================================
+/* =====================================================
    FIREBASE IMPORT
-================================================== */
+===================================================== */
 
 import {
   initializeApp
@@ -837,9 +1314,7 @@ import {
   getDocs,
   deleteDoc,
   doc,
-  updateDoc,
-  setDoc,
-  getDoc
+  updateDoc
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
@@ -855,35 +1330,41 @@ from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
-/* ==================================================
+
+/* =====================================================
    FIREBASE CONFIG
-================================================== */
+===================================================== */
 
 const firebaseConfig = {
 
   apiKey:
-  "AIzaSyCQIJ9c0AG0GCRE33EFYlkRitxz-rTpVMg",
+    "AIzaSyCQIJ9c0AG0GCRE33EFYlkRitxz-rTpVMg",
 
   authDomain:
-  "admin-4b12d.firebaseapp.com",
+    "admin-4b12d.firebaseapp.com",
 
   projectId:
-  "admin-4b12d",
+    "admin-4b12d",
 
   storageBucket:
-  "admin-4b12d.firebasestorage.app",
+    "admin-4b12d.firebasestorage.app",
 
   messagingSenderId:
-  "669688260525",
+    "669688260525",
 
   appId:
-  "1:669688260525:web:8a27563fef2d42aec6a324",
+    "1:669688260525:web:8a27563fef2d42aec6a324",
 
   measurementId:
-  "G-JMVF0XHN59"
+    "G-JMVF0XHN59"
 
 };
 
+
+
+/* =====================================================
+   FIREBASE INITIALIZE
+===================================================== */
 
 const app =
 initializeApp(firebaseConfig);
@@ -897,685 +1378,491 @@ const auth =
 getAuth(app);
 
 
-const productsRef =
-collection(db,"products");
+const productCollection =
+collection(
+  db,
+  "products"
+);
 
 
-const settingsRef =
-doc(db,"settings","website");
 
-
-/* ==================================================
+/* =====================================================
    ELEMENTS
-================================================== */
+===================================================== */
 
 const loginPage =
-document.getElementById("loginPage");
+document.getElementById(
+  "loginPage"
+);
 
 const adminPage =
-document.getElementById("adminPage");
+document.getElementById(
+  "adminPage"
+);
+
+const loginEmail =
+document.getElementById(
+  "loginEmail"
+);
+
+const loginPassword =
+document.getElementById(
+  "loginPassword"
+);
 
 const loginBtn =
-document.getElementById("loginBtn");
-
-const logoutBtn =
-document.getElementById("logoutBtn");
+document.getElementById(
+  "loginBtn"
+);
 
 const loginMessage =
-document.getElementById("loginMessage");
+document.getElementById(
+  "loginMessage"
+);
+
+const logoutBtn =
+document.getElementById(
+  "logoutBtn"
+);
 
 const adminEmail =
-document.getElementById("adminEmail");
+document.getElementById(
+  "adminEmail"
+);
+
+const nameInput =
+document.getElementById(
+  "name"
+);
+
+const priceInput =
+document.getElementById(
+  "price"
+);
+
+const offerPriceInput =
+document.getElementById(
+  "offerPrice"
+);
+
+const imageInput =
+document.getElementById(
+  "image"
+);
+
+const saveBtn =
+document.getElementById(
+  "saveBtn"
+);
+
+const cancelBtn =
+document.getElementById(
+  "cancelBtn"
+);
+
+const productList =
+document.getElementById(
+  "productList"
+);
+
+const message =
+document.getElementById(
+  "message"
+);
+
+const totalProducts =
+document.getElementById(
+  "totalProducts"
+);
+
+const formTitle =
+document.getElementById(
+  "formTitle"
+);
 
 
-let editProductId = null;
+
+let editId = null;
 
 
-/* ==================================================
+
+/* =====================================================
    LOGIN
-================================================== */
+===================================================== */
 
 loginBtn.addEventListener(
-"click",
-async()=>{
+  "click",
+  async()=>{
 
-  const email =
-  document.getElementById("loginEmail").value.trim();
+    const email =
+      loginEmail.value.trim();
 
-  const password =
-  document.getElementById("loginPassword").value;
+    const password =
+      loginPassword.value;
 
 
-  if(!email || !password){
+    if(!email || !password){
 
-    loginMessage.textContent =
-    "⚠️ Email ও Password দিন";
-
-    return;
-
-  }
-
-
-  loginBtn.disabled = true;
-
-  loginBtn.textContent =
-  "Login হচ্ছে...";
-
-
-  try{
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    loginMessage.textContent =
-    "❌ Email অথবা Password ভুল";
-
-  }
-
-
-  loginBtn.disabled = false;
-
-  loginBtn.textContent =
-  "Login";
-
-});
-
-
-/* ==================================================
-   AUTH STATE
-================================================== */
-
-onAuthStateChanged(
-auth,
-async(user)=>{
-
-  if(user){
-
-    loginPage.style.display =
-    "none";
-
-    adminPage.style.display =
-    "block";
-
-    adminEmail.textContent =
-    user.email || "";
-
-    await loadSettings();
-
-    await loadProducts();
-
-  }
-
-  else{
-
-    loginPage.style.display =
-    "flex";
-
-    adminPage.style.display =
-    "none";
-
-  }
-
-});
-
-
-/* ==================================================
-   LOGOUT
-================================================== */
-
-logoutBtn.addEventListener(
-"click",
-async()=>{
-
-  await signOut(auth);
-
-});
-
-
-/* ==================================================
-   SAVE WEBSITE SETTINGS
-================================================== */
-
-document
-.getElementById("saveSettings")
-.addEventListener(
-"click",
-async()=>{
-
-  const settings = {
-
-    siteTitle:
-    document.getElementById("siteTitle").value.trim(),
-
-    siteTagline:
-    document.getElementById("siteTagline").value.trim(),
-
-    heroImage:
-    document.getElementById("heroImage").value.trim(),
-
-    heroTag:
-    document.getElementById("heroTag").value.trim(),
-
-    heroTitle:
-    document.getElementById("heroTitle").value.trim(),
-
-    heroHighlight:
-    document.getElementById("heroHighlight").value.trim(),
-
-    heroDescription:
-    document.getElementById("heroDescription").value.trim(),
-
-    flashTitle:
-    document.getElementById("flashTitle").value.trim(),
-
-    flashText:
-    document.getElementById("flashText").value.trim(),
-
-    promoTitle:
-    document.getElementById("promoTitle").value.trim(),
-
-    promoText:
-    document.getElementById("promoText").value.trim(),
-
-    insideDelivery:
-    Number(
-      document.getElementById("insideDelivery").value
-    ) || 0,
-
-    outsideDelivery:
-    Number(
-      document.getElementById("outsideDelivery").value
-    ) || 0,
-
-    whatsappNumber:
-    document.getElementById("whatsappNumber").value.trim(),
-
-    phoneNumber:
-    document.getElementById("phoneNumber").value.trim(),
-
-    emailAddress:
-    document.getElementById("emailAddress").value.trim(),
-
-    footerText:
-    document.getElementById("footerText").value.trim(),
-
-    shopButton:
-    document.getElementById("shopButton").value.trim(),
-
-    orderButton:
-    document.getElementById("orderButton").value.trim(),
-
-    websiteActive:true,
-
-    updatedAt:
-    Date.now()
-
-  };
-
-
-  try{
-
-    await setDoc(
-      settingsRef,
-      settings,
-      {merge:true}
-    );
-
-
-    document.getElementById(
-      "settingsMessage"
-    ).textContent =
-    "✅ Website Settings Save হয়েছে";
-
-
-    updatePreview(settings);
-
-    updateDeliveryDisplay(settings);
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "settingsMessage"
-    ).textContent =
-    "❌ Settings Save করা যায়নি";
-
-  }
-
-});
-
-
-/* ==================================================
-   LOAD SETTINGS
-================================================== */
-
-async function loadSettings(){
-
-  try{
-
-    const snapshot =
-    await getDoc(settingsRef);
-
-
-    if(!snapshot.exists()){
-
-      const defaultSettings = {
-
-        siteTitle:
-        "GadgetMart Bangladesh",
-
-        siteTagline:
-        "Smart Gadgets, Smart Life.",
-
-        heroImage:
-        "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1200&q=80",
-
-        heroTag:
-        "PREMIUM SMART GADGETS",
-
-        heroTitle:
-        "Smart Gadgets,",
-
-        heroHighlight:
-        "Smart Life.",
-
-        heroDescription:
-        "দৈনন্দিন জীবনকে আরও সহজ ও স্মার্ট করতে সেরা গেজেট এখন আপনার হাতের নাগালে।",
-
-        flashTitle:
-        "⚡ Flash Sale",
-
-        flashText:
-        "আজকের বিশেষ অফার! সীমিত সময়ের জন্য।",
-
-        promoTitle:
-        "Fast & Secure Delivery",
-
-        promoText:
-        "সারা বাংলাদেশে দ্রুত এবং নিরাপদ হোম ডেলিভারি।",
-
-        insideDelivery:
-        70,
-
-        outsideDelivery:
-        130,
-
-        whatsappNumber:
-        "8801924136271",
-
-        phoneNumber:
-        "01924136271",
-
-        emailAddress:
-        "gadgetmartbd0@gmail.com",
-
-        footerText:
-        "স্মার্ট গেজেট, স্মার্ট জীবন।",
-
-        shopButton:
-        "Shop Now",
-
-        orderButton:
-        "Order Now",
-
-        websiteActive:
-        true
-
-      };
-
-
-      await setDoc(
-        settingsRef,
-        defaultSettings
-      );
-
-
-      fillSettings(defaultSettings);
+      loginMessage.textContent =
+        "⚠️ Email ও Password দিন";
 
       return;
 
     }
 
 
-    const data =
-    snapshot.data();
+    loginBtn.disabled = true;
 
-    fillSettings(data);
+    loginBtn.textContent =
+      "Login হচ্ছে...";
 
-  }
 
-  catch(error){
+    try{
 
-    console.error(error);
-
-  }
-
-}
-
-
-/* ==================================================
-   FILL SETTINGS
-================================================== */
-
-function fillSettings(data){
-
-  document.getElementById("siteTitle").value =
-  data.siteTitle || "";
-
-  document.getElementById("siteTagline").value =
-  data.siteTagline || "";
-
-  document.getElementById("heroImage").value =
-  data.heroImage || "";
-
-  document.getElementById("heroTag").value =
-  data.heroTag || "";
-
-  document.getElementById("heroTitle").value =
-  data.heroTitle || "";
-
-  document.getElementById("heroHighlight").value =
-  data.heroHighlight || "";
-
-  document.getElementById("heroDescription").value =
-  data.heroDescription || "";
-
-  document.getElementById("flashTitle").value =
-  data.flashTitle || "";
-
-  document.getElementById("flashText").value =
-  data.flashText || "";
-
-  document.getElementById("promoTitle").value =
-  data.promoTitle || "";
-
-  document.getElementById("promoText").value =
-  data.promoText || "";
-
-  document.getElementById("insideDelivery").value =
-  data.insideDelivery ?? 70;
-
-  document.getElementById("outsideDelivery").value =
-  data.outsideDelivery ?? 130;
-
-  document.getElementById("whatsappNumber").value =
-  data.whatsappNumber || "";
-
-  document.getElementById("phoneNumber").value =
-  data.phoneNumber || "";
-
-  document.getElementById("emailAddress").value =
-  data.emailAddress || "";
-
-  document.getElementById("footerText").value =
-  data.footerText || "";
-
-  document.getElementById("shopButton").value =
-  data.shopButton || "";
-
-  document.getElementById("orderButton").value =
-  data.orderButton || "";
-
-  updatePreview(data);
-
-  updateDeliveryDisplay(data);
-
-}
-
-
-/* ==================================================
-   PREVIEW
-================================================== */
-
-function updatePreview(data){
-
-  const title =
-  (data.heroTitle || "") +
-  " " +
-  (data.heroHighlight || "");
-
-
-  document.getElementById(
-    "previewTitle"
-  ).textContent =
-  title;
-
-
-  document.getElementById(
-    "previewDescription"
-  ).textContent =
-  data.heroDescription || "";
-
-
-  if(data.heroImage){
-
-    document.getElementById(
-      "bannerPreview"
-    ).src =
-    data.heroImage;
-
-  }
-
-}
-
-
-/* ==================================================
-   DELIVERY DISPLAY
-================================================== */
-
-function updateDeliveryDisplay(data){
-
-  document.getElementById(
-    "insideDeliveryShow"
-  ).textContent =
-  "৳" + (data.insideDelivery || 0);
-
-
-  document.getElementById(
-    "outsideDeliveryShow"
-  ).textContent =
-  "৳" + (data.outsideDelivery || 0);
-
-
-  document.getElementById(
-    "siteStatus"
-  ).textContent =
-  data.websiteActive === false
-  ? "OFF"
-  : "ON";
-
-}
-
-
-/* ==================================================
-   ADD / UPDATE PRODUCT
-================================================== */
-
-document
-.getElementById("saveProduct")
-.addEventListener(
-"click",
-async()=>{
-
-  const name =
-  document.getElementById("productName")
-  .value.trim();
-
-  const category =
-  document.getElementById("productCategory")
-  .value.trim();
-
-  const price =
-  Number(
-    document.getElementById("productPrice").value
-  );
-
-  const offerPrice =
-  Number(
-    document.getElementById("productOffer").value
-  );
-
-  const stock =
-  Number(
-    document.getElementById("productStock").value
-  );
-
-  const badge =
-  document.getElementById("productBadge")
-  .value.trim();
-
-  const image =
-  document.getElementById("productImage")
-  .value.trim();
-
-
-  if(
-    !name ||
-    !category ||
-    !image
-  ){
-
-    document.getElementById(
-      "productMessage"
-    ).textContent =
-    "⚠️ Product Name, Category ও Image দিন";
-
-    return;
-
-  }
-
-
-  try{
-
-    const productData = {
-
-      name:name,
-
-      category:category,
-
-      price:price || 0,
-
-      offerPrice:offerPrice || price || 0,
-
-      stock:stock || 0,
-
-      badge:badge || "",
-
-      image:image,
-
-      updatedAt:Date.now()
-
-    };
-
-
-    if(editProductId){
-
-      await updateDoc(
-
-        doc(
-          db,
-          "products",
-          editProductId
-        ),
-
-        productData
-
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
 
 
-      document.getElementById(
-        "productMessage"
-      ).textContent =
-      "✅ Product Update হয়েছে";
+      loginMessage.textContent =
+        "";
 
+
+    }catch(error){
+
+      console.error(error);
+
+
+      if(
+        error.code ===
+        "auth/invalid-credential"
+      ){
+
+        loginMessage.textContent =
+          "❌ Email অথবা Password ভুল";
+
+      }
+
+      else{
+
+        loginMessage.textContent =
+          "❌ Login করা যায়নি";
+
+      }
+
+    }
+
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent =
+      "Login to Dashboard";
+
+  }
+);
+
+
+
+/* =====================================================
+   ENTER LOGIN
+===================================================== */
+
+loginPassword.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key === "Enter"){
+
+      loginBtn.click();
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+  auth,
+  user=>{
+
+    if(user){
+
+      loginPage.style.display =
+        "none";
+
+      adminPage.style.display =
+        "block";
+
+      adminEmail.textContent =
+        user.email || "";
+
+      loadProducts();
 
     }
 
     else{
 
-      productData.createdAt =
-      Date.now();
+      loginPage.style.display =
+        "flex";
+
+      adminPage.style.display =
+        "none";
+
+    }
+
+  }
+);
 
 
-      await addDoc(
-        productsRef,
-        productData
-      );
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutBtn.addEventListener(
+  "click",
+  async()=>{
+
+    try{
+
+      await signOut(auth);
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+    }
+
+  }
+);
 
 
-      document.getElementById(
-        "productMessage"
-      ).textContent =
-      "✅ নতুন Product যোগ হয়েছে";
+
+/* =====================================================
+   SAVE PRODUCT
+===================================================== */
+
+saveBtn.addEventListener(
+  "click",
+  async()=>{
+
+    const name =
+      nameInput.value.trim();
+
+    const price =
+      priceInput.value;
+
+    const offerPrice =
+      offerPriceInput.value;
+
+    const image =
+      imageInput.value.trim();
+
+
+    if(
+      !name ||
+      !price ||
+      !offerPrice ||
+      !image
+    ){
+
+      message.textContent =
+        "⚠️ সব তথ্য পূরণ করুন";
+
+      message.style.color =
+        "#dc2626";
+
+      return;
 
     }
 
 
-    clearProductForm();
+    try{
 
-    await loadProducts();
+
+      /* =====================
+         UPDATE
+      ===================== */
+
+      if(editId){
+
+        await updateDoc(
+
+          doc(
+            db,
+            "products",
+            editId
+          ),
+
+          {
+
+            name:name,
+
+            price:Number(price),
+
+            offerPrice:
+              Number(offerPrice),
+
+            image:image
+
+          }
+
+        );
+
+
+        message.textContent =
+          "✅ প্রোডাক্ট সফলভাবে আপডেট হয়েছে";
+
+        message.style.color =
+          "#16a34a";
+
+
+        editId = null;
+
+
+        saveBtn.textContent =
+          "💾 প্রোডাক্ট সেভ করুন";
+
+
+        cancelBtn.style.display =
+          "none";
+
+
+        formTitle.textContent =
+          "নতুন প্রোডাক্ট যোগ করুন";
+
+
+      }
+
+
+      /* =====================
+         ADD
+      ===================== */
+
+      else{
+
+        await addDoc(
+
+          productCollection,
+
+          {
+
+            name:name,
+
+            price:Number(price),
+
+            offerPrice:
+              Number(offerPrice),
+
+            image:image,
+
+            createdAt:
+              Date.now()
+
+          }
+
+        );
+
+
+        message.textContent =
+          "✅ নতুন প্রোডাক্ট যোগ হয়েছে";
+
+        message.style.color =
+          "#16a34a";
+
+      }
+
+
+      clearForm();
+
+      loadProducts();
+
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+
+      message.textContent =
+        "❌ সমস্যা হয়েছে: " +
+        error.message;
+
+      message.style.color =
+        "#dc2626";
+
+    }
 
   }
-
-  catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "productMessage"
-    ).textContent =
-    "❌ Product Save করা যায়নি";
-
-  }
-
-});
+);
 
 
-/* ==================================================
+
+/* =====================================================
    LOAD PRODUCTS
-================================================== */
+===================================================== */
 
 async function loadProducts(){
 
-  const list =
-  document.getElementById("productList");
+  productList.innerHTML = `
 
+    <div class="empty-box">
 
-  list.innerHTML =
-  "লোড হচ্ছে...";
+      ⏳
+
+      <br><br>
+
+      Product লোড হচ্ছে...
+
+    </div>
+
+  `;
 
 
   try{
 
     const snapshot =
-    await getDocs(productsRef);
+      await getDocs(
+        productCollection
+      );
 
 
-    list.innerHTML = "";
+    productList.innerHTML =
+      "";
 
 
-    document.getElementById(
-      "totalProducts"
-    ).textContent =
-    snapshot.size;
+    totalProducts.textContent =
+      snapshot.size;
 
 
     if(snapshot.empty){
 
-      list.innerHTML =
-      "কোনো Product নেই।";
+      productList.innerHTML = `
+
+        <div
+          class="empty-box"
+          style="grid-column:1/-1;"
+        >
+
+          <div class="empty-icon">
+            📦
+          </div>
+
+          এখনো কোনো Product যোগ করা হয়নি।
+
+        </div>
+
+      `;
 
       return;
 
@@ -1585,64 +1872,93 @@ async function loadProducts(){
     snapshot.forEach(item=>{
 
       const data =
-      item.data();
+        item.data();
 
 
-      const product =
-      document.createElement("div");
+      const div =
+        document.createElement(
+          "div"
+        );
 
 
-      product.className =
-      "product";
+      div.className =
+        "product";
 
 
-      product.innerHTML = `
+      div.innerHTML = `
 
-        <img
-          src="${safeURL(data.image)}"
-          alt=""
-        >
+        <div class="product-top">
 
-        <div class="product-info">
+          <img
+            class="product-image"
+            src="${escapeAttribute(
+              data.image || ""
+            )}"
+            alt="Product"
+            onerror="
+              this.src='https://via.placeholder.com/100?text=Product'
+            "
+          >
 
-          <h3>
-            ${escapeHTML(data.name || "")}
-          </h3>
+          <div class="product-info">
 
-          <p>
-            Category:
-            ${escapeHTML(data.category || "")}
-          </p>
+            <h3>
+              ${escapeHTML(
+                data.name || ""
+              )}
+            </h3>
 
-          <p>
-            দাম:
-            ৳${data.price || 0}
-          </p>
+            <p>
+              ৳${data.offerPrice || 0}
+            </p>
 
-          <p>
-            অফার:
-            ৳${data.offerPrice || 0}
-          </p>
-
-          <p>
-            Stock:
-            ${data.stock || 0}
-          </p>
+          </div>
 
         </div>
+
+
+        <div class="product-details">
+
+          <div class="detail-row">
+
+            <span>
+              মূল দাম
+            </span>
+
+            <span>
+              ৳${data.price || 0}
+            </span>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              অফার দাম
+            </span>
+
+            <span class="offer-price">
+              ৳${data.offerPrice || 0}
+            </span>
+
+          </div>
+
+        </div>
+
 
         <div class="product-actions">
 
           <button
-            class="blue"
-            data-edit="${item.id}"
+            class="edit"
+            data-id="${item.id}"
           >
             ✏️ Edit
           </button>
 
           <button
-            class="red"
-            data-delete="${item.id}"
+            class="delete"
+            data-id="${item.id}"
           >
             🗑️ Delete
           </button>
@@ -1652,24 +1968,41 @@ async function loadProducts(){
       `;
 
 
-      product
-      .querySelector("[data-edit]")
-      .addEventListener(
+      const editButton =
+        div.querySelector(
+          ".edit"
+        );
+
+
+      const deleteButton =
+        div.querySelector(
+          ".delete"
+        );
+
+
+      editButton.addEventListener(
         "click",
         ()=>{
 
           editProduct(
+
             item.id,
-            data
+
+            data.name || "",
+
+            data.price || "",
+
+            data.offerPrice || "",
+
+            data.image || ""
+
           );
 
         }
       );
 
 
-      product
-      .querySelector("[data-delete]")
-      .addEventListener(
+      deleteButton.addEventListener(
         "click",
         ()=>{
 
@@ -1681,9 +2014,12 @@ async function loadProducts(){
       );
 
 
-      list.appendChild(product);
+      productList.appendChild(
+        div
+      );
 
     });
+
 
   }
 
@@ -1691,167 +2027,131 @@ async function loadProducts(){
 
     console.error(error);
 
-    list.innerHTML =
-    "❌ Product Load করা যায়নি";
+
+    productList.innerHTML = `
+
+      <div
+        class="empty-box"
+        style="grid-column:1/-1;"
+      >
+
+        ❌ Product লোড করা যায়নি।
+
+      </div>
+
+    `;
 
   }
 
 }
 
 
-/* ==================================================
+
+/* =====================================================
    EDIT PRODUCT
-================================================== */
+===================================================== */
 
-function editProduct(id,data){
+function editProduct(
+  id,
+  name,
+  price,
+  offerPrice,
+  image
+){
 
-  editProductId =
-  id;
-
-
-  document.getElementById(
-    "productName"
-  ).value =
-  data.name || "";
-
-
-  document.getElementById(
-    "productCategory"
-  ).value =
-  data.category || "";
+  editId = id;
 
 
-  document.getElementById(
-    "productPrice"
-  ).value =
-  data.price || "";
+  nameInput.value =
+    name;
+
+  priceInput.value =
+    price;
+
+  offerPriceInput.value =
+    offerPrice;
+
+  imageInput.value =
+    image;
 
 
-  document.getElementById(
-    "productOffer"
-  ).value =
-  data.offerPrice || "";
+  saveBtn.textContent =
+    "✏️ প্রোডাক্ট আপডেট করুন";
 
 
-  document.getElementById(
-    "productStock"
-  ).value =
-  data.stock || "";
+  cancelBtn.style.display =
+    "block";
 
 
-  document.getElementById(
-    "productBadge"
-  ).value =
-  data.badge || "";
+  formTitle.textContent =
+    "প্রোডাক্ট Edit করুন";
 
 
-  document.getElementById(
-    "productImage"
-  ).value =
-  data.image || "";
+  message.textContent =
+    "✏️ আপনি এখন Product Edit করছেন";
 
-
-  document.getElementById(
-    "saveProduct"
-  ).textContent =
-  "✏️ Product Update করুন";
-
-
-  document.getElementById(
-    "cancelEdit"
-  ).style.display =
-  "inline-block";
+  message.style.color =
+    "#2563eb";
 
 
   window.scrollTo({
-    top:document.querySelector(
-      ".card:nth-of-type(2)"
-    ).offsetTop,
+
+    top:0,
+
     behavior:"smooth"
+
   });
 
 }
 
 
-/* ==================================================
+
+/* =====================================================
    CANCEL EDIT
-================================================== */
+===================================================== */
 
-document
-.getElementById("cancelEdit")
-.addEventListener(
-"click",
-()=>{
+cancelBtn.addEventListener(
+  "click",
+  ()=>{
 
-  clearProductForm();
+    editId = null;
 
-});
+    clearForm();
 
 
-/* ==================================================
-   CLEAR PRODUCT
-================================================== */
-
-function clearProductForm(){
-
-  editProductId =
-  null;
+    saveBtn.textContent =
+      "💾 প্রোডাক্ট সেভ করুন";
 
 
-  document.getElementById(
-    "productName"
-  ).value = "";
-
-  document.getElementById(
-    "productCategory"
-  ).value = "";
-
-  document.getElementById(
-    "productPrice"
-  ).value = "";
-
-  document.getElementById(
-    "productOffer"
-  ).value = "";
-
-  document.getElementById(
-    "productStock"
-  ).value = "";
-
-  document.getElementById(
-    "productBadge"
-  ).value = "";
-
-  document.getElementById(
-    "productImage"
-  ).value = "";
+    cancelBtn.style.display =
+      "none";
 
 
-  document.getElementById(
-    "saveProduct"
-  ).textContent =
-  "➕ Product Save করুন";
+    formTitle.textContent =
+      "নতুন প্রোডাক্ট যোগ করুন";
 
 
-  document.getElementById(
-    "cancelEdit"
-  ).style.display =
-  "none";
+    message.textContent =
+      "";
 
-}
+  }
+);
 
 
-/* ==================================================
+
+/* =====================================================
    DELETE PRODUCT
-================================================== */
+===================================================== */
 
 async function deleteProduct(id){
 
-  if(
-    !confirm(
-      "এই Product Delete করতে চান?"
-    )
-  ){
+  const confirmDelete =
+    confirm(
+      "এই Product টি Delete করতে চান?"
+    );
+
+
+  if(!confirmDelete){
 
     return;
 
@@ -1861,21 +2161,24 @@ async function deleteProduct(id){
   try{
 
     await deleteDoc(
+
       doc(
         db,
         "products",
         id
       )
+
     );
 
 
-    await loadProducts();
+    message.textContent =
+      "🗑️ Product Delete হয়েছে";
+
+    message.style.color =
+      "#dc2626";
 
 
-    document.getElementById(
-      "productMessage"
-    ).textContent =
-    "🗑️ Product Delete হয়েছে";
+    loadProducts();
 
   }
 
@@ -1883,203 +2186,100 @@ async function deleteProduct(id){
 
     console.error(error);
 
-    document.getElementById(
-      "productMessage"
-    ).textContent =
-    "❌ Delete করা যায়নি";
+
+    message.textContent =
+      "❌ Product Delete করা যায়নি";
+
+    message.style.color =
+      "#dc2626";
 
   }
 
 }
 
 
-/* ==================================================
-   WEBSITE ON
-================================================== */
 
-document
-.getElementById("websiteOnBtn")
-.addEventListener(
-"click",
-async()=>{
+/* =====================================================
+   CLEAR FORM
+===================================================== */
 
-  try{
+function clearForm(){
 
-    await setDoc(
+  nameInput.value =
+    "";
 
-      settingsRef,
+  priceInput.value =
+    "";
 
-      {
-        websiteActive:true,
-        updatedAt:Date.now()
-      },
+  offerPriceInput.value =
+    "";
 
-      {merge:true}
+  imageInput.value =
+    "";
 
-    );
+}
 
 
-    document.getElementById(
-      "siteStatus"
-    ).textContent =
-    "ON";
 
-
-    document.getElementById(
-      "quickMessage"
-    ).textContent =
-    "🟢 Website ON করা হয়েছে";
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-  }
-
-});
-
-
-/* ==================================================
-   WEBSITE OFF
-================================================== */
-
-document
-.getElementById("websiteOffBtn")
-.addEventListener(
-"click",
-async()=>{
-
-  if(
-    !confirm(
-      "Website OFF করতে চান?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    await setDoc(
-
-      settingsRef,
-
-      {
-        websiteActive:false,
-        updatedAt:Date.now()
-      },
-
-      {merge:true}
-
-    );
-
-
-    document.getElementById(
-      "siteStatus"
-    ).textContent =
-    "OFF";
-
-
-    document.getElementById(
-      "quickMessage"
-    ).textContent =
-    "🔴 Website OFF করা হয়েছে";
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-  }
-
-});
-
-
-/* ==================================================
-   REFRESH
-================================================== */
-
-document
-.getElementById("refreshBtn")
-.addEventListener(
-"click",
-async()=>{
-
-  await loadSettings();
-
-  await loadProducts();
-
-
-  document.getElementById(
-    "quickMessage"
-  ).textContent =
-  "🔄 Data Refresh হয়েছে";
-
-});
-
-
-/* ==================================================
-   ENTER KEY
-================================================== */
-
-document
-.getElementById("loginPassword")
-.addEventListener(
-"keydown",
-e=>{
-
-  if(e.key==="Enter"){
-
-    loginBtn.click();
-
-  }
-
-});
-
-
-/* ==================================================
-   SECURITY HELPERS
-================================================== */
+/* =====================================================
+   SECURITY
+===================================================== */
 
 function escapeHTML(value){
 
   return String(value)
 
-  .replaceAll("&","&amp;")
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
 
-  .replaceAll("<","&lt;")
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
 
-  .replaceAll(">","&gt;")
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
 
-  .replaceAll('"',"&quot;")
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
 
-  .replaceAll("'","&#039;");
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
 
-function safeURL(value){
+function escapeAttribute(value){
 
-  const url =
-  String(value || "");
+  return String(value)
 
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
 
-  if(
-    url.startsWith("https://") ||
-    url.startsWith("http://")
-  ){
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
 
-    return url;
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
 
-  }
-
-
-  return "";
+    .replaceAll(
+      ">",
+      "&gt;"
+    );
 
 }
 
