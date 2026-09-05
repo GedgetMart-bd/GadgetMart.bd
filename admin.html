@@ -689,6 +689,27 @@ font-size:13px;
 
 </style>
 
+<style>
+/* ===== ShoppingMall BD Full Admin Additions ===== */
+.sm-admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.sm-admin-card{border:1px solid #e5e7eb;border-radius:12px;padding:14px;background:#fff}
+.sm-admin-table{width:100%;border-collapse:collapse}.sm-admin-table th,.sm-admin-table td{padding:9px;border-bottom:1px solid #e5e7eb;text-align:left}
+.sm-admin-table-wrap{overflow:auto}.sm-admin-input,.sm-admin-select,.sm-admin-textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px}
+.sm-admin-textarea{min-height:100px}
+</style>
+<style>
+/* ===== Admin ORIGINAL-DESIGN MATCH ===== */
+body{font-family:Arial,Helvetica,sans-serif!important;background:#f3f4f6!important}
+.sm-admin-card{background:#fff!important;border:1px solid #e7e9ed!important;border-radius:10px!important;box-shadow:none!important;padding:16px!important}
+.sm-admin-card h2{font-size:16px!important}
+.sm-admin-grid{gap:10px!important}
+.sm-admin-input,.sm-admin-select,.sm-admin-textarea{border:1px solid #e5e7eb!important;border-radius:6px!important;padding:10px!important;font-size:11px!important;outline:none!important;background:#fff!important;min-height:auto!important}
+.sm-admin-input:focus,.sm-admin-select:focus,.sm-admin-textarea:focus{border-color:#00b85a!important;box-shadow:0 0 0 2px rgba(0,184,90,.08)!important}
+.sm-admin-table-wrap{border:1px solid #e7e9ed!important;border-radius:8px!important;padding:0!important}
+.sm-admin-table{font-size:10px!important}
+.sm-admin-table th{background:#f9fafb!important;color:#777!important;font-size:9px!important}
+.sm-admin-table td,.sm-admin-table th{border-bottom:1px solid #edf0f3!important;padding:9px!important}
+</style>
 </head>
 
 
@@ -831,6 +852,14 @@ id="logoutBtn">
 <span>🚪</span>
 Logout
 </button>
+
+
+<button class="menu-btn" onclick="document.getElementById('smAdminOrders')?.scrollIntoView({behavior:'smooth'})"><span>📦</span>Orders</button>
+<button class="menu-btn" onclick="document.getElementById('smAdminCustomers')?.scrollIntoView({behavior:'smooth'})"><span>👥</span>Customers</button>
+<button class="menu-btn" onclick="document.getElementById('smAdminCoupons')?.scrollIntoView({behavior:'smooth'})"><span>🎟️</span>Coupons</button>
+<button class="menu-btn" onclick="document.getElementById('smAdminReviews')?.scrollIntoView({behavior:'smooth'})"><span>⭐</span>Reviews</button>
+<button class="menu-btn" onclick="document.getElementById('smAdminReports')?.scrollIntoView({behavior:'smooth'})"><span>📊</span>Reports</button>
+<button class="menu-btn" onclick="document.getElementById('smAdminPayments')?.scrollIntoView({behavior:'smooth'})"><span>💳</span>Payments</button>
 
 </aside>
 
@@ -1890,18 +1919,7 @@ initializeApp
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-doc,
-getDoc,
-setDoc,
-updateDoc,
-deleteDoc
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 
 import {
@@ -3321,6 +3339,146 @@ return String(value)
 
 }
 
+</script>
+
+
+<!-- ===== ShoppingMall BD Extended Admin Management ===== -->
+<section id="smAdminOrders" class="sm-admin-card" style="margin:20px 0">
+  <h2>📦 Order Management</h2>
+  <div class="sm-admin-grid">
+    <input id="smAdminOrderSearch" class="sm-admin-input" placeholder="Search order/customer/phone">
+    <select id="smAdminOrderStatus" class="sm-admin-select">
+      <option value="">All Status</option><option>Pending</option><option>Confirmed</option><option>Processing</option><option>Shipped</option><option>Delivered</option><option>Cancelled</option>
+    </select>
+    <button class="sm-btn primary" onclick="SMAdmin.loadOrders()">Refresh Orders</button>
+  </div>
+  <div id="smAdminOrdersList" class="sm-admin-table-wrap" style="margin-top:12px"></div>
+</section>
+
+<section id="smAdminCustomers" class="sm-admin-card" style="margin:20px 0">
+  <h2>👥 Customers</h2>
+  <div id="smAdminCustomersList" class="sm-admin-table-wrap"></div>
+</section>
+
+<section id="smAdminCoupons" class="sm-admin-card" style="margin:20px 0">
+  <h2>🎟️ Coupons</h2>
+  <div class="sm-admin-grid">
+    <input id="smCouponCode" class="sm-admin-input" placeholder="Coupon code">
+    <select id="smCouponType" class="sm-admin-select"><option value="percent">Percentage</option><option value="fixed">Fixed</option></select>
+    <input id="smCouponValue" class="sm-admin-input" type="number" placeholder="Value">
+    <input id="smCouponMin" class="sm-admin-input" type="number" placeholder="Minimum order">
+    <input id="smCouponExpiry" class="sm-admin-input" type="date">
+    <input id="smCouponLimit" class="sm-admin-input" type="number" placeholder="Usage limit">
+    <button class="sm-btn primary" onclick="SMAdmin.saveCoupon()">Create Coupon</button>
+  </div>
+  <div id="smAdminCouponsList" class="sm-admin-table-wrap" style="margin-top:12px"></div>
+</section>
+
+<section id="smAdminReviews" class="sm-admin-card" style="margin:20px 0">
+  <h2>⭐ Reviews</h2>
+  <div id="smAdminReviewsList" class="sm-admin-table-wrap"></div>
+</section>
+
+<section id="smAdminReports" class="sm-admin-card" style="margin:20px 0">
+  <h2>📊 Reports & Analytics</h2>
+  <div id="smAdminReportsList" class="sm-admin-grid"></div>
+</section>
+
+<section id="smAdminPayments" class="sm-admin-card" style="margin:20px 0">
+  <h2>💳 Payment Settings</h2>
+  <div class="sm-admin-grid">
+    <input id="smPayBkash" class="sm-admin-input" placeholder="bKash number">
+    <input id="smPayNagad" class="sm-admin-input" placeholder="Nagad number">
+    <input id="smPayRocket" class="sm-admin-input" placeholder="Rocket number">
+    <input id="smPayBank" class="sm-admin-input" placeholder="Bank payment instructions">
+    <button class="sm-btn primary" onclick="SMAdmin.savePayments()">Save Payment Settings</button>
+  </div>
+</section>
+
+<script>
+/* ===== ShoppingMall BD Admin Feature Engine ===== */
+(function(){
+  const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+  const money=n=>Number(n||0).toLocaleString("en-BD",{minimumFractionDigits:0,maximumFractionDigits:2});
+  let orders=[],coupons=[],reviews=[];
+  async function getCol(name){
+    if(window.firebaseDB&&typeof getDocs==="function"&&typeof collection==="function"){
+      const s=await getDocs(collection(window.firebaseDB,name));return s.docs.map(d=>({id:d.id,...d.data()}));
+    }
+    return [];
+  }
+  async function writeCol(name,data){
+    if(window.firebaseDB&&typeof addDoc==="function"&&typeof collection==="function")return addDoc(collection(window.firebaseDB,name),data);
+  }
+  window.SMAdmin={
+    loadOrders:async function(){
+      try{orders=await getCol("orders")}catch(e){orders=[]}
+      const q=($("smAdminOrderSearch")?.value||"").toLowerCase(),st=$("smAdminOrderStatus")?.value||"";
+      const list=orders.filter(o=>(!st||(o.status||"Pending")===st)&&(!q||JSON.stringify(o).toLowerCase().includes(q)));
+      $("smAdminOrdersList").innerHTML=list.length?`<table class="sm-admin-table"><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Action</th></tr>${list.map(o=>`<tr><td>${esc(o.id)}</td><td>${esc(o.customerName||"")}</td><td>৳${money(o.total)}</td><td><select onchange="SMAdmin.status('${esc(o.id)}',this.value)">${["Pending","Confirmed","Processing","Shipped","Delivered","Cancelled"].map(s=>`<option ${s===(o.status||"Pending")?"selected":""}>${s}</option>`).join("")}</select></td><td><button class="sm-btn light" onclick="SMAdmin.view('${esc(o.id)}')">View</button></td></tr>`).join("")}</table>`:`<div>No orders found.</div>`;
+      SMAdmin.renderCustomers();SMAdmin.renderReports();
+    },
+    status:async function(id,status){
+      try{if(window.firebaseDB&&typeof updateDoc==="function"&&typeof doc==="function")await updateDoc(doc(window.firebaseDB,"orders",id),{status});}
+      catch(e){}
+      SMAdmin.loadOrders();
+    },
+    view:function(id){const o=orders.find(x=>x.id===id);if(!o)return;alert(`Order ID: ${o.id}\nCustomer: ${o.customerName||""}\nPhone: ${o.customerPhone||""}\nAddress: ${o.customerAddress||""}\nTotal: ৳${money(o.total)}\nStatus: ${o.status||"Pending"}`)},
+    renderCustomers:function(){
+      const m={};orders.forEach(o=>{const k=o.customerPhone||o.customerName||"Unknown";m[k]??={name:o.customerName||"",phone:o.customerPhone||"",orders:0,total:0};m[k].orders++;m[k].total+=Number(o.total||0)});
+      const a=Object.values(m);$("smAdminCustomersList").innerHTML=a.length?`<table class="sm-admin-table"><tr><th>Name</th><th>Phone</th><th>Orders</th><th>Total Spent</th></tr>${a.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.phone)}</td><td>${x.orders}</td><td>৳${money(x.total)}</td></tr>`).join("")}</table>`:`<div>No customer data.</div>`;
+    },
+    renderReports:function(){
+      const sales=orders.reduce((s,o)=>s+Number(o.total||0),0),del=orders.filter(o=>o.status==="Delivered").length,pending=orders.filter(o=>!o.status||o.status==="Pending").length;
+      const counts={};orders.forEach(o=>(o.items||[]).forEach(i=>{const n=i.name||"Unknown";counts[n]=(counts[n]||0)+Number(i.qty||1)}));
+      const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      $("smAdminReportsList").innerHTML=`<div class="sm-admin-card"><b>Total Orders</b><h2>${orders.length}</h2></div><div class="sm-admin-card"><b>Total Sales</b><h2>৳${money(sales)}</h2></div><div class="sm-admin-card"><b>Delivered</b><h2>${del}</h2></div><div class="sm-admin-card"><b>Pending</b><h2>${pending}</h2></div><div class="sm-admin-card"><b>Top Products</b><p>${top.map(x=>esc(x[0])+" ("+x[1]+")").join("<br>")||"No data"}</p></div>`;
+    },
+    saveCoupon:async function(){
+      const data={code:$("smCouponCode").value.trim().toUpperCase(),type:$("smCouponType").value,value:Number($("smCouponValue").value||0),minOrder:Number($("smCouponMin").value||0),expiry:$("smCouponExpiry").value||"",usageLimit:Number($("smCouponLimit").value||0),createdAt:new Date()};
+      if(!data.code)return alert("Enter coupon code");
+      try{await writeCol("coupons",data);alert("Coupon created");SMAdmin.loadCoupons()}catch(e){alert(e.message)}
+    },
+    loadCoupons:async function(){
+      try{coupons=await getCol("coupons")}catch(e){coupons=[]}
+      $("smAdminCouponsList").innerHTML=coupons.length?`<table class="sm-admin-table"><tr><th>Code</th><th>Type</th><th>Value</th><th>Expiry</th></tr>${coupons.map(c=>`<tr><td>${esc(c.code)}</td><td>${esc(c.type)}</td><td>${c.value}</td><td>${esc(c.expiry||"")}</td></tr>`).join("")}</table>`:`<div>No coupons.</div>`;
+    },
+    loadReviews:async function(){
+      try{reviews=await getCol("reviews")}catch(e){reviews=[]}
+      $("smAdminReviewsList").innerHTML=reviews.length?`<table class="sm-admin-table"><tr><th>Product</th><th>Rating</th><th>Customer</th><th>Status</th></tr>${reviews.map(r=>`<tr><td>${esc(r.productName||r.productId||"")}</td><td>${esc(r.rating||"")}</td><td>${esc(r.customerName||"")}</td><td>${esc(r.status||"Pending")}</td></tr>`).join("")}</table>`:`<div>No reviews.</div>`;
+    },
+    savePayments:async function(){
+      const data={bkash:$("smPayBkash").value,nagad:$("smPayNagad").value,rocket:$("smPayRocket").value,bank:$("smPayBank").value,updatedAt:new Date()};
+      try{if(window.firebaseDB&&typeof setDoc==="function"&&typeof doc==="function")await setDoc(doc(window.firebaseDB,"settings","payments"),data,{merge:true});alert("Payment settings saved")}catch(e){alert(e.message)}
+    },
+    loadPayments:async function(){
+      try{if(window.firebaseDB&&typeof getDoc==="function"&&typeof doc==="function"){const s=await getDoc(doc(window.firebaseDB,"settings","payments"));if(s.exists()){const d=s.data();$("smPayBkash").value=d.bkash||"";$("smPayNagad").value=d.nagad||"";$("smPayRocket").value=d.rocket||"";$("smPayBank").value=d.bank||""}}}catch(e){}
+    },
+    init:function(){
+      ["smAdminOrderSearch","smAdminOrderStatus"].forEach(id=>$(id)?.addEventListener("input",()=>SMAdmin.loadOrders()));
+      SMAdmin.loadOrders();SMAdmin.loadCoupons();SMAdmin.loadReviews();SMAdmin.loadPayments();
+    }
+  };
+  document.addEventListener("DOMContentLoaded",()=>setTimeout(SMAdmin.init,900));
+})();
+</script>
+
+
+<style>
+/* ===== Direct Website Orders Admin Panel ===== */
+#smAdminOrders{border-top:3px solid #00b85a}
+.sm-live-order{background:#ecfdf5!important;border:1px solid #bbf7d0!important}
+.sm-order-actions{display:flex;gap:6px;flex-wrap:wrap}
+.sm-status{padding:6px 8px;border-radius:6px;border:1px solid #e5e7eb;background:#fff;font-size:11px}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  // Auto-refresh orders periodically so new website orders appear without manual reload.
+  if(window.SMAdmin&&typeof window.SMAdmin.loadOrders==="function"){
+    setTimeout(()=>window.SMAdmin.loadOrders(),1200);
+    setInterval(()=>window.SMAdmin.loadOrders(),30000);
+  }
+});
 </script>
 
 </body>
