@@ -1,12 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="bn">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GadgetMart Bangladesh</title>
-
 <style>
 
 *{
@@ -788,170 +786,257 @@ a{
 }
 
 </style>
-</head>
+<style>
+/* ===== ShoppingMall BD Full E-commerce Additions ===== */
+.sm-section{margin:24px 0}
+.sm-section h2{margin-bottom:14px}
+.sm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.sm-card{border:1px solid #e5e7eb;border-radius:12px;padding:14px;background:#fff}
+.sm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sm-btn{border:0;border-radius:8px;padding:9px 12px;cursor:pointer;font-weight:600}
+.sm-btn.primary{background:#111827;color:#fff}.sm-btn.light{background:#f3f4f6;color:#111827}
+.sm-btn.danger{background:#dc2626;color:#fff}
+.sm-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;background:#eef2ff}
+.sm-muted{color:#6b7280;font-size:13px}
+.sm-track,.sm-form{display:grid;gap:10px}
+.sm-input,.sm-select,.sm-textarea{width:100%;box-sizing:border-box;padding:11px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+.sm-textarea{min-height:100px;resize:vertical}
+.sm-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sm-modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9999;padding:15px}
+.sm-modal.open{display:flex}.sm-modal-box{background:#fff;border-radius:14px;max-width:760px;width:100%;max-height:90vh;overflow:auto;padding:18px}
+.sm-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.sm-gallery img{width:100%;height:80px;object-fit:cover;border-radius:8px;cursor:pointer}
+.sm-main-img{width:100%;max-height:360px;object-fit:contain;border-radius:10px;background:#f8fafc}
+.sm-table-wrap{overflow:auto}.sm-table{width:100%;border-collapse:collapse}.sm-table th,.sm-table td{padding:9px;border-bottom:1px solid #e5e7eb;text-align:left;white-space:nowrap}
+@media(max-width:600px){.sm-row{grid-template-columns:1fr}.sm-gallery{grid-template-columns:repeat(4,1fr)}.sm-modal-box{padding:12px}}
+</style>
+<style>
+/* ===== ShoppingMall BD ORIGINAL-DESIGN MATCH ===== */
+body{font-family:Arial,Helvetica,sans-serif!important;background:#f3f4f6!important;color:#172033!important}
+.sm-section{max-width:1100px!important;margin:0 auto 28px!important;padding:0 14px!important}
+.sm-section>h2{font-size:17px!important;font-weight:700!important;margin-bottom:4px!important}
+.sm-section>h2:after{content:"";display:block}
+.sm-grid{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:12px!important}
+.sm-card{background:#fff!important;border:1px solid #e7e9ed!important;border-radius:10px!important;padding:11px!important;box-shadow:none!important;transition:.2s!important}
+.sm-card:hover{transform:translateY(-2px)!important;box-shadow:0 6px 18px rgba(17,24,39,.07)!important}
+.sm-card img{background:#f7f8fa!important}
+.sm-badge{background:#eefcf4!important;color:#00a950!important;border:0!important;border-radius:4px!important;padding:4px 7px!important;font-size:8px!important}
+.sm-actions{gap:7px!important;margin-top:9px!important}
+.sm-btn{border:none!important;border-radius:6px!important;padding:9px 10px!important;font-size:10px!important;font-weight:bold!important}
+.sm-btn.primary{background:#111827!important;color:#fff!important;box-shadow:none!important}
+.sm-btn.light{background:#f3f4f6!important;color:#172033!important;border:1px solid #e7e9ed!important}
+.sm-btn.danger{background:#ef4444!important;color:#fff!important}
+.sm-muted{color:#8b93a1!important;font-size:9px!important}
+.sm-input,.sm-select,.sm-textarea{width:100%!important;border:1px solid #e5e7eb!important;border-radius:6px!important;padding:11px!important;font-size:11px!important;outline:none!important;background:#fff!important;box-shadow:none!important}
+.sm-input:focus,.sm-select:focus,.sm-textarea:focus{border-color:#00b85a!important;box-shadow:0 0 0 2px rgba(0,184,90,.08)!important}
+.sm-modal{background:rgba(17,24,39,.65)!important}
+.sm-modal-box{border-radius:12px!important;box-shadow:0 18px 50px rgba(0,0,0,.2)!important;padding:18px!important}
+.sm-main-img{background:#f7f8fa!important;border-radius:10px!important}
+.sm-gallery img{border:1px solid #e7e9ed!important}
+.sm-table-wrap{border:1px solid #e7e9ed!important;border-radius:8px!important;background:#fff!important;padding:0!important}
+.sm-table th{background:#f9fafb!important;color:#777!important;font-size:9px!important;text-transform:none!important}
+.sm-table td{font-size:10px!important}
+#smCategories .sm-grid{grid-template-columns:repeat(3,1fr)!important}
+#smCategories .sm-card{text-align:center}
+#smFeaturedList,#smNewList,#smDealList,#smWishlistList{grid-template-columns:repeat(2,1fr)!important}
+#smInfo .sm-card{text-align:center}
+#smInfo{margin-top:5px!important}
+#smTracking .sm-card{background:#111827!important;color:#fff!important;border:0!important}
+#smTracking .sm-card .sm-muted{color:#9ca3af!important}
+@media(min-width:700px){
+ .sm-grid,#smFeaturedList,#smNewList,#smDealList,#smWishlistList{grid-template-columns:repeat(4,1fr)!important}
+ #smCategories .sm-grid{grid-template-columns:repeat(6,1fr)!important}
+}
+@media(max-width:380px){
+ .sm-grid,#smFeaturedList,#smNewList,#smDealList,#smWishlistList{grid-template-columns:1fr!important}
+ #smCategories .sm-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+</style>
+<style>
+/* ===== Direct Website Order + Professional Product Popup ===== */
+.sm-menu-fab{position:fixed;top:14px;left:14px;z-index:10001;width:44px;height:44px;border:0;border-radius:10px;background:#111827;color:#fff;font-size:23px;box-shadow:0 6px 18px rgba(0,0,0,.16);cursor:pointer}
+.sm-drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:10000;display:none}
+.sm-drawer-backdrop.open{display:block}
+.sm-category-drawer{position:fixed;top:0;left:0;height:100%;width:285px;max-width:84vw;background:#fff;z-index:10002;transform:translateX(-105%);transition:.25s ease;box-shadow:10px 0 35px rgba(0,0,0,.15);overflow:auto}
+.sm-category-drawer.open{transform:translateX(0)}
+.sm-drawer-head{padding:18px;background:#111827;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.sm-drawer-head button{background:transparent;border:0;color:#fff;font-size:22px}
+.sm-cat-item{display:flex;align-items:center;justify-content:space-between;padding:14px 17px;border-bottom:1px solid #eef0f3;cursor:pointer;font-size:13px}
+.sm-cat-item:hover{background:#f6f8fa}
+.sm-product-modal .sm-modal-box{max-width:720px}
+.sm-slider{position:relative;background:#f7f8fa;border-radius:12px;padding:8px}
+.sm-slider img{width:100%;height:330px;object-fit:contain;border-radius:10px}
+.sm-slide-btn{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border:0;border-radius:50%;background:rgba(17,24,39,.82);color:#fff;font-size:22px;z-index:2}
+.sm-slide-prev{left:14px}.sm-slide-next{right:14px}
+.sm-dots{text-align:center;margin-top:8px}
+.sm-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#cbd5e1;margin:0 3px;cursor:pointer}
+.sm-dot.active{background:#111827}
+.sm-product-meta{display:grid;gap:8px;margin-top:12px}
+.sm-price-big{font-size:23px;font-weight:800;color:#111827}
+.sm-qty-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.sm-qty{display:flex;align-items:center;border:1px solid #e5e7eb;border-radius:7px;overflow:hidden}
+.sm-qty button{width:36px;height:36px;border:0;background:#f3f4f6;font-size:18px}
+.sm-qty input{width:48px;height:36px;border:0;text-align:center;font-weight:700}
+.sm-size-select{padding:10px;border:1px solid #e5e7eb;border-radius:7px;background:#fff;min-width:130px}
+.sm-checkout{display:grid;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid #edf0f3}
+.sm-invoice{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111827;border-radius:12px;max-width:720px;width:100%;padding:22px;box-sizing:border-box}
+.sm-invoice-head{display:flex;justify-content:space-between;gap:15px;border-bottom:2px solid #111827;padding-bottom:14px}
+.sm-invoice table{width:100%;border-collapse:collapse;margin-top:15px;font-size:12px}
+.sm-invoice th,.sm-invoice td{padding:8px;border-bottom:1px solid #e5e7eb;text-align:left}
+.sm-invoice-total{text-align:right;margin-top:12px;font-size:14px}
+.sm-invoice-total b{font-size:20px}
+@media(max-width:600px){.sm-slider img{height:245px}.sm-invoice{padding:14px}.sm-invoice-head{font-size:12px}}
+</style>
+<style>
+/* ===== Clean ShoppingMall front: banner + products + bottom nav ===== */
+body{padding-bottom:74px}
+.header-actions{display:none!important}
+.nav{display:none!important}
+.sm-bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;height:66px;z-index:10020;
+  display:flex;align-items:stretch;justify-content:space-around;
+  background:#fff;border-top:1px solid #e5e7eb;
+  box-shadow:0 -5px 20px rgba(17,24,39,.10)
+}
+.sm-bottom-item{
+  flex:1;border:0;background:#fff;color:#172033;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;font-size:10px;font-weight:700
+}
+.sm-bottom-item span{font-size:21px;line-height:20px}
+.sm-bottom-item.active{color:#00a950}
+.sm-bottom-icon-wrap{position:relative!important}
+.sm-bottom-icon-wrap i{
+  position:absolute;top:-8px;right:-12px;min-width:17px;height:17px;
+  padding:0 4px;border-radius:99px;background:#00b85a;color:#fff;
+  font-size:9px;font-style:normal;display:flex;align-items:center;justify-content:center
+}
+.sm-menu-fab{
+  top:18px!important;left:18px!important;width:52px!important;height:52px!important;
+  border-radius:14px!important;font-size:27px!important
+}
+.sm-category-drawer{width:300px;max-width:86vw}
+.sm-drawer-head{background:#111827}
+.sm-drawer-head b{font-size:16px}
+.sm-cat-item{font-size:14px;padding:16px 18px}
+.sm-cat-item strong{color:#00a950}
+#products{margin-top:8px!important}
+#products .section-title{margin-top:0}
+#products .section-subtitle{margin-bottom:14px}
+.product-card{cursor:pointer}
+.product-image-wrap,.product-name,.product-category{cursor:pointer}
+.product-card .add-cart{position:relative;z-index:3}
+@media(min-width:701px){
+  .sm-bottom-nav{max-width:520px;left:50%;right:auto;transform:translateX(-50%);border:1px solid #e5e7eb;border-bottom:0;border-radius:14px 14px 0 0}
+}
 
+
+/* ===== Category menu + Order popup ===== */
+.sm-category-drawer{position:fixed;left:0;z-index:10030;background:#fff;box-shadow:10px 0 35px rgba(0,0,0,.18);transform:translateX(-105%);transition:.25s;overflow:auto}
+.sm-category-drawer.open{transform:translateX(0)}
+.sm-drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:10020;display:none}
+.sm-drawer-backdrop.show{display:block}
+.sm-order-modal-box{max-width:560px}
+.sm-order-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid #eef0f3;padding-bottom:10px}
+.sm-order-head h3{margin:4px 0}
+.sm-order-head p{margin:0;color:#7b8190;font-size:12px}
+.sm-order-kicker{font-size:10px;color:#00a950;font-weight:800;letter-spacing:.6px}
+.sm-place-order-btn{width:100%;font-size:13px!important;padding:12px!important}
+</style>
+<style>
+/* ===== Final mobile front layout ===== */
+body{padding-bottom:74px!important;overflow-x:hidden}
+.header-actions{display:none!important}
+.header-top{justify-content:center!important}
+.search-row{display:flex!important;align-items:center!important;gap:7px!important;padding:7px 14px!important}
+.search-box{flex:1!important;height:42px!important}
+.search-box input{font-size:13px!important}
+.sm-menu-fab{
+  position:relative!important;top:auto!important;left:auto!important;
+  flex:0 0 42px!important;width:42px!important;height:42px!important;
+  border:0!important;border-radius:10px!important;background:#111827!important;
+  color:#fff!important;font-size:23px!important;line-height:1!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.16)!important;z-index:10031!important
+}
+.sm-category-drawer{
+  top:124px!important;bottom:auto!important;width:290px!important;max-height:calc(100vh - 205px)!important;
+  border-radius:0 14px 14px 0!important;transform:translateX(-110%)!important;
+}
+.sm-category-drawer.open{transform:translateX(0)!important}
+.sm-drawer-backdrop{top:124px!important}
+.sm-drawer-head{position:sticky;top:0;z-index:2}
+.sm-cat-item{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid #eef0f3;font-size:14px;cursor:pointer}
+.sm-cat-item strong{color:#00a950}
+.sm-banner-carousel{
+  min-height:155px!important;height:155px!important;margin:8px 0 12px!important;
+  border-radius:12px!important;background:#111827!important;position:relative!important;overflow:hidden!important
+}
+.sm-banner-slide{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;opacity:0!important;transition:opacity .45s ease!important
+}
+.sm-banner-slide.active{opacity:1!important}
+.sm-banner-dots{
+  position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:3
+}
+.sm-banner-dot{width:7px;height:7px;border:0;border-radius:50%;padding:0;background:rgba(255,255,255,.6)}
+.sm-banner-dot.active{background:#00a950;transform:scale(1.25)}
+#products{margin-top:0!important}
+#products .section-title{font-size:21px!important}
+#products .section-subtitle{font-size:11px!important}
+.product-grid{gap:10px!important}
+.product-card{min-width:0!important}
+.sm-bottom-nav{height:66px!important}
+@media(min-width:701px){
+  .sm-banner-carousel{height:220px!important;min-height:220px!important}
+}
+</style>
+</head>
 <body>
 
+<div class="sm-drawer-backdrop" id="smDrawerBackdrop" onclick="SMUI.toggleMenu(false)"></div>
+<aside class="sm-category-drawer" id="smCategoryDrawer">
+<div class="sm-drawer-head"><b>Shop by Category</b><button onclick="SMUI.toggleMenu(false)">✕</button></div>
+<div id="smDrawerCategories"></div>
+</aside>
 <div class="top-strip">
 🚚 সারা বাংলাদেশে হোম ডেলিভারি
 </div>
-
 <header class="header">
-
 <div class="header-inner">
-
 <div class="header-top">
-
-<a href="#" class="logo">
+<a class="logo" href="#">
 Gadget<span>Mart</span>
 <small>BANGLADESH</small>
 </a>
-
 <div class="header-actions">
-
-<button
-class="icon-btn"
-onclick="scrollToSection('order')">
+<button class="icon-btn" onclick="scrollToSection('order')">
 📝
 </button>
-
-<button
-class="icon-btn"
-onclick="openCart()">
+<button class="icon-btn" onclick="openCart()">
 🛒
 <span class="cart-count" id="cartCount">0</span>
 </button>
-
 </div>
-
 </div>
-
-<div class="search-row">
-
+<div class="search-row"><button aria-label="Shop by Category" class="sm-menu-fab" onclick="SMUI.toggleMenu()" type="button">☰</button>
 <div class="search-box">
-
-<input
-type="text"
-id="searchInput"
-placeholder="আপনার পছন্দের গেজেট খুঁজুন..."
-oninput="searchProducts()">
-
+<input id="searchInput" oninput="searchProducts()" placeholder="আপনার পছন্দের গেজেট খুঁজুন..." type="text"/>
 <button onclick="searchProducts()">
 🔍
 </button>
-
 </div>
-
 </div>
-
-<nav class="nav">
-
-<a href="#" class="active">Home</a>
-<a href="#categories">Categories</a>
-<a href="#products">Products</a>
-<a href="#flash">Flash Sale</a>
-<a href="#order">Order Now</a>
-<a href="#contact">Contact</a>
-
-</nav>
-
 </div>
-
 </header>
-
 <main class="container">
-
 <section class="section">
-
-<div class="hero">
-
-<img
-class="hero-image"
-src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=1200&q=80"
-alt="Gadget">
-
-<div class="hero-overlay"></div>
-
-<div class="hero-content">
-
-<div class="hero-tag">
-PREMIUM SMART GADGETS
-</div>
-
-<h1>
-Smart Gadgets,
-<span>Smart Life.</span>
-</h1>
-
-<p>
-দৈনন্দিন জীবনকে আরও সহজ ও স্মার্ট করতে
-সেরা গেজেট এখন আপনার হাতের নাগালে।
-</p>
-
-<button
-class="btn-primary"
-onclick="scrollToSection('products')">
-Shop Now
-</button>
-
-</div>
-
-</div>
-
-<div class="features-grid">
-
-<div class="feature-card">
-<div class="feature-icon">⚡</div>
-<div>
-<h4>New Gadgets</h4>
-<p>নতুন এবং আপডেট কালেকশন</p>
-</div>
-</div>
-
-<div class="feature-card">
-<div class="feature-icon">🚚</div>
-<div>
-<h4>Fast Delivery</h4>
-<p>দ্রুত ও নিরাপদ ডেলিভারি</p>
-</div>
-</div>
-
-<div class="feature-card">
-<div class="feature-icon">🛡️</div>
-<div>
-<h4>Secure Payment</h4>
-<p>নিরাপদ পেমেন্ট সুবিধা</p>
-</div>
-</div>
-
-<div class="feature-card">
-<div class="feature-icon">🎧</div>
-<div>
-<h4>Support</h4>
-<p>সবসময় সাহায্য</p>
-</div>
-</div>
-
-</div>
-
+<div class="hero sm-banner-carousel"><img alt="Banner 1" class="sm-banner-slide active" src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"/><img alt="Banner 2" class="sm-banner-slide" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"/><img alt="Banner 3" class="sm-banner-slide" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"/><div class="sm-banner-dots"><button class="sm-banner-dot active" onclick="window.SMUI&amp;&amp;SMUI.bannerTo(0)" type="button"></button><button class="sm-banner-dot" onclick="window.SMUI&amp;&amp;SMUI.bannerTo(1)" type="button"></button><button class="sm-banner-dot" onclick="window.SMUI&amp;&amp;SMUI.bannerTo(2)" type="button"></button></div></div>
 </section>
-
-
-
 <section class="section" id="products">
-
-<h2 class="section-title">
-Featured Products
-</h2>
-
-<p class="section-subtitle">
-জনপ্রিয় এবং নতুন গেজেট
-</p>
-
-<div
-class="product-grid"
-id="productGrid">
-
+<h2 class="section-title">Featured Products</h2>
+<p class="section-subtitle">জনপ্রিয় গেজেট</p>
+<div class="product-grid" id="productGrid">
 <p style="
 grid-column:1/-1;
 text-align:center;
@@ -959,448 +1044,44 @@ padding:30px;
 color:#777;">
 Product লোড হচ্ছে...
 </p>
-
 </div>
-
 </section>
-
-<section class="section" id="flash">
-
-<div class="flash-banner">
-
-<div>
-
-<h3>⚡ Flash Sale</h3>
-
-<p>
-আজকের বিশেষ অফার! সীমিত সময়ের জন্য।
-</p>
-
-</div>
-
-<button
-class="btn-primary"
-onclick="scrollToSection('products')">
-অফার দেখুন
-</button>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="promo">
-
-<div class="promo-content">
-
-<h2>
-Fast & Secure Delivery
-</h2>
-
-<p>
-সারা বাংলাদেশে দ্রুত এবং নিরাপদ
-হোম ডেলিভারি।
-</p>
-
-<button
-class="btn-primary"
-onclick="scrollToSection('order')">
-Order Now
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="section-title">
-Why Choose GadgetMart?
-</h2>
-
-<p class="section-subtitle">
-আমাদের থেকে কেন কিনবেন
-</p>
-
-<div class="why-grid">
-
-<div class="why-card">
-<div class="why-icon">📦</div>
-<h4>Quality Products</h4>
-<p>সেরা মানের পণ্য</p>
-</div>
-
-<div class="why-card">
-<div class="why-icon">🚚</div>
-<h4>Fast Delivery</h4>
-<p>দ্রুত ডেলিভারি</p>
-</div>
-
-<div class="why-card">
-<div class="why-icon">💰</div>
-<h4>Best Price</h4>
-<p>সাশ্রয়ী মূল্য</p>
-</div>
-
-<div class="why-card">
-<div class="why-icon">🎁</div>
-<h4>Trusted Store</h4>
-<p>বিশ্বস্ত সার্ভিস</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="order">
-
-<div class="order-box">
-
-<h2>
-Order Your Gadget
-</h2>
-
-<p class="order-intro">
-নিচের তথ্য দিয়ে আপনার অর্ডারটি কনফার্ম করুন।
-</p>
-
-<div
-class="order-summary"
-id="orderSummary">
-🛒 Cart খালি আছে
-</div>
-
-<form
-id="orderForm"
-onsubmit="placeOrder(event)">
-
-<div class="form-group">
-
-<label>
-আপনার নাম *
-</label>
-
-<input
-type="text"
-id="customerName"
-required
-placeholder="আপনার পূর্ণ নাম লিখুন">
-
-</div>
-
-<div class="form-group">
-
-<label>
-মোবাইল নম্বর *
-</label>
-
-<input
-type="tel"
-id="customerPhone"
-required
-placeholder="01XXXXXXXXX">
-
-</div>
-
-<div class="form-group">
-
-<label>
-সম্পূর্ণ ঠিকানা *
-</label>
-
-<textarea
-id="customerAddress"
-required
-placeholder="গ্রাম/রোড, থানা, জেলা লিখুন"></textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>
-Delivery Area *
-</label>
-
-<select
-id="deliveryArea"
-onchange="updateOrderSummary()">
-
-<option value="inside">
-ঢাকার ভিতরে (৳70)
-</option>
-
-<option value="outside">
-ঢাকার বাহিরে (৳130)
-</option>
-
-</select>
-
-</div>
-
-<button
-class="order-btn"
-type="submit">
-WhatsApp এ Confirm Order
-</button>
-
-</form>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="section-title">
-Delivery & Payment
-</h2>
-
-<p class="section-subtitle">
-সহজ এবং নিরাপদ কেনাকাটা
-</p>
-
-<div class="delivery-grid">
-
-<div class="delivery-card">
-<div>🚚</div>
-<h4>ঢাকার ভিতরে</h4>
-<p>৳70 Delivery Charge</p>
-</div>
-
-<div class="delivery-card">
-<div>🚛</div>
-<h4>ঢাকার বাহিরে</h4>
-<p>৳130 Delivery Charge</p>
-</div>
-
-<div class="delivery-card">
-<div>💵</div>
-<h4>Cash on Delivery</h4>
-<p>পণ্য পেয়ে পেমেন্ট</p>
-</div>
-
-<div class="delivery-card">
-<div>🔒</div>
-<h4>Secure Payment</h4>
-<p>নিরাপদ পেমেন্ট</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="contact">
-
-<h2 class="section-title">
-Contact GadgetMart
-</h2>
-
-<p class="section-subtitle">
-যেকোনো প্রয়োজনে আমাদের সাথে যোগাযোগ করুন
-</p>
-
-<div class="contact-grid">
-
-<div
-class="contact-card"
-onclick="window.location.href='tel:8809696799263'">
-
-<div>📞</div>
-<h4>Call Us</h4>
-<p>01924136271</p>
-
-</div>
-
-<div
-class="contact-card"
-onclick="window.location.href='mailto:gadgetmartbd0@gmail.com'">
-
-<div>📧</div>
-<h4>Email</h4>
-<p>GadgetMart BD</p>
-
-</div>
-
-<div
-class="contact-card"
-onclick="openWhatsApp()">
-
-<div>💬</div>
-<h4>WhatsApp</h4>
-<p>Direct Order</p>
-
-</div>
-
-<div
-class="contact-card"
-onclick="showToast'https://www.facebook.com/share/1HsyjrM9mg/'">
-
-<div>🏳️</div>
-<h4>Facebook Page</h4>
-<p>Follow Us</p>
-
-</div>
-
-</div>
-
-</section>
-
 </main>
 
-<footer class="footer">
-
-<div class="footer-inner">
-
-<div class="footer-grid">
-
-<div>
-
-<div class="footer-title">
-GadgetMart Bangladesh
+<div class="overlay" id="overlay" onclick="closeCart()">
 </div>
-
-<p>
-স্মার্ট গেজেট, স্মার্ট জীবন।
-</p>
-
-</div>
-
-<div>
-
-<div class="footer-title">
-Quick Links
-</div>
-
-<div class="footer-links">
-
-<a href="#">Home</a>
-<a href="#products">Products</a>
-<a href="#order">Order Now</a>
-
-</div>
-
-</div>
-
-<div>
-
-<div class="footer-title">
-Contact
-</div>
-
-<p>
-📞+8809696799263
-</p>
-
-<p>
-✉️ gadgetmartbd0@gmail.com
-</p>
-
-</div>
-
-<div>
-
-<div class="footer-title">
-Delivery
-</div>
-
-<p>
-সারা বাংলাদেশে
-</p>
-
-<p>
-Home Delivery
-</p>
-
-</div>
-
-</div>
-
-<div class="footer-bottom">
-
-© 2026 GadgetMart Bangladesh
-
-<br>
-
-All Rights Reserved.
-
-</div>
-
-</div>
-
-</footer>
-
-<div
-class="overlay"
-id="overlay"
-onclick="closeCart()">
-</div>
-
-<div
-class="cart-panel"
-id="cartPanel">
-
+<div class="cart-panel" id="cartPanel">
 <div class="cart-header">
-
 <h3>🛒 Your Cart</h3>
-
-<button
-class="close-cart"
-onclick="closeCart()">
+<button class="close-cart" onclick="closeCart()">
 ✕
 </button>
-
 </div>
-
-<div
-class="cart-items"
-id="cartItems">
+<div class="cart-items" id="cartItems">
 </div>
-
 <div class="cart-footer">
-
 <div class="cart-total">
-
 <span>
 Subtotal
 </span>
-
 <span id="cartTotal">
 ৳0
 </span>
-
 </div>
-
-<button
-class="checkout-btn"
-onclick="checkout()">
+<button class="checkout-btn" onclick="openOrderForm()">
 Proceed To Order
 </button>
-
 </div>
-
 </div>
-
-<div
-class="toast"
-id="toast">
+<div class="toast" id="toast">
 </div>
-
-
 <script type="module">
 
 import {
 initializeApp
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-import {
-getFirestore,
-collection,
-getDocs,
-onSnapshot
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 
 const firebaseConfig = {
@@ -1435,57 +1116,80 @@ initializeApp(firebaseConfig);
 const db =
 getFirestore(app);
 
+window.firebaseDB = db;
+window.SM_FIREBASE = { db, addDoc, collection, doc, getDoc, getDocs, updateDoc, setDoc };
+
 const productCollection =
 collection(db,"products");
 
 
-let productsList = [];
 
+/* ===== Preview demo products: always available for testing ===== */
+const DEMO_PRODUCTS = [
+  {
+    id:"demo-clean-8018", name:"Clean 8018 Sweeping Robot", category:"Home & Cleaning",
+    price:2490, offerPrice:1990, oldPrice:2490, stock:10, badge:"TEST",
+    image:"https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+    images:[
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=700&q=80"
+    ],
+    sizes:["Standard"], description:"Preview testing product — multiple images, quantity, option and order form test করার জন্য।"
+  },
+  {
+    id:"demo-smart-watch", name:"Smart Watch Series 9", category:"Smart Watch",
+    price:1890, offerPrice:1490, oldPrice:1890, stock:15, badge:"NEW",
+    image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80",
+    images:[
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=700&q=80"
+    ],
+    sizes:["Black","Silver"], description:"Preview testing product with multiple image slider and selectable option."
+  },
+  {
+    id:"demo-mini-blender", name:"Portable Mini Blender", category:"Kitchen Gadget",
+    price:1290, offerPrice:990, oldPrice:1290, stock:20, badge:"SALE",
+    image:"https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=700&q=80",
+    images:[
+      "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=700&q=80"
+    ],
+    sizes:["Pink","White"], description:"Preview testing product for cart, order and product-details testing."
+  }
+];
+window.__SM_PRODUCTS = DEMO_PRODUCTS.slice();
+
+let productsList = DEMO_PRODUCTS.slice();
 let cart = [];
+window.__SM_CART = cart;
 
-
-/* =========================
-   LOAD FIREBASE PRODUCTS
-========================= */
-
-function loadProducts(){
-
-onSnapshot(
-productCollection,
-(snapshot)=>{
-
-productsList =
-snapshot.docs.map(doc=>({
-
-id:doc.id,
-...doc.data()
-
-}));
-
-renderProducts();
-
-},
-(error)=>{
-
-console.error(error);
-
-document.getElementById(
-"productGrid"
-).innerHTML = `
-<p style="
-grid-column:1/-1;
-text-align:center;
-padding:30px;
-color:red;">
-Product লোড করা যায়নি
-</p>
-`;
-
-});
-
+function applyProducts(list){
+  productsList = Array.isArray(list) && list.length ? list : DEMO_PRODUCTS.slice();
+  window.__SM_PRODUCTS = productsList.slice();
+  renderProducts(productsList);
+  window.dispatchEvent(new Event("smProductsLoaded"));
+  if(window.SM && typeof window.SM.sync==="function") window.SM.sync(productsList);
 }
 
+function loadProducts(){
+  /* Show demo products immediately so Preview is never blank. */
+  applyProducts(DEMO_PRODUCTS.slice());
 
+  if(typeof onSnapshot!=="function") return;
+  try{
+    onSnapshot(productCollection,(snapshot)=>{
+      const live=snapshot.docs.map(d=>({id:d.id,...d.data()}));
+      /* Real Firebase products replace demo products only when available. */
+      applyProducts(live.length ? live : DEMO_PRODUCTS.slice());
+    },(error)=>{
+      console.error(error);
+      applyProducts(DEMO_PRODUCTS.slice());
+    });
+  }catch(e){
+    console.error(e);
+    applyProducts(DEMO_PRODUCTS.slice());
+  }
+}
 /* =========================
    RENDER PRODUCTS
 ========================= */
@@ -1693,6 +1397,7 @@ showToast(
 
 function renderCart(){
 
+window.__SM_CART = cart;
 const container =
 document.getElementById("cartItems");
 
@@ -2040,11 +1745,11 @@ document.getElementById(
 
 window.checkout =
 function(){
-
-closeCart();
-
-scrollToSection("order");
-
+  if(window.SMUI && typeof window.SMUI.openOrder==="function"){
+    window.SMUI.openOrder(null);
+  }else{
+    showToast("Order form loading...");
+  }
 };
 
 
@@ -2345,6 +2050,420 @@ loadProducts();
 renderCart();
 
 </script>
+<!-- ===== ShoppingMall BD Extended Customer Features ===== -->
+<div class="sm-modal" id="smProductModal" onclick="if(event.target===this)SM.closeProduct()">
+<div class="sm-modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+<h3 id="smPTitle">Product</h3>
+<button class="sm-btn light" onclick="SM.closeProduct()">✕</button>
+</div>
+<div id="smMainImageWrap"><img alt="Product" class="sm-main-img" id="smPImage"/></div>
+<div class="sm-gallery" id="smPGallery"></div>
+<div id="smPInfo" style="margin-top:12px"></div>
+<div class="sm-actions">
+<button class="sm-btn primary" id="smPAdd">Add to Cart</button>
+<button class="sm-btn primary" id="smPOrder">Order Now</button>
+<button class="sm-btn light" id="smPWish">♡ Wishlist</button>
+</div>
+</div>
+</div>
+<script>
+/* ===== ShoppingMall BD Customer Feature Engine ===== */
+(function(){
+  const KEY="shoppingmallbd_wishlist";
+  let productsCache=[];
+  const $=id=>document.getElementById(id);
+  const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+  const price=p=>Number(p||0).toLocaleString("en-BD",{minimumFractionDigits:0,maximumFractionDigits:2});
+  const wish=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch{return[]}};
+  const saveWish=a=>localStorage.setItem(KEY,JSON.stringify(a));
+  const idOf=p=>String(p.id||p.productId||p.sku||p.name||"");
+  const imgs=p=>(Array.isArray(p.images)&&p.images.length?p.images:[p.image,p.img,p.photo].filter(Boolean));
 
+  function card(p){
+    const id=idOf(p), images=imgs(p), image=images[0]||"";
+    const old=Number(p.oldPrice||p.comparePrice||0), current=Number(p.price||p.salePrice||0);
+    const stock=p.stock===undefined?"":Number(p.stock);
+    return `<div class="sm-card">
+      ${image?`<img src="${esc(image)}" alt="${esc(p.name)}" style="width:100%;height:170px;object-fit:contain;border-radius:8px">`:""}
+      <div style="margin-top:8px"><span class="sm-badge">${esc(p.category||"Product")}</span></div>
+      <h3 style="margin:8px 0 4px">${esc(p.name||"Unnamed Product")}</h3>
+      <div><b>৳${price(current)}</b> ${old>current?`<del class="sm-muted">৳${price(old)}</del>`:""}</div>
+      ${stock!==""?`<div class="sm-muted">${stock>0?`In stock: ${stock}`:"Out of stock"}</div>`:""}
+      <div class="sm-actions">
+        <button class="sm-btn primary" onclick="SM.add('${encodeURIComponent(id)}')">Add to Cart</button>
+        <button class="sm-btn light" onclick="SM.open('${encodeURIComponent(id)}')">Details</button>
+        <button class="sm-btn light" onclick="SM.toggleWish('${encodeURIComponent(id)}')">${wish().includes(id)?"♥":"♡"}</button>
+      </div>
+    </div>`;
+  }
+
+  function render(list,target){if($(target))$(target).innerHTML=list.length?list.map(card).join(""):`<div class="sm-muted">No products found.</div>`}
+  function find(id){return productsCache.find(p=>idOf(p)===id)}
+
+  function sync(list){
+    if(Array.isArray(list)) productsCache=list;
+    renderCategories();
+    renderWishlist();
+  }
+
+  function renderCategories(){
+    const cats=[...new Set(productsCache.map(p=>p.category).filter(Boolean))];
+    const target=$("smDrawerCategories");
+    if(!target) return;
+    target.innerHTML =
+      `<div class="sm-cat-item" onclick="SM.category('all');SMUI.toggleMenu(false)">
+         <strong>সব পণ্য</strong><span>›</span>
+       </div>` +
+      (cats.length ? cats.map(c=>`
+        <div class="sm-cat-item" onclick="SM.category('${encodeURIComponent(c)}');SMUI.toggleMenu(false)">
+          <span>${esc(c)}</span><span>›</span>
+        </div>`).join("") :
+       `<div class="sm-cat-item"><span class="sm-muted">এখনো কোনো Category নেই</span></div>`);
+  }
+
+  function renderWishlist(){ }
+
+  window.SM={
+    sync(list){ if(Array.isArray(list)){productsCache=list;renderCategories();} },
+    add(enc){
+      const p=find(decodeURIComponent(enc)); if(!p)return;
+      if(typeof window.addToCart==="function") window.addToCart(p.id);
+    },
+    toggleWish(enc){const id=decodeURIComponent(enc),a=wish(),i=a.indexOf(id);i>=0?a.splice(i,1):a.push(id);saveWish(a);renderWishlist();renderSpecial()},
+    open(enc){
+      const wanted=decodeURIComponent(enc);
+      const p=find(wanted) || ((window.__SM_PRODUCTS||[]).find(x=>idOf(x)===wanted));
+      if(!p)return;
+      const im=imgs(p),main=$("smPImage");
+      window.__SM_CURRENT_PRODUCT=p;
+      window.__SM_CURRENT_IMAGE_INDEX=0;
+      $("smPTitle").textContent=p.name||"Product";
+      $("smPInfo").innerHTML=`
+        <p style="margin:8px 0"><b>৳${price(p.offerPrice||p.price||0)}</b> ${Number(p.price||0)>Number(p.offerPrice||p.price||0)?`<del class="sm-muted">৳${price(p.price)}</del>`:""}</p>
+        <p class="sm-muted">Category: ${esc(p.category||"")}</p>
+        <p>${esc(p.description||"Product details will be updated soon.")}</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px">
+          <b>Quantity</b>
+          <div class="sm-qty"><button onclick="SMUI.detailQty(-1)">−</button><input id="smDetailQty" value="1" readonly><button onclick="SMUI.detailQty(1)">+</button></div>
+        </div>
+        ${Array.isArray(p.sizes)&&p.sizes.length?`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px"><b>Size / Option</b><select class="sm-size-select" id="smDetailSize">${p.sizes.map(x=>`<option>${esc(x)}</option>`).join("")}</select></div>`:""}
+      `;
+      $("smPAdd").onclick=()=>SM.add(enc);
+      $("smPOrder").onclick=()=>openOrderForm(p,Number($("smDetailQty")?.value||1));
+      $("smPWish").onclick=()=>SM.toggleWish(enc);
+      const gallery=$("smPGallery");
+      gallery.innerHTML=im.map((x,i)=>`<img src="${esc(x)}" onclick="SMUI.showSlide(${i})" alt="Product image ${i+1}">`).join("");
+      if(!im.length) im.push(p.image||"");
+      main.src=im[0]||"";
+      const wrap=$("smMainImageWrap");
+      if(im.length>1){
+        wrap.classList.add("sm-slider");
+        wrap.innerHTML=`<button class="sm-slide-btn sm-prev" onclick="SMUI.showSlide(window.__SM_CURRENT_IMAGE_INDEX-1)">‹</button><img alt="Product" class="sm-main-img" id="smPImage" src="${esc(im[0]||"")}"/><button class="sm-slide-btn sm-next" onclick="SMUI.showSlide(window.__SM_CURRENT_IMAGE_INDEX+1)">›</button>`;
+      } else {
+        wrap.classList.remove("sm-slider");
+        wrap.innerHTML=`<img alt="Product" class="sm-main-img" id="smPImage" src="${esc(im[0]||"")}"/>`;
+      }
+      $("smPGallery").innerHTML=im.map((x,i)=>`<img src="${esc(x)}" onclick="SMUI.showSlide(${i})" alt="Product image ${i+1}">`).join("");
+      $("smProductModal").classList.add("open");
+    },
+    closeProduct(){$("smProductModal").classList.remove("open")},
+    category(enc){
+      const c=decodeURIComponent(enc);
+      if(typeof window.filterCategory==="function") window.filterCategory(c);
+      else if(c==="all" && typeof window.renderProducts==="function") window.renderProducts(productsCache);
+      SMUI.toggleMenu(false);
+    },
+    trackOrder:async function(){
+      const id=$("smTrackId").value.trim();if(!id)return;
+      $("smTrackResult").innerHTML='<div class="sm-muted">Checking order...</div>';
+      try{
+        if(window.firebaseDB&&typeof getDoc==="function"&&typeof doc==="function"){
+          const s=await getDoc(doc(window.firebaseDB,"orders",id));
+          if(!s.exists())throw Error("Order not found");
+          const o=s.data();
+          $("smTrackResult").innerHTML=`<div class="sm-card"><b>Order ID:</b> ${esc(id)}<br><b>Status:</b> ${esc(o.status||"Pending")}<br><b>Total:</b> ৳${price(o.total||0)}<br><b>Customer:</b> ${esc(o.customerName||"")}<br><span class="sm-muted">Created: ${esc(o.createdAt?.toDate?o.createdAt.toDate().toLocaleString():o.createdAt||"")}</span></div>`;
+        }else throw Error("Order tracking is not connected");
+      }catch(e){$("smTrackResult").innerHTML=`<div class="sm-card">${esc(e.message||"Order not found")}</div>`}
+    },
+    refresh:load
+  };
+  document.addEventListener("DOMContentLoaded",()=>setTimeout(load,700));
+})();
+</script>
+<div class="sm-modal" id="smCheckoutModal">
+<div class="sm-modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h3 style="margin:0">Complete Your Order</h3>
+<button class="sm-btn light" onclick="SMUI.closeCheckout()">✕</button>
+</div>
+<div id="smCheckoutSummary" style="margin-top:12px"></div>
+<div class="sm-checkout">
+<input class="sm-input" id="smCName" placeholder="Full Name"/>
+<input class="sm-input" id="smCPhone" placeholder="Mobile Number"/>
+<textarea class="sm-textarea" id="smCAddress" placeholder="Complete Delivery Address"></textarea>
+<select class="sm-select" id="smCArea"><option value="inside">Inside Dhaka</option><option value="outside">Outside Dhaka</option></select>
+<select class="sm-select" id="smCPayment"><option>Cash on Delivery</option></select>
+<button class="sm-btn primary" onclick="SMUI.submitOrder()">Place Order</button>
+<div class="sm-muted" id="smOrderMsg"></div>
+</div>
+</div>
+</div>
+<div class="sm-modal" id="smOrderModal" onclick="if(event.target===this)SMUI.closeOrder()">
+<div class="sm-modal-box sm-order-modal-box">
+<div class="sm-order-head">
+<div>
+<div class="sm-order-kicker">GadgetMart Bangladesh</div>
+<h3>📝 Order Form</h3>
+<p>আপনার তথ্য দিয়ে অর্ডারটি সম্পন্ন করুন</p>
+</div>
+<button class="sm-btn light" onclick="SMUI.closeOrder()">✕</button>
+</div>
+<div id="smOrderProductSummary"></div>
+<div class="sm-checkout">
+<input class="sm-input" id="smOrderName" placeholder="আপনার নাম"/>
+<input class="sm-input" id="smOrderPhone" inputmode="tel" placeholder="মোবাইল নম্বর"/>
+<textarea class="sm-textarea" id="smOrderAddress" placeholder="সম্পূর্ণ ডেলিভারি ঠিকানা"></textarea>
+<select class="sm-select" id="smOrderArea" onchange="SMUI.updateOrderTotal()">
+<option value="inside">ঢাকার ভিতরে — Delivery ৳70</option>
+<option value="outside">ঢাকার বাইরে — Delivery ৳130</option>
+</select>
+<select class="sm-select" id="smOrderPayment">
+<option value="Cash on Delivery">Cash on Delivery</option>
+</select>
+<button class="sm-btn primary sm-place-order-btn" id="smPlaceOrderBtn" onclick="SMUI.submitOrder()">Confirm Order</button>
+<div class="sm-muted" id="smOrderMsg"></div>
+</div>
+</div>
+</div>
+<div class="sm-modal" id="smInvoiceModal" onclick="if(event.target===this)SMUI.closeInvoice()">
+<div class="sm-invoice" id="smInvoiceContent"></div>
+</div>
+<nav aria-label="Bottom navigation" class="sm-bottom-nav">
+<button class="sm-bottom-item active" onclick="SMUI.goHome()" type="button">
+<span>⌂</span><b>Home</b>
+</button>
+<button class="sm-bottom-item" onclick="openCart()" type="button">
+<span class="sm-bottom-icon-wrap">🛒<i id="bottomCartCount">0</i></span><b>Cart</b>
+</button>
+<button class="sm-bottom-item" onclick="openOrderForm()" type="button">
+<span>📝</span><b>Order</b>
+</button>
+</nav>
+<script>
+(function(){
+  const E=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+  const P=v=>Number(v||0).toLocaleString("en-BD",{minimumFractionDigits:0,maximumFractionDigits:2});
+  window.SMUI=window.SMUI||{};
+  window.SMUI.toggleMenu=function(force){
+    const d=document.getElementById("smCategoryDrawer"),b=document.getElementById("smDrawerBackdrop");
+    if(!d||!b)return;
+    const open=force===undefined?!d.classList.contains("open"):!!force;
+    d.classList.toggle("open",open);b.classList.toggle("show",open);
+  };
+  window.SMUI.closeOrder=()=>document.getElementById("smOrderModal")?.classList.remove("open");
+  window.SMUI.closeInvoice=()=>document.getElementById("smInvoiceModal")?.classList.remove("open");
+  window.SMUI.detailQty=function(change){
+    const p=window.__SM_CURRENT_PRODUCT,input=document.getElementById("smDetailQty");
+    if(!p||!input)return;
+    const stock=Math.max(1,Number(p.stock||999999));
+    input.value=Math.min(stock,Math.max(1,Number(input.value||1)+change));
+  };
+  window.SMUI.showSlide=function(i){
+    const p=window.__SM_CURRENT_PRODUCT;if(!p)return;
+    const im=Array.isArray(p.images)&&p.images.length?p.images:[p.image].filter(Boolean);
+    if(!im.length)return;
+    window.__SM_CURRENT_IMAGE_INDEX=(i+im.length)%im.length;
+    const img=document.getElementById("smPImage");if(img)img.src=im[window.__SM_CURRENT_IMAGE_INDEX];
+  };
+  window.SMUI.openOrder=function(product,qty){
+    const p=product||null;
+    let items=p?[{...p,qty:Math.max(1,Number(qty||1))}]:(window.__SM_CART||[]);
+    if(!items.length){
+      const demo=(window.__SM_PRODUCTS||[])[0];
+      if(demo)items=[{...demo,qty:1}];
+    }
+    if(!items.length){window.showToast?.("Product loading...");return;}
+    window.__SM_ORDER_ITEMS=items;
+    const box=document.getElementById("smOrderProductSummary");
+    const sub=items.reduce((a,x)=>a+Number(x.offerPrice||x.price||0)*Number(x.qty||1),0);
+    if(box)box.innerHTML=`<div class="sm-card" style="margin-top:10px"><b>আপনার অর্ডার</b>${items.map(x=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee"><span>${E(x.name)} × ${x.qty}</span><b>৳${P(Number(x.offerPrice||x.price||0)*Number(x.qty||1))}</b></div>`).join("")}<div style="text-align:right;padding-top:9px"><b>Subtotal: ৳${P(sub)}</b></div></div>`;
+    const msg=document.getElementById("smOrderMsg");if(msg)msg.textContent="";
+    document.getElementById("smOrderModal")?.classList.add("open");
+    window.SMUI.updateOrderTotal();
+  };
+  window.SMUI.updateOrderTotal=function(){
+    const items=window.__SM_ORDER_ITEMS||[],box=document.getElementById("smOrderProductSummary");
+    if(!box)return;
+    const sub=items.reduce((a,x)=>a+Number(x.offerPrice||x.price||0)*Number(x.qty||1),0);
+    const del=document.getElementById("smOrderArea")?.value==="outside"?130:70;
+    box.querySelector(".sm-order-total")?.remove();
+    const d=document.createElement("div");d.className="sm-order-total";
+    d.style.cssText="text-align:right;font-weight:800;margin:10px 2px 0";
+    d.textContent="Total: ৳"+P(sub+del);box.appendChild(d);
+  };
+  window.SMUI.submitOrder=async function(){
+    const items=window.__SM_ORDER_ITEMS||[];
+    const name=document.getElementById("smOrderName")?.value.trim()||"";
+    const phone=document.getElementById("smOrderPhone")?.value.trim()||"";
+    const address=document.getElementById("smOrderAddress")?.value.trim()||"";
+    const area=document.getElementById("smOrderArea")?.value||"inside";
+    const payment=document.getElementById("smOrderPayment")?.value||"Cash on Delivery";
+    const msg=document.getElementById("smOrderMsg");
+    if(!name||!phone||!address){if(msg)msg.textContent="নাম, মোবাইল নম্বর ও ঠিকানা দিন।";return}
+    if(!items.length){if(msg)msg.textContent="Product নির্বাচন করুন।";return}
+    const subtotal=items.reduce((a,x)=>a+Number(x.offerPrice||x.price||0)*Number(x.qty||1),0);
+    const delivery=area==="outside"?130:70,total=subtotal+delivery;
+    const btn=document.getElementById("smPlaceOrderBtn");if(btn){btn.disabled=true;btn.textContent="অর্ডার হচ্ছে...";}
+    try{
+      const fb=window.SM_FIREBASE;if(!fb)throw new Error("Firebase connection পাওয়া যায়নি");
+      const ref=await fb.addDoc(fb.collection(fb.db,"orders"),{
+        customerName:name,customerPhone:phone,customerAddress:address,deliveryArea:area,paymentMethod:payment,
+        items:items.map(x=>({id:x.id||"",name:x.name||"",qty:Number(x.qty||1),price:Number(x.offerPrice||x.price||0),size:x.size||""})),
+        subtotal,delivery,total,status:"Pending",source:"website",createdAt:new Date()
+      });
+      window.__SM_LAST_ORDER={id:ref.id,name,phone,address,area,payment,items,subtotal,delivery,total};
+      window.closeCart?.();window.SMUI.closeOrder();window.SMUI.showInvoice(window.__SM_LAST_ORDER);
+    }catch(e){console.error(e);if(msg)msg.textContent="অর্ডার করা যায়নি: "+(e.message||"Try again")}
+    finally{if(btn){btn.disabled=false;btn.textContent="Confirm Order"}}
+  };
+  window.SMUI.showInvoice=function(o){
+    const c=document.getElementById("smInvoiceContent");if(!c)return;
+    c.innerHTML=`<div class="sm-invoice-head"><div><h2 style="margin:0">GadgetMart Bangladesh</h2><div>Order Invoice</div></div><div><b>Order ID</b><br>${E(o.id)}</div></div><div style="margin-top:12px;font-size:12px"><b>Customer:</b> ${E(o.name)}<br><b>Phone:</b> ${E(o.phone)}<br><b>Address:</b> ${E(o.address)}</div><table><tr><th>Product</th><th>Qty</th><th>Price</th></tr>${o.items.map(x=>`<tr><td>${E(x.name)}</td><td>${x.qty}</td><td>৳${P(Number(x.offerPrice||x.price||0)*Number(x.qty||1))}</td></tr>`).join("")}</table><div class="sm-invoice-total">Subtotal: ৳${P(o.subtotal)}<br>Delivery: ৳${P(o.delivery)}<br><b>Total: ৳${P(o.total)}</b></div><div style="display:flex;gap:8px;margin-top:18px"><button class="sm-btn primary" onclick="SMUI.printInvoice()">Download / Print PDF</button><button class="sm-btn light" onclick="SMUI.closeInvoice()">Close</button></div>`;
+    document.getElementById("smInvoiceModal")?.classList.add("open");
+  };
+  window.SMUI.printInvoice=function(){
+    const content=document.getElementById("smInvoiceContent")?.innerHTML||"",w=window.open("","_blank","width=800,height=900");
+    if(!w){window.showToast?.("Popup blocked — browser popup allow করুন");return}
+    w.document.write(`<html><head><title>GadgetMart Invoice</title><style>body{font-family:Arial;padding:25px}.sm-invoice-head{display:flex;justify-content:space-between;border-bottom:2px solid #111;padding-bottom:12px}table{width:100%;border-collapse:collapse;margin-top:18px}th,td{border-bottom:1px solid #ddd;padding:9px;text-align:left}.sm-invoice-total{text-align:right;margin-top:15px;line-height:1.8}</style></head><body>${content}<script>document.querySelectorAll('button').forEach(x=>x.remove());window.print();<\/script></body></html>`);
+    w.document.close();
+  };
+  window.SMUI.goOrder=function(){
+    document.querySelectorAll(".sm-bottom-item").forEach((x,i)=>x.classList.toggle("active",i===2));
+    const first=(window.__SM_CART&&window.__SM_CART.length)?window.__SM_CART[0]:null;
+    window.SMUI.openOrder(first,first?.qty||1);
+  };
+  window.SMUI.goHome=function(){
+    document.querySelectorAll(".sm-bottom-item").forEach((x,i)=>x.classList.toggle("active",i===0));
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+})();
+</script>
+<script>
+(function(){
+  const updateBottomCart=()=>{
+    const top=document.getElementById("cartCount");
+    const b=document.getElementById("bottomCartCount");
+    if(top&&b) b.textContent=top.textContent||"0";
+  };
+  setInterval(updateBottomCart,500);
+  document.addEventListener("DOMContentLoaded",updateBottomCart);
+})();
+</script>
+<script>
+(function(){
+  let idx=0,timer;
+  function setBanner(i){
+    const a=document.querySelectorAll(".sm-banner-slide"),d=document.querySelectorAll(".sm-banner-dot");
+    if(!a.length)return; idx=(i+a.length)%a.length;
+    a.forEach((x,n)=>x.classList.toggle("active",n===idx));
+    d.forEach((x,n)=>x.classList.toggle("active",n===idx));
+  }
+  window.SMUI=window.SMUI||{};window.SMUI.bannerTo=setBanner;
+  document.addEventListener("DOMContentLoaded",()=>{setBanner(0);clearInterval(timer);timer=setInterval(()=>setBanner(idx+1),3000)});
+})();
+</script><script>
+(function(){
+  function openCartSafe(){document.getElementById("cartPanel")?.classList.add("open");document.getElementById("overlay")?.classList.add("show")}
+  function closeCartSafe(){document.getElementById("cartPanel")?.classList.remove("open");document.getElementById("overlay")?.classList.remove("show")}
+  window.openCart=window.openCart||openCartSafe;window.closeCart=window.closeCart||closeCartSafe;
+  document.addEventListener("DOMContentLoaded",()=>{
+    const c=document.querySelector(".sm-bottom-item:nth-child(2)"),o=document.querySelector(".sm-bottom-item:nth-child(3)");
+    if(c)c.onclick=e=>{e.preventDefault();openCartSafe()};
+    if(o)o.onclick=e=>{e.preventDefault();window.SMUI?.openOrder?.(null)};
+  });
+})();
+</script>
+<script>
+(function(){
+  window.openOrderForm = function(product, qty){
+    try{
+      const modal=document.getElementById("smOrderModal");
+      if(!modal){ alert("Order Form পাওয়া যায়নি।"); return; }
+
+      let items=[];
+      if(product){
+        items=[Object.assign({},product,{qty:Math.max(1,Number(qty||1))})];
+      }else if(Array.isArray(window.__SM_CART) && window.__SM_CART.length){
+        items=window.__SM_CART.map(x=>Object.assign({},x));
+      }else if(Array.isArray(window.__SM_PRODUCTS) && window.__SM_PRODUCTS.length){
+        items=[Object.assign({},window.__SM_PRODUCTS[0],{qty:1})];
+      }
+
+      if(!items.length){
+        alert("কোনো Product পাওয়া যায়নি।");
+        return;
+      }
+
+      window.__SM_ORDER_ITEMS=items;
+
+      const sum=document.getElementById("smOrderProductSummary");
+      if(sum){
+        let total=0;
+        sum.innerHTML='<div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:12px"><b>🛍️ আপনার অর্ডার</b>'+
+          items.map(x=>{
+            const pr=Number(x.offerPrice||x.price||0);
+            const q=Math.max(1,Number(x.qty||1));
+            total+=pr*q;
+            return '<div style="display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #e5e7eb"><span>'+safeText(x.name||"Product")+' × '+q+'</span><b>৳'+(pr*q)+'</b></div>';
+          }).join('')+
+          '<div style="text-align:right;margin-top:10px;font-weight:800">Subtotal: ৳'+total+'</div></div>';
+      }
+
+      const msg=document.getElementById("smOrderMsg");
+      if(msg) msg.textContent="";
+      modal.classList.add("open");
+      modal.style.display="flex";
+      modal.style.visibility="visible";
+      modal.style.opacity="1";
+    }catch(err){
+      console.error("Order Form:",err);
+      alert("Order Form খুলতে সমস্যা হয়েছে।");
+    }
+  };
+
+  function safeText(v){
+    return String(v).replace(/[&<>"']/g,function(m){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m];
+    });
+  }
+
+  window.closeOrderForm=function(){
+    const m=document.getElementById("smOrderModal");
+    if(m){m.classList.remove("open");m.style.display="none";}
+  };
+
+  document.addEventListener("DOMContentLoaded",function(){
+    const orderBtns=document.querySelectorAll(".sm-bottom-item:nth-child(3)");
+    orderBtns.forEach(b=>b.onclick=function(e){
+      e.preventDefault();
+      openOrderForm();
+    });
+
+    const checkout=document.querySelector(".checkout-btn");
+    if(checkout) checkout.onclick=function(e){
+      e.preventDefault();
+      openOrderForm();
+    };
+
+    const orderNow=document.getElementById("smPOrder");
+    if(orderNow) orderNow.onclick=function(){
+      const p=window.__SM_CURRENT_PRODUCT||null;
+      const q=Number(document.getElementById("smDetailQty")?.value||1);
+      openOrderForm(p,q);
+    };
+  });
+})();
+</script>
 </body>
 </html>
