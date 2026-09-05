@@ -1919,7 +1919,7 @@ initializeApp
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
 
 
 import {
@@ -1976,67 +1976,53 @@ getAuth(app);
    LOGIN
 ========================= */
 
-const loginBtn=
-document.getElementById("loginBtn");
+const loginBtn=document.getElementById("loginBtn");
+const loginEmail=document.getElementById("loginEmail");
+const loginPassword=document.getElementById("loginPassword");
+const loginMsg=document.getElementById("loginMsg");
 
-loginBtn.onclick=async()=>{
+async function doAdminLogin(){
+  const email=(loginEmail?.value||"").trim();
+  const password=loginPassword?.value||"";
+  if(!email||!password){
+    loginMsg.textContent="⚠️ Email ও Password দুটোই দিন";
+    return;
+  }
 
-const email=
-document.getElementById("loginEmail")
-.value.trim();
+  loginBtn.disabled=true;
+  loginBtn.textContent="Login হচ্ছে...";
+  loginMsg.textContent="";
 
-const password=
-document.getElementById("loginPassword")
-.value;
-
-const msg=
-document.getElementById("loginMsg");
-
-
-if(!email||!password){
-
-msg.textContent=
-"Email ও Password দিন";
-
-return;
-
+  try{
+    await signInWithEmailAndPassword(auth,email,password);
+  }catch(error){
+    console.error("Firebase Login Error:",error);
+    const code=error?.code||"";
+    const messages={
+      "auth/invalid-credential":"❌ Email অথবা Password ভুল",
+      "auth/invalid-login-credentials":"❌ Email অথবা Password ভুল",
+      "auth/user-not-found":"❌ এই Email দিয়ে কোনো Admin account নেই",
+      "auth/wrong-password":"❌ Password ভুল",
+      "auth/invalid-email":"❌ Email address সঠিক নয়",
+      "auth/user-disabled":"❌ এই Admin account বন্ধ করা হয়েছে",
+      "auth/too-many-requests":"⏳ অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন",
+      "auth/network-request-failed":"🌐 Internet connection সমস্যা হয়েছে",
+      "auth/operation-not-allowed":"⚠️ Firebase Authentication-এ Email/Password sign-in চালু নেই"
+    };
+    loginMsg.textContent=messages[code] || ("❌ Login হয়নি ("+code+")");
+  }finally{
+    loginBtn.disabled=false;
+    loginBtn.textContent="Login";
+  }
 }
 
-loginBtn.disabled=true;
-loginBtn.textContent="Login হচ্ছে...";
-
-try{
-
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-}catch(error){
-
-console.error(error);
-
-msg.textContent=
-"❌ Email অথবা Password ভুল";
-
-}
-
-loginBtn.disabled=false;
-loginBtn.textContent="Login";
-
-};
-
-
-document
-.getElementById("loginPassword")
-.addEventListener("keydown",e=>{
-
-if(e.key==="Enter")
-loginBtn.click();
-
+loginBtn?.addEventListener("click",doAdminLogin);
+loginPassword?.addEventListener("keydown",e=>{
+  if(e.key==="Enter")doAdminLogin();
 });
-
+loginEmail?.addEventListener("keydown",e=>{
+  if(e.key==="Enter")doAdminLogin();
+});
 
 /* =========================
    AUTH
