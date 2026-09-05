@@ -16,7 +16,18 @@ button,input,textarea,select{font-family:inherit}button{cursor:pointer}
 .logo{font-size:21px;font-weight:800;padding:10px;margin-bottom:25px}.logo span{color:#00d66b}.menu-title{font-size:9px;color:#667085;padding:10px;text-transform:uppercase;letter-spacing:1px}
 .menu-btn{width:100%;border:0;background:transparent;color:#aab3c2;padding:12px;border-radius:9px;text-align:left;font-size:13px;margin-bottom:4px}.menu-btn:hover,.menu-btn.active{background:#172235;color:#00d66b}.menu-btn span{display:inline-block;width:25px}.logout-side{position:absolute;bottom:20px;left:14px;right:14px;background:#dc2626;color:white}
 .main{margin-left:245px;min-height:100vh}.topbar{height:70px;background:white;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 25px;position:sticky;top:0;z-index:500}.topbar h2{font-size:19px}.admin-user{font-size:12px;color:#777}.content{padding:25px;max-width:1250px;margin:auto}
-.page-section{display:none}.page-section.active{display:block}.section-head{margin-bottom:20px}.section-head h2{font-size:22px;margin-bottom:5px}.section-head p{font-size:12px;color:#8a93a3}
+.page-section{display:none}.page-section.active{display:block}.section-head{margin-bottom:20px}
+.analysis-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.analysis-tab{border:1px solid #e5e7eb;background:#f8fafc;padding:9px 13px;border-radius:7px;font-size:11px;cursor:pointer}
+.analysis-tab.active{background:#111827;color:white;border-color:#111827}
+.analysis-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.analysis-card{background:white;border:1px solid #e7e9ed;border-radius:10px;padding:14px}
+.analysis-card .a-label{font-size:10px;color:#8a93a3}
+.analysis-card .a-value{font-size:19px;font-weight:800;margin-top:5px}
+.analysis-table{width:100%;border-collapse:collapse;font-size:11px}
+.analysis-table th,.analysis-table td{padding:9px;border-bottom:1px solid #eee;text-align:left}
+.analysis-table th{background:#f8fafc}
+@media(max-width:800px){.analysis-grid{grid-template-columns:repeat(2,1fr)}}.section-head h2{font-size:22px;margin-bottom:5px}.section-head p{font-size:12px;color:#8a93a3}
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:15px;margin-bottom:22px}.stat{background:white;border:1px solid #e7eaf0;border-radius:14px;padding:18px}.stat-icon{font-size:25px;margin-bottom:10px}.stat-number{font-size:24px;font-weight:bold}.stat-label{font-size:11px;color:#8b93a1;margin-top:4px}
 .card{background:white;border:1px solid #e7eaf0;border-radius:14px;padding:20px;margin-bottom:20px}.card-title{font-size:16px;font-weight:bold;margin-bottom:15px}
 .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.form-group{margin-bottom:13px}.form-group label{display:block;font-size:11px;font-weight:bold;margin-bottom:6px}.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;border:1px solid #dfe3e8;border-radius:8px;outline:none;font-size:12px;background:white}.form-group textarea{min-height:100px;resize:vertical}
@@ -47,6 +58,7 @@ button,input,textarea,select{font-family:inherit}button{cursor:pointer}
   <div class="logo">Gadget<span>Mart</span></div>
   <div class="menu-title">Main</div>
   <button class="menu-btn active" onclick="showPage('dashboard',this)"><span>📊</span>Dashboard</button>
+  <button class="menu-btn" onclick="showPage('analysis',this)"><span>📈</span>Analysis</button>
   <div class="menu-title">Business</div>
   <button class="menu-btn" onclick="showPage('orders',this)"><span>🧾</span>Orders <b id="newOrderBadge" style="float:right"></b></button>
   <div class="menu-title">Store</div>
@@ -78,9 +90,38 @@ button,input,textarea,select{font-family:inherit}button{cursor:pointer}
  </div>
  <div class="card"><div class="card-title">🚀 Quick Actions</div><div style="display:flex;gap:8px;flex-wrap:wrap">
   <button class="btn btn-green" onclick="openPage('orders')">🧾 View Orders</button>
+  <button class="btn btn-blue" onclick="openPage('analysis')">📈 View Analysis</button>
   <button class="btn btn-blue" onclick="openPage('products')">➕ Add Product</button>
   <button class="btn btn-dark" onclick="openPage('hero')">🖼️ Edit Banner</button>
  </div></div>
+</section>
+
+<section id="analysis" class="page-section">
+ <div class="section-head"><h2>📈 Sales Analysis</h2><p>Daily, Weekly, Monthly এবং Yearly order/sales analysis realtime data থেকে দেখাবে।</p></div>
+ <div class="card">
+  <div class="analysis-tabs">
+   <button class="analysis-tab active" id="analysisTabDaily" onclick="setAnalysisPeriod('daily')">Daily</button>
+   <button class="analysis-tab" id="analysisTabWeekly" onclick="setAnalysisPeriod('weekly')">Weekly</button>
+   <button class="analysis-tab" id="analysisTabMonthly" onclick="setAnalysisPeriod('monthly')">Monthly</button>
+   <button class="analysis-tab" id="analysisTabYearly" onclick="setAnalysisPeriod('yearly')">Yearly</button>
+  </div>
+  <div id="analysisPeriodLabel" style="font-size:11px;color:#667085;margin-bottom:12px"></div>
+  <div class="analysis-grid">
+   <div class="analysis-card"><div class="a-label">Orders</div><div class="a-value" id="analysisOrders">0</div></div>
+   <div class="analysis-card"><div class="a-label">Sales</div><div class="a-value" id="analysisSales">৳0</div></div>
+   <div class="analysis-card"><div class="a-label">Delivered</div><div class="a-value" id="analysisDelivered">0</div></div>
+   <div class="analysis-card"><div class="a-label">Average Order</div><div class="a-value" id="analysisAverage">৳0</div></div>
+  </div>
+ </div>
+ <div class="card">
+  <div class="card-title">🏆 Top Products</div>
+  <div style="overflow:auto">
+   <table class="analysis-table">
+    <thead><tr><th>#</th><th>Product</th><th>Qty Sold</th><th>Sales</th></tr></thead>
+    <tbody id="analysisProducts"><tr><td colspan="4">Analysis লোড হচ্ছে...</td></tr></tbody>
+   </table>
+  </div>
+ </div>
 </section>
 
 <section id="orders" class="page-section">
@@ -100,7 +141,15 @@ button,input,textarea,select{font-family:inherit}button{cursor:pointer}
    <div class="form-group"><label>Stock</label><input type="number" id="productStock" placeholder="10"></div>
    <div class="form-group"><label>Badge</label><input id="productBadge" placeholder="HOT / SALE"></div>
   </div>
-  <div class="form-group"><label>Product Image URL *</label><input id="productImage" placeholder="https://..."></div>
+  <div class="form-group"><label>Primary Product Image URL *</label><input id="productImage" placeholder="https://... (Primary Image)"></div>
+  <div class="form-grid image-grid">
+   <div class="form-group"><label>Optional Image 2</label><input id="productImage2" placeholder="https://..."></div>
+   <div class="form-group"><label>Optional Image 3</label><input id="productImage3" placeholder="https://..."></div>
+   <div class="form-group"><label>Optional Image 4</label><input id="productImage4" placeholder="https://..."></div>
+   <div class="form-group"><label>Optional Image 5</label><input id="productImage5" placeholder="https://..."></div>
+   <div class="form-group"><label>Optional Image 6</label><input id="productImage6" placeholder="https://..."></div>
+  </div>
+  <div style="font-size:10px;color:#8a93a3;margin:-4px 0 12px">মোট ৬টি ছবি দেওয়া যাবে। প্রথমটি Primary; বাকি ৫টি optional। Customer Detail page-এ slide করে দেখবে।</div>
   <div class="form-group"><label>Product Description</label><textarea id="productDescription" placeholder="পণ্যের বিস্তারিত বিবরণ লিখুন..."></textarea></div>
   <div class="form-group"><label>Product Video URL (optional)</label><input id="productVideo" placeholder="https://.../product-video.mp4"></div>
   <button class="btn btn-green" id="productSaveBtn" onclick="saveProduct()">➕ Save Product</button>
@@ -175,7 +224,7 @@ window.toggleSidebar=()=>$("sidebar").classList.toggle("open");
 window.showPage=(id,button)=>{
  document.querySelectorAll(".page-section").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");
  document.querySelectorAll(".menu-btn").forEach(x=>x.classList.remove("active"));if(button)button.classList.add("active");
- const titles={dashboard:"Dashboard",orders:"Orders",products:"Products",categories:"Categories",settings:"Website Settings",hero:"Hero Banner",delivery:"Delivery",contact:"Contact"};$("pageTitle").textContent=titles[id]||"Dashboard";$("sidebar").classList.remove("open");
+ const titles={dashboard:"Dashboard",analysis:"Analysis",orders:"Orders",products:"Products",categories:"Categories",settings:"Website Settings",hero:"Hero Banner",delivery:"Delivery",contact:"Contact"};$("pageTitle").textContent=titles[id]||"Dashboard";$("sidebar").classList.remove("open");
  if(id==="orders")renderOrders();
 };
 window.openPage=id=>{const b=[...document.querySelectorAll(".menu-btn")].find(x=>(x.getAttribute("onclick")||"").includes(`'${id}'`));showPage(id,b)};
@@ -183,8 +232,10 @@ function showMessage(id,text){const b=$(id);b.textContent=text;b.style.display="
 
 window.saveProduct=async()=>{
  const name=$("productName").value.trim(),category=$("productCategory").value.trim(),price=$("productPrice").value,offer=$("productOffer").value,stock=$("productStock").value,badge=$("productBadge").value.trim(),image=$("productImage").value.trim(),description=$("productDescription").value.trim(),videoUrl=$("productVideo").value.trim();
+ const extraImages=[2,3,4,5,6].map(n=>$("productImage"+n).value.trim()).filter(Boolean);
+ const images=[image,...extraImages];
  if(!name||!category||!price||!offer||!image){showMessage("productMsg","⚠️ প্রয়োজনীয় তথ্য পূরণ করুন");return}
- const data={name,category,price:Number(price),offerPrice:Number(offer),stock:Number(stock||0),badge,image,description,videoUrl};
+ const data={name,category,price:Number(price),offerPrice:Number(offer),stock:Number(stock||0),badge,image,images,description,videoUrl};
  try{
   if(editProductId)await updateDoc(doc(db,"products",editProductId),data);else await addDoc(collection(db,"products"),{...data,createdAt:Date.now()});
   showMessage("productMsg",editProductId?"✅ Product Update হয়েছে":"✅ Product যোগ হয়েছে");clearProductForm();loadProducts();
@@ -193,11 +244,17 @@ window.saveProduct=async()=>{
 async function loadProducts(){
  const box=$("productList");box.innerHTML="লোড হচ্ছে...";
  try{const snap=await getDocs(collection(db,"products"));$("totalProducts").textContent=snap.size;box.innerHTML=snap.empty?'<div class="empty">কোনো Product নেই</div>':"";
- snap.forEach(item=>{const d=item.data(),div=document.createElement("div");div.className="product";div.innerHTML=`<div class="product-img"><img src="${esc(d.image||"")}" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-name">${esc(d.name||"")}</div><span class="product-price">${money(d.offerPrice||d.price)}</span><span class="product-old">${money(d.price)}</span><p style="font-size:10px;color:#888;margin-top:6px">Category: ${esc(d.category||"")}<br>Stock: ${Number(d.stock||0)}<br>${d.description?"Description ✓":"Description নেই"}${d.videoUrl?"<br>Video ✓":""}</p><div class="product-actions"><button class="btn btn-blue edit-product">✏️ Edit</button><button class="btn btn-red delete-product">🗑️ Delete</button></div></div>`;div.querySelector(".edit-product").onclick=()=>editProduct(item.id,d);div.querySelector(".delete-product").onclick=()=>deleteProduct(item.id);box.appendChild(div)})}
+ snap.forEach(item=>{const d=item.data(),div=document.createElement("div");div.className="product";const imageCount=(Array.isArray(d.images)?d.images:[d.image]).filter(Boolean).length;div.innerHTML=`<div class="product-img"><img src="${esc(d.image||"")}" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-name">${esc(d.name||"")}</div><span class="product-price">${money(d.offerPrice||d.price)}</span><span class="product-old">${money(d.price)}</span><p style="font-size:10px;color:#888;margin-top:6px">Category: ${esc(d.category||"")}<br>Stock: ${Number(d.stock||0)}<br>Images: ${imageCount}/6<br>${d.description?"Description ✓":"Description নেই"}${d.videoUrl?"<br>Video ✓":""}</p><div class="product-actions"><button class="btn btn-blue edit-product">✏️ Edit</button><button class="btn btn-red delete-product">🗑️ Delete</button></div></div></div>`;div.querySelector(".edit-product").onclick=()=>editProduct(item.id,d);div.querySelector(".delete-product").onclick=()=>deleteProduct(item.id);box.appendChild(div)})}
  catch(e){console.error(e);box.innerHTML='<div class="empty">❌ Product Load করা যায়নি</div>'}
 }
-function editProduct(id,d){editProductId=id;$("productName").value=d.name||"";$("productCategory").value=d.category||"";$("productPrice").value=d.price||"";$("productOffer").value=d.offerPrice||"";$("productStock").value=d.stock||"";$("productBadge").value=d.badge||"";$("productImage").value=d.image||"";$("productDescription").value=d.description||"";$("productVideo").value=d.videoUrl||"";$("productSaveBtn").textContent="✏️ Update Product";window.scrollTo({top:0,behavior:"smooth"})}
-window.clearProductForm=()=>{editProductId=null;["productName","productCategory","productPrice","productOffer","productStock","productBadge","productImage","productDescription","productVideo"].forEach(id=>$(id).value="");$("productSaveBtn").textContent="➕ Save Product"};
+function editProduct(id,d){
+ editProductId=id;
+ $("productName").value=d.name||"";$("productCategory").value=d.category||"";$("productPrice").value=d.price||"";$("productOffer").value=d.offerPrice||"";$("productStock").value=d.stock||"";$("productBadge").value=d.badge||"";
+ const imgs=Array.isArray(d.images)&&d.images.length?d.images:[d.image||""];
+ ["productImage","productImage2","productImage3","productImage4","productImage5","productImage6"].forEach((id,i)=>$(id).value=imgs[i]||"");
+ $("productDescription").value=d.description||"";$("productVideo").value=d.videoUrl||"";$("productSaveBtn").textContent="✏️ Update Product";window.scrollTo({top:0,behavior:"smooth"})
+}
+window.clearProductForm=()=>{editProductId=null;["productName","productCategory","productPrice","productOffer","productStock","productBadge","productImage","productImage2","productImage3","productImage4","productImage5","productImage6","productDescription","productVideo"].forEach(id=>$(id).value="");$("productSaveBtn").textContent="➕ Save Product"};
 async function deleteProduct(id){if(!confirm("এই Product Delete করতে চান?"))return;try{await deleteDoc(doc(db,"products",id));loadProducts()}catch(e){alert("❌ Product Delete করা যায়নি")}}
 
 window.addCategory=async()=>{const name=$("categoryName").value.trim(),icon=$("categoryIcon").value.trim();if(!name){showMessage("categoryMsg","⚠️ Category Name দিন");return}try{await addDoc(collection(db,"categories"),{name,icon:icon||"📦",createdAt:Date.now()});$("categoryName").value="";$("categoryIcon").value="";showMessage("categoryMsg","✅ Category যোগ হয়েছে");loadCategories()}catch(e){showMessage("categoryMsg","❌ Category যোগ করা যায়নি")}};
@@ -222,11 +279,55 @@ function renderOrders(){
  }).join("");
 }
 window.updateOrderStatus=async(id,status)=>{try{await updateDoc(doc(db,"orders",id),{status,updatedAtMs:Date.now()});showMessage("productMsg","Order status update হয়েছে")}catch(e){console.error(e);alert("Order status update হয়নি। Rules চেক করুন।")}};
+let analysisPeriod="daily";
+function periodRange(period){
+ const now=new Date(),start=new Date(now),end=new Date(now);
+ start.setHours(0,0,0,0);end.setHours(23,59,59,999);
+ if(period==="weekly"){
+  const day=start.getDay(),diff=day===0?-6:1-day;
+  start.setDate(start.getDate()+diff);
+  end.setTime(start.getTime());end.setDate(start.getDate()+6);end.setHours(23,59,59,999);
+ }else if(period==="monthly"){
+  start.setDate(1);end.setMonth(end.getMonth()+1,0);end.setHours(23,59,59,999);
+ }else if(period==="yearly"){
+  start.setMonth(0,1);end.setMonth(11,31);end.setHours(23,59,59,999);
+ }
+ return {start,end};
+}
+function renderAnalysis(){
+ const {start,end}=periodRange(analysisPeriod);
+ const valid=orders.filter(o=>{
+  const t=Number(o.createdAtMs||0);
+  return t>=start.getTime()&&t<=end.getTime()&&o.status!=="cancelled";
+ });
+ const delivered=valid.filter(o=>o.status==="delivered").length;
+ const sales=valid.reduce((s,o)=>s+Number(o.total||0),0);
+ const avg=valid.length?sales/valid.length:0;
+ $("analysisOrders").textContent=valid.length;
+ $("analysisSales").textContent=money(sales);
+ $("analysisDelivered").textContent=delivered;
+ $("analysisAverage").textContent=money(avg);
+ $("analysisPeriodLabel").textContent=`${start.toLocaleDateString("bn-BD")} — ${end.toLocaleDateString("bn-BD")} · Cancelled orders বাদ দেওয়া হয়েছে`;
+ const productMap={};
+ valid.forEach(o=>(o.items||[]).forEach(it=>{
+   const key=String(it.id||it.name||"unknown");
+   if(!productMap[key])productMap[key]={name:it.name||"Product",qty:0,sales:0};
+   productMap[key].qty+=Number(it.qty||0);
+   productMap[key].sales+=Number(it.price||0)*Number(it.qty||0);
+ }));
+ const top=Object.values(productMap).sort((a,b)=>b.sales-a.sales).slice(0,10);
+ $("analysisProducts").innerHTML=top.length?top.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.name)}</td><td>${x.qty}</td><td>${money(x.sales)}</td></tr>`).join(""):'<tr><td colspan="4">এই সময়ে কোনো sales data নেই</td></tr>';
+}
+window.setAnalysisPeriod=period=>{
+ analysisPeriod=period;
+ ["daily","weekly","monthly","yearly"].forEach(x=>$("analysisTab"+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle("active",x===period));
+ renderAnalysis();
+};
 function listenOrders(){
  onSnapshot(collection(db,"orders"),snap=>{
   orders=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>Number(b.createdAtMs||0)-Number(a.createdAtMs||0));
   const pending=orders.filter(x=>x.status==="pending").length;$("totalOrders").textContent=orders.length;$("pendingOrders").textContent=pending;$("newOrderBadge").textContent=pending?`(${pending})`:"";
-  $("orderSales").textContent=money(orders.filter(x=>x.status!=="cancelled").reduce((s,x)=>s+Number(x.total||0),0));renderOrders();
+  $("orderSales").textContent=money(orders.filter(x=>x.status!=="cancelled").reduce((s,x)=>s+Number(x.total||0),0));renderOrders();renderAnalysis();
  },e=>{console.error(e);$("orderList").innerHTML='<div class="empty">❌ Order Load করা যায়নি</div>'});
 }
 window.saveSettings=async()=>{try{await setDoc(doc(db,"settings","website"),{siteName:$("siteName").value,siteTagline:$("siteTagline").value,siteDescription:$("siteDescription").value});showMessage("settingsMsg","✅ Settings Save হয়েছে")}catch(e){showMessage("settingsMsg","❌ Save করা যায়নি")}};
